@@ -1,154 +1,192 @@
-import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider }  from "@material-ui/core/styles";
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
+import React from 'react';
+import clsx from 'clsx';
+import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import HelpIcon from '@material-ui/icons/Help';
+import InfoIcon from '@material-ui/icons/Info';
 
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import HomeMap from './HomeMap';
 
 import { useHistory } from 'react-router-dom';
 
-import { MapContainer, TileLayer, WMSTileLayer, LayersControl, FeatureGroup, Popup, Circle, Reactangle } from 'react-leaflet'
-import CustomWMSLayer from '../../utilities/Leaflet/CustomWMSLayer';
-import { LayerGroup } from 'leaflet';
+const drawerWidth = 240;
 
-const theme = createMuiTheme();
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    menuButton: {
+      marginRight: 36,
+    },
+    hide: {
+      display: 'none',
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
+    },
+    drawerOpen: {
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      overflowX: 'hidden',
+      width: theme.spacing(7) + 1,
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9) + 1,
+      },
+    },
+    toolbar: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+    },
+    content: {
+      flexGrow: 1,
+      padding: 0,
+    },
+  }),
+);
 
-export default function Home () {
+export default function Home() {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
 	let history = useHistory();
-	const karagatanURL = 'http://167.86.124.21:8080/geoserver/karagatan/wms';
 
-	return(
-		<Grid container direction="row"
-		justify="center"
-		alignItems="center">
-			<MapContainer className="leaflet_home_map" center={[12.599512, 121.984222]} zoom={6} scrollWheelZoom={true} style={{ height: "100vh", width: "100vw"}}>
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-				<LayersControl position="topright" collapsed={false}>
-					<LayersControl.BaseLayer checked name="NAMRIA Basemap">
-						<TileLayer
-							attribution='© <a href="https:/www.geoportal.gov.ph">Geoportal Philippines</a>'
-							url='http://basemapserver.geoportal.gov.ph/tiles/v2/PGP/{z}/{x}/{y}.png'
-						/>
-					</LayersControl.BaseLayer>
-					<LayersControl.BaseLayer name="Google Map">
-						<TileLayer
-							attribution='© Google <a href="https://developers.google.com/maps/terms">Terms of Use</a>'
-							url='http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga'
-						/>
-					</LayersControl.BaseLayer>
-					<LayersControl.BaseLayer name="ESRI World Imagery">
-						<TileLayer
-							attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-							url='http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
-						/>
-					</LayersControl.BaseLayer>
-					<LayersControl.BaseLayer name="ESRI World Street Map">
-						<TileLayer
-							attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-							url='http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
-						/>
-					</LayersControl.BaseLayer>
-					
-					<LayersControl.Overlay checked name="National Integrated Protected Areas System">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'karagatan:Protected Areas'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-					<LayersControl.Overlay checked name="Kalayaan Island Group">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'karagatan:kalayaanisgroup'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-					<LayersControl.Overlay checked name="Philippine Extended Continental Shelf">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'PhilECS'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-					<LayersControl.Overlay name="Fisheries Management Areas">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'karagatan:fma'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-					<LayersControl.Overlay name="Philippine Territorial/Internal Waters">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'karagatan:territorialwaters'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-					<LayersControl.Overlay name="Municipal waters-archipelagic principle">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'karagatan:municipal_waters'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-					<LayersControl.Overlay name="Municipal waters-mainland principle(hypothetical)">
-						<WMSTileLayer
-							url='http://167.86.124.21:8080/geoserver/karagatan/wms'
-							layers= 'karagatan:munwaters_mainland'
-							version= '2.15.1'
-							transparent= {true}
-							format= 'image/png'
-							crossOrigin='anonymous'
-						/>
-					</LayersControl.Overlay>
-				</LayersControl>
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
-				{/* WMS declarations to enable WMS layer popups */}
-				<CustomWMSLayer
-					layers={['karagatan:Protected Areas']}
-					version= '2.15.1'
-					crossOrigin='anonymous'
-					options={{
-						"format": "text/html",
-						"transparent": "true",
-						"attribution": '<a href="https://eogdata.mines.edu/vbd/">Earth Observation Group, Payne Institute for Public Policy</a>',
-						"info_format": "text/html"
-					}}
-					url="http://167.86.124.21:8080/geoserver/karagatan/wms"
-				/>
-		</MapContainer>
-		</Grid>
-		
-	);
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, {
+              [classes.hide]: open,
+            })}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            HINGACU
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
+        classes={{
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
+        }}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+					<ListItem button>
+						<ListItemIcon>
+							<HomeIcon />
+						</ListItemIcon>
+						<ListItemText primary="Home" />
+					</ListItem>
+
+					<ListItem button>
+						<ListItemIcon>
+							<HelpIcon />
+						</ListItemIcon>
+						<ListItemText primary="About" />
+					</ListItem>
+
+					<ListItem button>
+						<ListItemIcon>
+							<InfoIcon />
+						</ListItemIcon>
+						<ListItemText primary="Info" />
+					</ListItem>
+        </List>
+        <Divider />
+        <List>
+          {['Component 2', 'Component 3', 'Component 4'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <HomeMap />
+      </main>
+    </div>
+  );
 }
