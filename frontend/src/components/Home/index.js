@@ -21,6 +21,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { useHistory } from 'react-router-dom';
 
 import { MapContainer, TileLayer, WMSTileLayer, LayersControl, FeatureGroup, Popup, Circle, Reactangle } from 'react-leaflet'
+import CustomWMSLayer from '../../utilities/Leaflet/CustomWMSLayer';
 import { LayerGroup } from 'leaflet';
 
 const theme = createMuiTheme();
@@ -34,6 +35,7 @@ export default function Home () {
 		justify="center"
 		alignItems="center">
 			<MapContainer className="leaflet_home_map" center={[12.599512, 121.984222]} zoom={6} scrollWheelZoom={true} style={{ height: "100vh", width: "100vw"}}>
+
 				<LayersControl position="topright" collapsed={false}>
 					<LayersControl.BaseLayer checked name="NAMRIA Basemap">
 						<TileLayer
@@ -67,6 +69,7 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 					<LayersControl.Overlay checked name="Kalayaan Island Group">
@@ -76,6 +79,7 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 					<LayersControl.Overlay checked name="Philippine Extended Continental Shelf">
@@ -85,6 +89,7 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 					<LayersControl.Overlay name="Fisheries Management Areas">
@@ -94,6 +99,7 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 					<LayersControl.Overlay name="Philippine Territorial/Internal Waters">
@@ -103,6 +109,7 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 					<LayersControl.Overlay name="Municipal waters-archipelagic principle">
@@ -112,6 +119,7 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 					<LayersControl.Overlay name="Municipal waters-mainland principle(hypothetical)">
@@ -121,9 +129,24 @@ export default function Home () {
 							version= '2.15.1'
 							transparent= {true}
 							format= 'image/png'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
-			</LayersControl>
+				</LayersControl>
+
+				{/* WMS declarations to enable WMS layer popups */}
+				<CustomWMSLayer
+					layers={['karagatan:Protected Areas']}
+					version= '2.15.1'
+					crossOrigin='anonymous'
+					options={{
+						"format": "text/html",
+						"transparent": "true",
+						"attribution": '<a href="https://eogdata.mines.edu/vbd/">Earth Observation Group, Payne Institute for Public Policy</a>',
+						"info_format": "text/html"
+					}}
+					url="http://167.86.124.21:8080/geoserver/karagatan/wms"
+				/>
 		</MapContainer>
 		</Grid>
 		
