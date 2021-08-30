@@ -3,7 +3,7 @@ import {  useMap } from "react-leaflet";
 import * as WMS from "leaflet.wms";
 
 export default function CustomWMSLayer(props) {
-    const { url, options,layers } = props;
+    const { url, options, layers } = props;
     const map = useMap()
 
 // Add WMS source/layers
