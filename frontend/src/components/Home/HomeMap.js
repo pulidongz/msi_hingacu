@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import { MapContainer, TileLayer, WMSTileLayer, LayersControl, useMapEvent, useMapEvents } from 'react-leaflet'
 import CustomWMSLayer from '../../utilities/Leaflet/CustomWMSLayer';
-import 'react-pro-sidebar/dist/css/styles.css';
+// import 'react-pro-sidebar/dist/css/styles.css';
 
 const theme = createMuiTheme();
 
