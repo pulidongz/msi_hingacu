@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+
+{% block title %}DCP Collection Detail{% endblock %}
+
+
+{% block content %}
+<div class="row-fluid etl">
+  <h3 class="mt-4">DCP Collection: {{ object.name }}</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {{ object.code }}
+        </td>
+        <td>
+          {{ object.name }}
+        </td>
+        <td>
+          {{ object.details }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    {% for dcp in dcps %}
+      <h4>Sheet #{{ forloop.counter }}: {{ dcp.sheet_name }}</h4>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Field Name</th>
+            <th>Column Label</th>
+            <th>Field Type</th>
+            <th>Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for requirement in dcp.requirements_list %}
+          <tr>
+            <td>
+              {{ requirement.field_name }}
+            </td>
+            <td>
+              "{{ requirement.column_name }}"
+            </td>
+            <td>
+              {{ requirement.field_type }}
+            </td>
+            <td>
+              {{ requirement.required|yesno:"Yes,No" }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extrabody %}
+{% endblock %}
