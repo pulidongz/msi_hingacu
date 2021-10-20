@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_q',
     'jsoneditor',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -166,6 +167,29 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# DJANGO-Q // Task Broker
+Q_CLUSTER = {
+    'name': 'pbn5',
+    'timeout': 3600,
+    'retry': 14400,
+    'workers': 3,
+    'recycle': 10,
+    'compress': True,
+    'save_limit': 250,
+    'label': 'ETL Tasks',
+    'redis': {
+        'host': '127.0.0.1',
+        'port': 6379,
+        'db': 0, }
+}
+
+#JSON EDITOR
+JSON_EDITOR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.1.9/jsoneditor.js'
+JSON_EDITOR_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.1.9/jsoneditor.css'
 
 try:
     from local_settings import *
