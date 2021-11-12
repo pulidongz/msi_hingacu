@@ -1,102 +1,99 @@
-import React from 'react';
-import clsx from 'clsx';
-import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import HomeIcon from '@material-ui/icons/Home';
-import HelpIcon from '@material-ui/icons/Help';
-import InfoIcon from '@material-ui/icons/Info';
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import HomeIcon from '@mui/icons-material/Home';
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import HelpIcon from '@mui/icons-material/Info';
+import InfoIcon from '@mui/icons-material/Help';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import PublicIcon from '@mui/icons-material/Public';
 
+import SiteEcoTabs from './SiteEcoTabs';
+import NavMenu from './NavMenu';
+import SiteEcosystems from './SiteEcosystems';
+import SiteSearchDialog from './SiteSearchDialog';
+import SearchDialog from './SearchDialog';
 import HomeMap from './HomeMap';
 
-import { useHistory } from 'react-router-dom';
+const drawerWidth = 400;
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-    },
-    menuButton: {
-      marginRight: 36,
-    },
-    hide: {
-      display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerClose: {
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
-      },
-    },
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-    },
-    content: {
-      flexGrow: 1,
-      padding: 0,
-    },
+      marginLeft: 0,
+    }),
   }),
 );
 
-export default function Home() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
-	let history = useHistory();
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
+export default function Home() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(true);
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [openHome, setOpenHome] = React.useState(false);
+  const [openSiteSelect, setOpenSiteSelect] = React.useState(false);
+  const [openHabitat, setOpenHabitat] = React.useState(false);
+  const [openAbout, setOpenAbout] = React.useState(false);
+  const [openInfo, setOpenInfo] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -106,87 +103,205 @@ export default function Home() {
     setOpen(false);
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClickHome = () => {
+    setOpenHome(!openHome);
+  };
+  const handleClickSiteSelect = () => {
+    setOpenSiteSelect(!openSiteSelect);
+  };
+  const handleClickHabitat = () => {
+    setOpenHabitat(!openHabitat);
+  };
+  const handleClickAbout = () => {
+    setOpenAbout(!openAbout);
+  };
+  const handleClickInfo = () => {
+    setOpenInfo(!openInfo);
+  };
+
   return (
-    <div className={classes.root}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            HINGACU
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            Hingacu
           </Typography>
+          {auth && (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
         }}
+        variant="persistent"
+        anchor="left"
+        open={open}
       >
-        <div className={classes.toolbar}>
+        <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-        </div>
+        </DrawerHeader>
         <Divider />
         <List>
-					<ListItem button>
-						<ListItemIcon>
+
+          {/* ***HOME*** */}
+          <ListItemButton onClick={handleClickHome}>
+            <ListItemIcon>
 							<HomeIcon />
 						</ListItemIcon>
 						<ListItemText primary="Home" />
-					</ListItem>
+            {openHome ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openHome} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 2 }}>
+                <Typography variant="body2" color="textSecondary">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                  malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                  sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                  sit amet blandit leo lobortis eget.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                  malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                  sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                  sit amet blandit leo lobortis eget.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                  malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                  sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                  sit amet blandit leo lobortis eget.
+                </Typography>
+              </ListItemButton>
+            </List>
+          </Collapse>
 
-					<ListItem button>
-						<ListItemIcon>
+          {/* ***SITE SELECT*** */}
+          <ListItemButton onClick={handleClickSiteSelect}>
+            <ListItemIcon>
+							<LocationSearchingIcon />
+						</ListItemIcon>
+						<ListItemText primary="Site Selection" />
+            {openSiteSelect ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openSiteSelect} timeout="auto" unmountOnExit>
+            <List component="div">
+              <ListItem sx={{ pl: 5 }}>
+                <SearchDialog />
+              </ListItem>
+            </List>
+          </Collapse>
+
+          {/* ***HABITAT*** */} 
+          <ListItemButton onClick={handleClickHabitat}>
+            <ListItemIcon>
+							<PublicIcon />
+						</ListItemIcon>
+						<ListItemText primary="Habitat" />
+            {openHabitat ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openHabitat} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem sx={{ pl: 2 }}>
+                <SiteEcosystems />
+                {/* <SiteEcoTabs /> */}
+              </ListItem>
+            </List>
+          </Collapse>
+
+          {/* ***ABOUT*** */}
+          <ListItemButton onClick={handleClickAbout}>
+            <ListItemIcon>
 							<HelpIcon />
 						</ListItemIcon>
 						<ListItemText primary="About" />
-					</ListItem>
+            {openAbout ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openAbout} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 2 }}>
+                <Typography variant="body2" color="textSecondary">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </Typography>
+              </ListItemButton>
+            </List>
+          </Collapse>
 
-					<ListItem button>
-						<ListItemIcon>
+          {/* ***INFO*** */}
+          <ListItemButton onClick={handleClickInfo}>
+            <ListItemIcon>
 							<InfoIcon />
 						</ListItemIcon>
 						<ListItemText primary="Info" />
-					</ListItem>
-        </List>
-        <Divider />
-        <List>
-          {['Component 2', 'Component 3', 'Component 4'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+            {openInfo ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openInfo} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 2 }}>
+                <Typography variant="body2" color="textSecondary">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </Typography>
+              </ListItemButton>
+            </List>
+          </Collapse>
         </List>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      <Main open={open} sx={{flexGrow: 1, p: 0}}>
+        <DrawerHeader />
         <HomeMap />
-      </main>
-    </div>
+      </Main>
+    </Box>
   );
 }

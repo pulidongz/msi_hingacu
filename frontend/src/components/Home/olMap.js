@@ -1,56 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react'
-import Grid from '@mui/material/Grid';
-import { createTheme } from '@mui/material/styles';
+import React from "react";
+import { fromLonLat } from "ol/proj";
+import { Coordinate } from "ol/coordinate";
+import { Point } from "ol/geom";
+import "ol/ol.css";
 
-import L from "leaflet";
-import { MapContainer, TileLayer, LayerGroup, WMSTileLayer, LayersControl, useMapEvents, Marker } from 'react-leaflet'
-import CustomWMSLayer from '../../utilities/Leaflet/CustomWMSLayer';
-const { Overlay } = LayersControl;
+import { RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle } from "rlayers";
+import locationIcon from "./svg/location.svg";
 
-// import 'react-pro-sidebar/dist/css/styles.css';
 
-const theme = createTheme();
+const theme = createMuiTheme();
 
-export default function HomeMap () {
-	const mapRef = useRef();
-  	const firstOverlayRef = useRef();
-  	const secondOverlayRef = useRef();
+export default function olMap () {
 	const karagatanURL = 'http://167.86.124.21:8080/geoserver/karagatan/wms';
 	const philcomarsURL = 'http://202.90.159.74:8080/geoserver/philcomars/wms'
-
-	const [position, setPosition] = useState(null)
-	const icon = L.icon({
-		iconSize: [25, 41],
-		iconAnchor: [10, 41],
-		popupAnchor: [2, -40],
-		iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
-		shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-	  });
-
-	  const addLayers = () => {
-			if (mapRef.current && firstOverlayRef.current) {
-				const map = mapRef.current.leafletElement;
-				const firstLayer = firstOverlayRef.current.leafletElement;
-				const secondLayer = secondOverlayRef.current.leafletElement;
-				[firstLayer, secondLayer].forEach(layer => map.addLayer(layer));
-			}
-		};
-	
-		const removeLayers = () => {
-			if (mapRef.current && firstOverlayRef.current) {
-				const map = mapRef.current.leafletElement;
-				const firstLayer = firstOverlayRef.current.leafletElement;
-				const secondLayer = secondOverlayRef.current.leafletElement;
-				[firstLayer, secondLayer].forEach(layer => map.removeLayer(layer));
-			}
-		};
 
 	function ChangeWmsLayer() {
 		const [wmsLayer, setWmsLayer] = useState(null);
 		const map = useMapEvents({
-			click(e) {
-				console.log(e.latlng)
-			  },
 			overlayadd: (e) => {
 				console.log("MAP", e.name);
 				switch (e.name) {
@@ -136,15 +102,44 @@ export default function HomeMap () {
 	}
 
 	return(
-		<MapContainer className="leaflet_home_map" center={[12.599512, 121.984222]} zoom={6} scrollWheelZoom={true} style={{ height: "100vh"}} ref={mapRef}>
+		<React.Fragment>
+			<RMap
+      className="example-map"
+      initial={{ center: fromLonLat(coords.origin), zoom: 11 }}
+    >
+      <ROSM />
+      <RLayerVector zIndex={10}>
+        <RStyle.RStyle>
+          <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+        </RStyle.RStyle>
+        <RFeature
+          geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
+          onClick={(e) =>
+            e.map.getView().fit(e.target.getGeometry().getExtent(), {
+              duration: 250,
+              maxZoom: 15,
+            })
+          }
+        >
+          <ROverlay className="example-overlay">
+            Arc de Triomphe
+            <br />
+            <em>&#11017; click to zoom</em>
+          </ROverlay>
+        </RFeature>
+      </RLayerVector>
+    </RMap>
+
+
+		<MapContainer className="leaflet_home_map" center={[12.599512, 121.984222]} zoom={6} scrollWheelZoom={true} style={{ height: "100vh"}}>
 				<LayersControl position="topright" collapsed={false}>
-					<LayersControl.BaseLayer checked name="NAMRIA">
+					<LayersControl.BaseLayer checked name="NAMRIA Basemap">
 						<TileLayer
 							attribution='© <a href="https:/www.geoportal.gov.ph">Geoportal Philippines</a>'
 							url='http://basemapserver.geoportal.gov.ph/tiles/v2/PGP/{z}/{x}/{y}.png'
 						/>
 					</LayersControl.BaseLayer>
-					<LayersControl.BaseLayer name="Google Maps">
+					<LayersControl.BaseLayer name="Google Map">
 						<TileLayer
 							attribution='© Google <a href="https://developers.google.com/maps/terms">Terms of Use</a>'
 							url='http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga'
@@ -193,7 +188,7 @@ export default function HomeMap () {
 							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
-					{/* <LayersControl.Overlay name="Fisheries Management Areas">
+					<LayersControl.Overlay name="Fisheries Management Areas">
 						<WMSTileLayer
 							url={karagatanURL}
 							layers= 'karagatan:fma'
@@ -263,24 +258,13 @@ export default function HomeMap () {
 							format= 'image/png'
 							// crossOrigin='anonymous'
 						/>
-					</LayersControl.Overlay> */}
+					</LayersControl.Overlay>
 				</LayersControl>
-
-				<Overlay name="Layer 1">
-            <LayerGroup id="lg1" ref={firstOverlayRef}>
-              <Marker position={[51, 0.1]} icon={icon} />
-            </LayerGroup>
-          </Overlay>
-
-          <Overlay name="Layer 2">
-            <LayerGroup ref={secondOverlayRef}>
-              <Marker position={[51, 0.2]} icon={icon} />
-            </LayerGroup>
-          </Overlay>
 
 				{/* WMS declarations to enable WMS layer popups */}
 				
 				<ChangeWmsLayer />
-			</MapContainer>
+		</MapContainer>
+		</React.Fragment>
 	);
 }
