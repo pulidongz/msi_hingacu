@@ -29,6 +29,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import PublicIcon from '@mui/icons-material/Public';
+import MapIcon from '@mui/icons-material/Map';
 
 import SiteEcoTabs from './SiteEcoTabs';
 import NavMenu from './NavMenu';
@@ -36,6 +37,7 @@ import SiteEcosystems from './SiteEcosystems';
 import SiteSearchDialog from './SiteSearchDialog';
 import SearchDialog from './SearchDialog';
 import HomeMap from './HomeMap';
+import MapOptions from './MapOptions';
 
 const drawerWidth = 400;
 
@@ -89,9 +91,11 @@ export default function Home() {
   const [open, setOpen] = React.useState(true);
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const [openHome, setOpenHome] = React.useState(false);
-  const [openSiteSelect, setOpenSiteSelect] = React.useState(false);
-  const [openHabitat, setOpenHabitat] = React.useState(false);
+  const [openMapOptions, setOpenMapOptions] = React.useState(true);
+  const [openSiteSelect, setOpenSiteSelect] = React.useState(true);
+  const [openHabitat, setOpenHabitat] = React.useState(true);
   const [openAbout, setOpenAbout] = React.useState(false);
   const [openInfo, setOpenInfo] = React.useState(false);
 
@@ -113,6 +117,9 @@ export default function Home() {
 
   const handleClickHome = () => {
     setOpenHome(!openHome);
+  };
+  const handleClickMapOptions = () => {
+    setOpenMapOptions(!openMapOptions);
   };
   const handleClickSiteSelect = () => {
     setOpenSiteSelect(!openSiteSelect);
@@ -197,7 +204,7 @@ export default function Home() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List dense={true}>
 
           {/* ***HOME*** */}
           <ListItemButton onClick={handleClickHome}>
@@ -208,7 +215,7 @@ export default function Home() {
             {openHome ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openHome} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List dense={true} component="div" disablePadding>
               <ListItemButton sx={{ pl: 2 }}>
                 <Typography variant="body2" color="textSecondary">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
@@ -228,6 +235,22 @@ export default function Home() {
             </List>
           </Collapse>
 
+          {/* ***MAP OPTIONS*** */}
+          <ListItemButton onClick={handleClickMapOptions}>
+            <ListItemIcon>
+							<MapIcon />
+						</ListItemIcon>
+						<ListItemText primary="Map Options" />
+            {openMapOptions ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={openMapOptions} timeout="auto" unmountOnExit>
+            <List dense={true} component="div">
+              <ListItem sx={{ pl: 5 }}>
+                <MapOptions />
+              </ListItem>
+            </List>
+          </Collapse>
+
           {/* ***SITE SELECT*** */}
           <ListItemButton onClick={handleClickSiteSelect}>
             <ListItemIcon>
@@ -237,7 +260,7 @@ export default function Home() {
             {openSiteSelect ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openSiteSelect} timeout="auto" unmountOnExit>
-            <List component="div">
+            <List dense={true} component="div">
               <ListItem sx={{ pl: 5 }}>
                 <SearchDialog />
               </ListItem>
@@ -253,7 +276,7 @@ export default function Home() {
             {openHabitat ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openHabitat} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List dense={true} component="div" disablePadding>
               <ListItem sx={{ pl: 2 }}>
                 <SiteEcosystems />
                 {/* <SiteEcoTabs /> */}
@@ -270,7 +293,7 @@ export default function Home() {
             {openAbout ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openAbout} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List dense={true} component="div" disablePadding>
               <ListItemButton sx={{ pl: 2 }}>
                 <Typography variant="body2" color="textSecondary">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -288,7 +311,7 @@ export default function Home() {
             {openInfo ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openInfo} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List dense={true} component="div" disablePadding>
               <ListItemButton sx={{ pl: 2 }}>
                 <Typography variant="body2" color="textSecondary">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.

@@ -57,7 +57,7 @@ export default function SearchDialog() {
     <Box sx={{ minWidth: 300 }}>
     <Grid container spacing={2} direction="column" justifyContent="center" alignItems="stretch">
       <Grid item xs={12}>
-        <FormControl fullWidth variant="filled" >
+        <FormControl fullWidth variant="filled" size="small">
           <InputLabel id="demo-simple-select-label">Region</InputLabel>
           <Select
             labelId="demo-simple-select-label"

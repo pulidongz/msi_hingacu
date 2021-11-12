@@ -18,7 +18,7 @@ const Error404 = lazy(() => import('./components/Pages/Error404'));
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#0060B7',
+      main: '#286D99',
     },
     secondary: {
       main: '#E59036',
