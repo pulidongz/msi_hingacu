@@ -30,6 +30,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import PublicIcon from '@mui/icons-material/Public';
 import MapIcon from '@mui/icons-material/Map';
+import {Link} from 'react-router-dom';
 
 import SiteEcoTabs from './SiteEcoTabs';
 import NavMenu from './NavMenu';
@@ -178,7 +179,7 @@ export default function Home() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}><Link to="/login">Login</Link></MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
