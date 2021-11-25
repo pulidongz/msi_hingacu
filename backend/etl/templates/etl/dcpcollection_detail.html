@@ -47,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for requirement in dcp.requirements_list %}
+          {% for requirement in dcp.get_dcp_configuration %}
           <tr>
             <td>
               {{ requirement.field_name }}

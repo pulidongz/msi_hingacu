@@ -88,6 +88,46 @@
 </div>
 
 <div class="row">
+  <div class="col-md-12 col-lg-12">
+    <h3 class="mt-4">{% trans "Data Extracted" %}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>
+            Field Name
+          </th>
+          <th>
+            Field Value
+          </th>
+          <th>
+            Errors Found
+          </th>
+        </tr>
+        {% for dcp in dcps %}
+        {% with sheet_name=dcp.dcp|slugify %}
+        <tr>
+          <td>
+            {{ dcp.dcp }}
+          </td>
+          <td>
+            {{ dcp.data.count }} (<a href="{% url 'etl:etl-row-list' object.pk sheet_name %}" target="_blank">view</a>)
+          </td>
+          <td>
+            {{ dcp.error_list|length }} (<a href="{% url 'etl:etl-error-list' object.pk sheet_name %}" target="_blank">view</a>)
+          </td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-6 col-lg-6">
     <h3 class="mt-4">{% trans "Upload a Corrected Data File" %}</h3>
     <div>

@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.utils.translation import gettext, gettext_lazy as _
 from django.utils.text import slugify
+from django.utils.module_loading import import_string
 from django.contrib.auth.models import User
 from django.conf import settings
 from django_extensions.db.fields import AutoSlugField
@@ -24,8 +25,8 @@ class TimeStampModel(models.Model):
 class DCPCollection(TimeStampModel):
     """AKA the Business Process Model"""
 
-    code = models.CharField(primary_key=True, max_length=10)
-    name = models.TextField(null=True, blank=True)
+    code = models.CharField(primary_key=True, max_length=100)
+    name = models.CharField(max_length=100, null=True, blank=True)
     details = models.TextField(null=True, blank=True)
 
     class Meta:
@@ -40,8 +41,8 @@ class DCPCollection(TimeStampModel):
 
 class DataCapturePoint(TimeStampModel):
     collection = models.ForeignKey(DCPCollection, on_delete=models.CASCADE)
-    code = models.CharField(max_length=10)
-    label = models.CharField(max_length=50)
+    code = models.CharField(max_length=100)
+    label = models.CharField(max_length=100)
     sheet_name = models.CharField(max_length=50)
     requirements = models.JSONField()
 
@@ -69,6 +70,22 @@ class DataCapturePoint(TimeStampModel):
             requirement['field_name'] = key
             l.append(requirement)
         return l
+
+    def get_dcp_configuration(self):
+        if self.requirements["configuration_type"] == "form":
+            return self.requirements["fields"]
+        else:
+            return self.requirements_list()
+
+    def get_dcp_type(self):
+        return self.requirements["configuration_type"]
+
+    def is_dcp_form_type(self):
+        return self.requirements["configuration_type"] == "form"
+
+    def get_validation_form(self):
+        form = import_string('etl.forms.DCRForm')
+        return form
 
 
 class ETLFile(TimeStampModel):
@@ -138,6 +155,40 @@ class ETLFile(TimeStampModel):
         return column_map[column_key]
 
     def load_datasheet(self, key_mapping, sheet_name=None):
+        try:
+            wb = self.get_workbook()
+            print('SHEET NAMES', wb.sheetnames)
+            if sheet_name:
+                try:
+                    ws = wb[sheet_name]
+                except KeyError:
+                    message = 'Sheet "' + sheet_name + '" does not exist.'
+                    raise self.DoesNotExist(message)
+            else:
+                ws = wb[wb.active]
+
+            self.data = []
+            row_index = 0
+            for row in ws.iter_rows():
+                row = self.convert_row_to_values(row)
+                if row_index == 0: #first row with column names
+                    self.column_names = list(filter(None, row))
+                    first = False
+                    if settings.DEBUG:
+                        print("COLUMNS", self.column_names)
+                    #fail in advance if columns are incomplete
+                    self.check_if_columns_are_complete(key_mapping)
+                else:
+                    if not row.count(None) == len(row): #Skip empty rows
+                        data = self.convert_row_to_dict(row, key_mapping)
+                        data['ROW_INDEX'] = row_index + 1
+                        self.data.append(data)
+                row_index = row_index + 1
+            return self.data
+        except InvalidFileException as e:
+            raise e
+
+    def extract_data(self, dcp):
         try:
             wb = self.get_workbook()
             print('SHEET NAMES', wb.sheetnames)
@@ -333,6 +384,21 @@ class ETLFileRow(TimeStampModel):
 
     def __str__(self):
         return str(self.etlfile.pk) + ' ' + self.sheet_name + ': ' + str(self.number)
+
+
+class ExtractedData(TimeStampModel):
+    etlfile = models.ForeignKey(ETLFile, verbose_name="ETL File", on_delete=models.CASCADE)
+    sheet_name = models.CharField(max_length=64)
+    sheet_slug = AutoSlugField(null=True, default=None, allow_duplicates=True, populate_from='sheet_name')
+    data = models.JSONField()
+    warnings = models.JSONField(null=True)
+
+    class Meta:
+        verbose_name = "Extracted Data"
+        verbose_name_plural = "Extracted Data"
+
+    def __str__(self):
+        return str(self.etlfile.pk) + ' ' + self.sheet_name + ': ' + str(self.pk)
 
 
 class GoogleDriveFile(TimeStampModel):
