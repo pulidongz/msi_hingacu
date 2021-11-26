@@ -1,3 +1,13 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+from coredb.models import Station
+from coredb.serializers import StationSerializer
 
-# Create your views here.
+
+class StationViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    A simple ViewSet for viewing Stations.
+    """
+    queryset = Station.objects.filter(curated=True)
+    serializer_class = StationSerializer
+

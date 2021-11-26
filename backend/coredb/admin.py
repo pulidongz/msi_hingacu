@@ -4,27 +4,26 @@ from coredb.models import (Station, AL1Survey, FishCount, InvertebrateCount, Pho
 
 @admin.register(Station)
 class StationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("code", "reef_name", "province", "town", "barangay", "start_point", "curated")
+
+class FishCountInline(admin.TabularInline):
+    model = FishCount
+
+class InvertebrateCountInline(admin.TabularInline):
+    model = InvertebrateCount
+
+class PhotoquadratInline(admin.StackedInline):
+    model = Photoquadrat
 
 @admin.register(AL1Survey)
 class Al1SurveyAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("code", "date", "time", "station", "curated")
+    inlines = [
+        FishCountInline,
+        InvertebrateCountInline,
+        PhotoquadratInline,
+    ]
 
-@admin.register(FishCount)
-class FishCountAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(InvertebrateCount)
-class InvertebrateCountAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(Photoquadrat)
-class PhotoquadratAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(PhotoquadratPoint)
-class PhotoquadratAdmin(admin.ModelAdmin):
-    pass
 
 # @admin.register(coastal_stability)
 # class coastal_stability_admin(admin.ModelAdmin):

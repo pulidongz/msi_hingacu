@@ -19,22 +19,45 @@ class Station(TimeStampModel):
         ('Nationally Managed MPA', 'Nationally Managed MPA')
     )
 
-    reef_name = models.CharField(max_length=200, blank=True, null=True)
+    reef_name = models.CharField(max_length=200)
     start_point = models.PointField()
     end_point = models.PointField()
-    gps_datum = models.CharField(max_length=200, default="WGS84")
-    barangay = models.CharField(max_length=200, blank=True, null=True)
+    gps_datum = models.CharField(verbose_name="GPS Datum", max_length=200, default="WGS84")
+    barangay = models.CharField(max_length=200)
     town = models.CharField(max_length=200)
     province = models.CharField(max_length=200)
     type_of_management = models.CharField(max_length=200, choices=MANAGEMENT_CHOICES)
     additional_information = models.TextField(blank=True, null=True)
+    curated = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Survey Station"
         verbose_name_plural = "Survey Stations"
+        unique_together = [['start_point', 'end_point']]
 
     def __str__(self):
-        return f"{self.reef_name}: {self.start_point.coords}, {self.end_point.coords}"
+        return f"{self.code}: {self.start_point.coords}, {self.end_point.coords}"
+
+    @property
+    def code(self):
+        return f"STATION-{self.pk}"
+
+    @property
+    def start_point_lat(self):
+        return self.start_point.y
+
+    @property
+    def start_point_lon(self):
+        return self.start_point.x
+
+    @property
+    def end_point_lat(self):
+        return self.end_point.y
+
+    @property
+    def end_point_lon(self):
+        return self.end_point.x
+
 
 
 class AL1Survey(TimeStampModel):
@@ -43,12 +66,20 @@ class AL1Survey(TimeStampModel):
     station = models.ForeignKey(Station, on_delete=models.SET_NULL, null=True)
     team_leader = models.CharField(max_length=200)
     team_scientist = models.CharField(max_length=200)
+    curated = models.BooleanField(default=False)
     #VOLUNTEERS (Full names)
     #TEAM LEADER/TEAM SCIENTIST AFFILIATION and CONTACT DETAILS
 
     class Meta:
         verbose_name = "AL1 Survey"
         verbose_name_plural = "AL1 Surveys"
+
+    def __str__(self):
+        return f"{self.code}"
+
+    @property
+    def code(self):
+        return f"AL1-{self.pk}"
 
 
 class FishCount(TimeStampModel):
@@ -61,6 +92,9 @@ class FishCount(TimeStampModel):
         verbose_name = "Fish Count"
         verbose_name_plural = "Fish Counts"
 
+    def __str__(self):
+        return f"{self.survey.code}: {self.species_name} COUNT"
+
 
 class InvertebrateCount(TimeStampModel):
     survey = models.ForeignKey(AL1Survey, on_delete=models.CASCADE)
@@ -71,6 +105,9 @@ class InvertebrateCount(TimeStampModel):
     class Meta:
         verbose_name = "Invertebrate Count"
         verbose_name_plural = "Invertebrate Counts"
+
+    def __str__(self):
+        return f"{self.survey.code}: {self.species_name} COUNT"
 
 
 class Photoquadrat(TimeStampModel):
@@ -91,14 +128,20 @@ class Photoquadrat(TimeStampModel):
         verbose_name = "Photoquadrat"
         verbose_name_plural = "Photoquadrats"
 
+    def __str__(self):
+        return f"{self.survey.code}: {self.file_name} QUADRAT {self.pk}"
+
 
 class PhotoquadratPoint(TimeStampModel):
     photoquadrat = models.ForeignKey(Photoquadrat, on_delete=models.CASCADE)
     major_category = models.CharField(max_length=200)
 
     class Meta:
-        verbose_name = "Photoquadrat"
-        verbose_name_plural = "Photoquadrats"
+        verbose_name = "Photoquadrat Point"
+        verbose_name_plural = "Photoquadrats Points"
+
+    def __str__(self):
+        return f"QUADRAT {self.photoquadrat.pk}: POINT {self.pk}"
 
 
 class coastal_stability(models.Model):

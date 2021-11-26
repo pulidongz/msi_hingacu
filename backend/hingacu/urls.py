@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('django.contrib.auth.urls')),
     path('etl/', include('etl.urls', namespace='etl')),
+    path('coredb/', include('coredb.urls', namespace='coredb')),
 ]

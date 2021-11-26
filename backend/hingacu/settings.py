@@ -191,6 +191,18 @@ Q_CLUSTER = {
 JSON_EDITOR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.1.9/jsoneditor.js'
 JSON_EDITOR_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.1.9/jsoneditor.css'
 
+#DDF SETTINGS
+DDF_FILL_NULLABLE_FIELDS = True
+
+#REST FRAMEWORK
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
 try:
     from local_settings import *
 except ImportError:
