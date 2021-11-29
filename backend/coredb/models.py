@@ -81,6 +81,31 @@ class AL1Survey(TimeStampModel):
     def code(self):
         return f"AL1-{self.pk}"
 
+    def fish_counts(self):
+        summary = {}
+        counts = self.fishcount_set.all()
+        for c in counts:
+            if not c.species_name in summary:
+                summary[c.species_name] = {}
+            summary[c.species_name][c.volunteer] = c.count
+        for species in summary.keys():
+            total = 0
+            minimum = None
+            maximum = None
+            for volunteer in summary[species].keys():
+                if minimum is None or summary[species][volunteer] < minimum:
+                    minimum = summary[species][volunteer]
+                if maximum is None or summary[species][volunteer] > maximum:
+                    maximum = summary[species][volunteer]
+                total = total + summary[species][volunteer]
+            summary[species]['mean'] = total/len(summary[species].keys())
+            summary[species]['range'] = maximum - minimum
+        report = {
+            'species_list': summary.items(),
+            'species_richness': self.fishcount_set.all().aggregate(mean=models.Avg('count'), range=models.Max('count') - models.Min('count')),
+        }
+        return report
+
 
 class FishCount(TimeStampModel):
     survey = models.ForeignKey(AL1Survey, on_delete=models.CASCADE)

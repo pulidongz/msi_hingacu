@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from coredb.models import Station
+from coredb.models import Station, AL1Survey
 
 
 class StationSerializer(serializers.ModelSerializer):
@@ -19,3 +19,31 @@ class StationSerializer(serializers.ModelSerializer):
             'additional_information',
             'curated'
         ]
+
+class ListSurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AL1Survey
+        fields = [
+            'code',
+            'station',
+            'date',
+            'time',
+            'team_leader',
+            'team_scientist',
+        ]
+
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AL1Survey
+        fields = [
+            'code',
+            'station',
+            'date',
+            'time',
+            'team_leader',
+            'team_scientist',
+            'fish_counts',
+        ]
+
+    def get_fish_counts(self, obj):
+        return obj.fish_counts()
