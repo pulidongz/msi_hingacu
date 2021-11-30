@@ -58,6 +58,11 @@ class Station(TimeStampModel):
     def end_point_lon(self):
         return self.end_point.x
 
+    def get_survey_count(self, curated=None):
+        if curated is not None:
+            return self.al1survey_set.filter(curated=curated).count()
+        return self.al1survey_set.all().count()
+
 
 
 class AL1Survey(TimeStampModel):
@@ -81,28 +86,45 @@ class AL1Survey(TimeStampModel):
     def code(self):
         return f"AL1-{self.pk}"
 
-    def fish_counts(self):
-        summary = {}
+    def generate_fish_report(self):
+        species_dict = {}
         counts = self.fishcount_set.all()
         for c in counts:
-            if not c.species_name in summary:
-                summary[c.species_name] = {}
-            summary[c.species_name][c.volunteer] = c.count
-        for species in summary.keys():
-            total = 0
-            minimum = None
-            maximum = None
-            for volunteer in summary[species].keys():
-                if minimum is None or summary[species][volunteer] < minimum:
-                    minimum = summary[species][volunteer]
-                if maximum is None or summary[species][volunteer] > maximum:
-                    maximum = summary[species][volunteer]
-                total = total + summary[species][volunteer]
-            summary[species]['mean'] = total/len(summary[species].keys())
-            summary[species]['range'] = maximum - minimum
+            if not c.species_name in species_dict:
+                species_dict[c.species_name] = {}
+            species_dict[c.species_name][c.volunteer] = c.count
+        for species in species_dict.keys():
+            species_dict[species].update(counts.filter(species_name=species).aggregate(
+                mean=models.Avg('count'),
+                range=models.Max('count') - models.Min('count')))
         report = {
-            'species_list': summary.items(),
-            'species_richness': self.fishcount_set.all().aggregate(mean=models.Avg('count'), range=models.Max('count') - models.Min('count')),
+            'summary': {
+                'species_richness': counts.aggregate(
+                    mean=models.Avg('count'),
+                    range=models.Max('count') - models.Min('count')),
+            },
+            'breakdown': species_dict.items(),
+        }
+        return report
+
+    def generate_invertebrate_report(self):
+        species_dict = {}
+        counts = self.invertebratecount_set.all()
+        for c in counts:
+            if not c.species_name in species_dict:
+                species_dict[c.species_name] = {}
+            species_dict[c.species_name][c.volunteer] = c.count
+        for species in species_dict.keys():
+            species_dict[species].update(counts.filter(species_name=species).aggregate(
+                mean=models.Avg('count'),
+                range=models.Max('count') - models.Min('count')))
+        report = {
+            'summary': {
+                'species_richness': counts.aggregate(
+                    mean=models.Avg('count'),
+                    range=models.Max('count') - models.Min('count')),
+            },
+            'breakdown': species_dict.items(),
         }
         return report
 
