@@ -94,7 +94,7 @@ export default function Home() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [openHome, setOpenHome] = React.useState(false);
-  const [openMapOptions, setOpenMapOptions] = React.useState(true);
+  const [openMapOptions, setOpenMapOptions] = React.useState(false);
   const [openSiteSelect, setOpenSiteSelect] = React.useState(true);
   const [openHabitat, setOpenHabitat] = React.useState(true);
   const [openAbout, setOpenAbout] = React.useState(false);
@@ -150,7 +150,7 @@ export default function Home() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Hingacu
+            HINGACU
           </Typography>
           {auth && (
             <div>
@@ -212,12 +212,14 @@ export default function Home() {
             <ListItemIcon>
 							<HomeIcon />
 						</ListItemIcon>
-						<ListItemText primary="Home" />
+            <ListItemText>
+              <Typography variant="button" display="block" gutterBottom>Home</Typography>
+            </ListItemText>
             {openHome ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openHome} timeout="auto" unmountOnExit>
             <List dense={true} component="div" disablePadding>
-              <ListItemButton sx={{ pl: 2 }}>
+              <ListItem sx={{ pl: 2 }}>
                 <Typography variant="body2" color="textSecondary">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
                   malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
@@ -232,7 +234,7 @@ export default function Home() {
                   sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
                   sit amet blandit leo lobortis eget.
                 </Typography>
-              </ListItemButton>
+              </ListItem>
             </List>
           </Collapse>
 
@@ -241,7 +243,9 @@ export default function Home() {
             <ListItemIcon>
 							<MapIcon />
 						</ListItemIcon>
-						<ListItemText primary="Map Options" />
+						<ListItemText>
+              <Typography variant="button" display="block" gutterBottom>Map Options</Typography>
+            </ListItemText>
             {openMapOptions ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openMapOptions} timeout="auto" unmountOnExit>
@@ -257,7 +261,9 @@ export default function Home() {
             <ListItemIcon>
 							<LocationSearchingIcon />
 						</ListItemIcon>
-						<ListItemText primary="Site Selection" />
+						<ListItemText>
+              <Typography variant="button" display="block" gutterBottom>Site Selection</Typography>
+            </ListItemText>
             {openSiteSelect ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openSiteSelect} timeout="auto" unmountOnExit>
@@ -273,7 +279,9 @@ export default function Home() {
             <ListItemIcon>
 							<PublicIcon />
 						</ListItemIcon>
-						<ListItemText primary="Habitat" />
+						<ListItemText>
+              <Typography variant="button" display="block" gutterBottom>Habitat</Typography>
+            </ListItemText>
             {openHabitat ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openHabitat} timeout="auto" unmountOnExit>
@@ -290,16 +298,18 @@ export default function Home() {
             <ListItemIcon>
 							<HelpIcon />
 						</ListItemIcon>
-						<ListItemText primary="About" />
+						<ListItemText>
+              <Typography variant="button" display="block" gutterBottom>About</Typography>
+            </ListItemText>
             {openAbout ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openAbout} timeout="auto" unmountOnExit>
             <List dense={true} component="div" disablePadding>
-              <ListItemButton sx={{ pl: 2 }}>
+              <ListItem sx={{ pl: 2 }}>
                 <Typography variant="body2" color="textSecondary">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Typography>
-              </ListItemButton>
+              </ListItem>
             </List>
           </Collapse>
 
@@ -308,16 +318,18 @@ export default function Home() {
             <ListItemIcon>
 							<InfoIcon />
 						</ListItemIcon>
-						<ListItemText primary="Info" />
+						<ListItemText>
+              <Typography variant="button" display="block" gutterBottom>Info</Typography>
+            </ListItemText>
             {openInfo ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openInfo} timeout="auto" unmountOnExit>
             <List dense={true} component="div" disablePadding>
-              <ListItemButton sx={{ pl: 2 }}>
+              <ListItem sx={{ pl: 2 }}>
                 <Typography variant="body2" color="textSecondary">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </Typography>
-              </ListItemButton>
+              </ListItem>
             </List>
           </Collapse>
         </List>

@@ -25,39 +25,43 @@ export default function SearchDialog() {
 		});
 	}
 	const province = (e) => {
-			setRegionAddr(e.target.value);
-			provinces(e.target.value).then(response => {
-					setProvince(response);
-					setCity([]);
-					setBarangay([]);
-			});
+    setRegionAddr(e.target.value);
+    provinces(e.target.value).then(response => {
+      setProvince(response);
+      setCity([]);
+      setBarangay([]);
+    });
+    console.log("Region: ", e.target.value);
 	}
 	const city = (e) => {
-			setProvinceAddr(e.target.value);
-			cities(e.target.value).then(response => {
-					setCity(response);
-			});
+    setProvinceAddr(e.target.value);
+    cities(e.target.value).then(response => {
+      setCity(response);
+    });
+    console.log("Province: ", e.target.value);
 	}
 	const barangay = (e) => {
-			setCityAddr(e.target.value);
-			barangays(e.target.value).then(response => {
-					setBarangay(response);
-			});
+    setCityAddr(e.target.value);
+    barangays(e.target.value).then(response => {
+      setBarangay(response);
+    });
+    console.log("City: ", e.target.value);
 	}
 	const brgy = (e) => {
-			setBarangayAddr(e.target.value);
+		setBarangayAddr(e.target.value);
+    console.log("Brgy: ", e.target.value);
 	}
 	useEffect(() => {
 			region()
 	}, [])
 
-  console.log(regionAddr, provinceAddr, cityAddr, barangayAddr);
+  console.log("SearchDialog site selection:",regionAddr, provinceAddr, cityAddr, barangayAddr);
 
   return (
     <Box sx={{ minWidth: 300 }}>
     <Grid container spacing={2} direction="column" justifyContent="center" alignItems="stretch">
       <Grid item xs={12}>
-        <FormControl fullWidth variant="filled" size="small">
+        <FormControl fullWidth variant="filled">
           <InputLabel id="demo-simple-select-label">Region</InputLabel>
           <Select
             labelId="demo-simple-select-label"
