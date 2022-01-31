@@ -1,10 +1,10 @@
 from django.contrib import admin
-from coredb.models import (Station, AL1Survey, FishCount, InvertebrateCount, Photoquadrat,
+from coredb.models import (AL1Station, AL1Survey, FishCount, InvertebrateCount, Photoquadrat,
     PhotoquadratPoint)
 
-@admin.register(Station)
-class StationAdmin(admin.ModelAdmin):
-    list_display = ("code", "reef_name", "province", "town", "barangay", "start_point", "curated")
+@admin.register(AL1Station)
+class Al1StationAdmin(admin.ModelAdmin):
+    list_display = ("code", "reef_name", "start_point", "curated")
 
 class FishCountInline(admin.TabularInline):
     model = FishCount

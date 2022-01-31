@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from coredb.models import Station, AL1Survey
+from coredb.models import AL1Station, AL1Survey
 from coredb.serializers import (StationSerializer, SurveySerializer,
     SurveyDetailSerializer, StationDetailSerializer)
 
@@ -9,7 +9,7 @@ class StationViewSet(viewsets.ReadOnlyModelViewSet):
     """
     A simple ViewSet for viewing Stations.
     """
-    queryset = Station.objects.filter()
+    queryset = AL1Station.objects.filter()
     serializer_class = StationDetailSerializer
 
     def get_serializer(self, *args, **kwargs):

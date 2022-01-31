@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from coredb.models import Station, AL1Survey
+from coredb.models import AL1Station, AL1Survey
 
 class SurveySerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
@@ -63,7 +63,7 @@ class StationSerializer(serializers.ModelSerializer):
         return obj.get_survey_count(curated=True)
 
     class Meta:
-        model = Station
+        model = AL1Station
         fields = [
             'url',
             'id',
@@ -88,7 +88,7 @@ class StationDetailSerializer(StationSerializer):
     surveys = SurveySerializer(source='al1survey_set', many=True)
 
     class Meta:
-        model = Station
+        model = AL1Station
         fields = [
             'url',
             'id',
