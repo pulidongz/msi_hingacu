@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django_extensions.db.fields import AutoSlugField
 from django_q.models import Task
-from django_q.tasks import fetch
+from django_q.tasks import async_task, result, fetch
 from openpyxl import load_workbook
 from openpyxl.utils.exceptions import InvalidFileException
 from openpyxl.styles import PatternFill
@@ -482,12 +482,14 @@ class DataExtractionConfiguration(TimeStampModel):
 
 
 class Workbook(TimeStampModel):
+    STATUS_NEW = 'new'
     STATUS_QUEUED = 'queued'
     STATUS_FAILED = 'failed'
     STATUS_COMPLETED = 'completed'
     STATUS_COMPLETED_WITH_ERRORS = 'completed_with_errors'
     STATUS_PROCESSING = 'processing'
     STATUS_CHOICES = (
+        (STATUS_NEW, 'Newly Uploaded'),
         (STATUS_QUEUED, 'Queued'),
         (STATUS_FAILED, 'Failed'),
         (STATUS_COMPLETED, 'Completed'),
@@ -499,7 +501,7 @@ class Workbook(TimeStampModel):
     uploader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     file = models.FileField(upload_to='workbooks')
     file_with_corrections = models.FileField(upload_to='corrections', blank=True, null=True)
-    status = models.CharField(max_length=30, default='queued', choices=STATUS_CHOICES)
+    status = models.CharField(max_length=30, default=STATUS_NEW, choices=STATUS_CHOICES)
     errors = models.JSONField(default=list, blank=True, null=True)
 
     def __init__(self, *args, **kwargs):
@@ -515,3 +517,8 @@ class Workbook(TimeStampModel):
         if self.workbook is None: #first access
             self.workbook = load_workbook(filename=self.file.path, data_only=True)
         return self.workbook
+
+    def process(self):
+        #queue the workbook for async processing if not already queued
+        if self.status not in (self.STATUS_QUEUED, self.STATUS_PROCESSING):
+            async_task('etl.workbooks.process', self.pk, hook='etl.scripts.complete')
