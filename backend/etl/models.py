@@ -423,3 +423,95 @@ class KeyValueStore(TimeStampModel):
     def __str__(self):
         return f"{self.sheet_name}: {self.code}"
 
+
+class WorkbookConfiguration(TimeStampModel):
+    """Collection of Sheet Configurations"""
+
+    code = models.CharField(max_length=20)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    version = models.IntegerField(default=0)
+    description = models.TextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Workbook Configuration"
+        verbose_name_plural = "Workbook Configurations"
+        unique_together = [['code', 'version']]
+        indexes = [
+            models.Index(fields=['code', 'version']),
+        ]
+
+    def __str__(self):
+        if self.name:
+            return f"{self.code}: {self.name}"
+        return self.code
+
+    def get_sheet_configurations(self):
+        return self.worksheetconfiguration_set.all().order_by('sheet_order')
+
+
+class WorksheetConfiguration(TimeStampModel):
+    workbook_configuration = models.ForeignKey(WorkbookConfiguration, on_delete=models.CASCADE)
+    code = models.CharField(max_length=20)
+    sheet_name = models.CharField(max_length=100)
+    sheet_order = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Worksheet Configuration"
+        verbose_name_plural = "Worksheet Configurations"
+        unique_together = [['code', 'workbook_configuration']]
+
+    def __str__(self):
+        return f"{self.workbook_configuration.code}-{self.code}: {self.sheet_name}"
+
+
+class DataExtractionConfiguration(TimeStampModel):
+    EXTRACTION_CHOICES = (
+        ('field', 'Field'),
+        ('table_rows', 'Table Rows'),
+        ('table_columns', 'Table Columns')
+    )
+
+    worksheet_configuration = models.ForeignKey(WorksheetConfiguration, on_delete=models.CASCADE)
+    extraction_type = models.CharField(max_length=20, default='field', choices=EXTRACTION_CHOICES)
+    scope = models.CharField(max_length=100)
+    rules = models.JSONField()
+
+    def get_validation_form(self):
+        form = import_string('etl.forms.DCRForm')
+        return form
+
+
+class Workbook(TimeStampModel):
+    STATUS_QUEUED = 'queued'
+    STATUS_FAILED = 'failed'
+    STATUS_COMPLETED = 'completed'
+    STATUS_COMPLETED_WITH_ERRORS = 'completed_with_errors'
+    STATUS_PROCESSING = 'processing'
+    STATUS_CHOICES = (
+        (STATUS_QUEUED, 'Queued'),
+        (STATUS_FAILED, 'Failed'),
+        (STATUS_COMPLETED, 'Completed'),
+        (STATUS_COMPLETED_WITH_ERRORS, 'Needs Corrections'),
+        (STATUS_PROCESSING, 'Processing')
+    )
+
+    configuration = models.ForeignKey(WorkbookConfiguration, on_delete=models.SET_NULL, null=True)
+    uploader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    file = models.FileField(upload_to='workbooks')
+    file_with_corrections = models.FileField(upload_to='corrections', blank=True, null=True)
+    status = models.CharField(max_length=30, default='queued', choices=STATUS_CHOICES)
+    errors = models.JSONField(default=list, blank=True, null=True)
+
+    def __init__(self, *args, **kwargs):
+        # initialize workbook internal variables
+        super().__init__(*args, **kwargs)
+        self.workbook = None
+
+    def __str__(self):
+        return f"{self.configuration.name} {self.pk}"
+
+    def load_workbook(self):
+        # so we only load the workbook once
+        if self.workbook is None: #first access
+            self.workbook = load_workbook(filename=self.file.path, data_only=True)
+        return self.workbook

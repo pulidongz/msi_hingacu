@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.db.models import JSONField
 from jsoneditor.forms import JSONEditor
 from etl.models import (ETLFile, ETLFileRow, DCPCollection,
-    DataCapturePoint, GoogleDriveFile, KeyValueStore, ExtractedData)
+    DataCapturePoint, GoogleDriveFile, KeyValueStore, ExtractedData,
+    Workbook, WorkbookConfiguration, WorksheetConfiguration)
 
 
 class ETLFileRowAdmin(admin.ModelAdmin):
@@ -80,3 +81,7 @@ admin.site.register(DCPCollection, DCPCollectionAdmin)
 admin.site.register(DataCapturePoint, DataCapturePointAdmin)
 admin.site.register(GoogleDriveFile, GoogleDriveFileAdmin)
 admin.site.register(KeyValueStore, KeyValueStoreAdmin)
+
+admin.site.register(Workbook)
+admin.site.register(WorkbookConfiguration)
+admin.site.register(WorksheetConfiguration)
