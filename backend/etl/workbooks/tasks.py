@@ -9,11 +9,29 @@ def process_workbook(workbook):
     workbook.save()
 
     # initialize result workbook
-    result_wb = workbook.load_workbook()
+    result_wb = workbook.get_workbook()
 
     # go through the configuration for this workbook and extract data in order
     sheet_configurations = workbook.configuration.get_sheet_configurations()
     print('CONFIG:', sheet_configurations)
+    for sheet_config in sheet_configurations:
+        #check if the sheet is present in workbook
+        if not workbook.sheet_is_available(sheet_config.sheet_name):
+            #add a file error then move on to the next config
+            error_message = f"Missing sheet: {sheet_config.sheet_name}"
+            workbook.add_file_error(error_message)
+            continue
+        #process the workbook for this worksheet if config has no issues
+        process_workheet(sheet_config, workbook)
     
     workbook.status = Workbook.STATUS_COMPLETED
     workbook.save()
+
+
+def process_worksheet(sheet_config, workbook):
+    # go through each extraction task for the worksheet in the config
+    etl_task_configs = sheet_config.get_extraction_configurations()
+    for etl_config in etl_task_configs:
+        process_class = etl_config.get_etl_process()
+        task = process_class(etl_config, workbook)
+        task.run()

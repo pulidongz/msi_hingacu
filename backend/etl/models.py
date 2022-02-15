@@ -463,6 +463,9 @@ class WorksheetConfiguration(TimeStampModel):
     def __str__(self):
         return f"{self.workbook_configuration.code}-{self.code}: {self.sheet_name}"
 
+    def get_extraction_configurations(self):
+        return self.dataextractionconfiguration_set.all().order_by('extraction_type')
+
 
 class DataExtractionConfiguration(TimeStampModel):
     EXTRACTION_CHOICES = (
@@ -475,10 +478,20 @@ class DataExtractionConfiguration(TimeStampModel):
     extraction_type = models.CharField(max_length=20, default='field', choices=EXTRACTION_CHOICES)
     scope = models.CharField(max_length=100)
     rules = models.JSONField()
+    custom_validation_form = models.CharField(max_length=200, blank=True, null=True)
+    custom_extract_process = models.CharField(max_length=200, blank=True, null=True)
 
     def get_validation_form(self):
-        form = import_string('etl.forms.DCRForm')
-        return form
+        #returns the validation form used for this extraction
+        if self.custom_validation_form:
+            return import_string(self.custom_validation_form)
+        return import_string('etl.forms.DCRForm')
+
+    def get_etl_process(self):
+        #returns the process class used for this extraction configuration
+        if self.custom_extract_process:
+            return import_string(self.custom_extract_process)
+        return import_string('etl.workbooks.extraction.ExtractProcess')
 
 
 class Workbook(TimeStampModel):
@@ -502,7 +515,8 @@ class Workbook(TimeStampModel):
     file = models.FileField(upload_to='workbooks')
     file_with_corrections = models.FileField(upload_to='corrections', blank=True, null=True)
     status = models.CharField(max_length=30, default=STATUS_NEW, choices=STATUS_CHOICES)
-    errors = models.JSONField(default=list, blank=True, null=True)
+    file_errors = models.JSONField(default=list, blank=True, null=True)
+    validation_errors = models.JSONField(default=list, blank=True, null=True)
 
     def __init__(self, *args, **kwargs):
         # initialize workbook internal variables
@@ -512,7 +526,7 @@ class Workbook(TimeStampModel):
     def __str__(self):
         return f"{self.configuration.name} {self.pk}"
 
-    def load_workbook(self):
+    def get_workbook(self):
         # so we only load the workbook once
         if self.workbook is None: #first access
             self.workbook = load_workbook(filename=self.file.path, data_only=True)
@@ -521,4 +535,19 @@ class Workbook(TimeStampModel):
     def process(self):
         #queue the workbook for async processing if not already queued
         if self.status not in (self.STATUS_QUEUED, self.STATUS_PROCESSING):
-            async_task('etl.workbooks.process', self.pk, hook='etl.scripts.complete')
+            async_task('etl.workbooks.process', self.pk, hook='etl.workbooks.complete')
+
+    def get_available_sheets(self):
+        workbook = self.get_workbook()
+        return workbook.sheetnames
+
+    def sheet_is_available(self, sheet_name):
+        available_sheets = self.get_available_sheets()
+        return sheet_name in available_sheets
+
+    def add_file_error(self, error_message):
+        # file errors are errors related to the config like missing sheets or fields
+        error_details = {
+            'error': str(error_message)
+        }
+        self.file_errors.append(error_details)
