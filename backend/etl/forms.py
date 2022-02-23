@@ -206,3 +206,57 @@ class DCRForm(forms.Form):
             mapping[key] = value
             key_store.data = mapping
             key_store.save()
+
+
+class DefaultValidationForm(forms.Form):
+    #Dynamic Form that creates validation fields based on given set of rules
+
+    def __init__(self, *args, **kwargs):
+        self.warnings = []
+        self.rules = kwargs.pop('rules')
+        self.file = kwargs.pop('file')
+        self.key_value_fields = {}
+
+        super(DefaultValidationForm, self).__init__(*args, **kwargs)
+
+        for field in self.rules:
+            if field['field_type'] == 'text':
+                self.fields[field['field_name']] = forms.CharField(required=field['required'])
+            elif field['field_type'] == 'integer':
+                self.fields[field['field_name']] = forms.IntegerField(required=field['required'])
+            elif field['field_type'] == 'decimal' or field['field_type'] == 'numeric':
+                self.fields[field['field_name']] = forms.DecimalField(required=field['required'])
+            elif field['field_type'] == 'date':
+                input_formats = ['%Y%m%d', '%Y-%m-%d', '%Y/%m/%d']
+                self.fields[field['field_name']] = CleanDateField(required=field['required'], input_formats=input_formats)
+            elif field['field_type'] == 'boolean':
+                self.fields[field['field_name']] = forms.BooleanField(required=field['required'])
+            elif field['field_type'] == 'scientific_name':
+                self.fields[field['field_name']] = ScientificNameField(required=field['required'])
+            elif field['field_type'] == 'model':
+                app = field['app']
+                model = field['model']
+                query_field = field['query_field']
+                self.fields[field['field_name']] = ModelField(required=field['required'],
+                    model=model, app=app, query_field=query_field)
+            elif field['field_type'] == 'key_value':
+                self.fields[field['field_name']] = forms.CharField(required=field['required'])
+                self.key_value_fields[field] = field['value_field']
+            elif field['field_type'] == 'key_look_up':
+                etlfile = self.etlfile
+                self.fields[field['field_name']] = KeyLookUpField(
+                    required=field['required'],
+                    etlfile=self.etlfile,
+                    sheet_name=field['sheet_name'],
+                    code=field['code'])
+            else:
+                print('Missing field_type', field)
+                self.fields[field['field_name']] = forms.CharField(required=field['required'])
+
+    def clean(self):
+        cleaned_data = super(DefaultValidationForm, self).clean()
+        return cleaned_data
+
+    def save(self, sheet_name, row_index):
+        cleaned_data = self.cleaned_data
+        return cleaned_data

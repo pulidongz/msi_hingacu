@@ -442,7 +442,7 @@ class WorkbookConfiguration(TimeStampModel):
 
     def __str__(self):
         if self.name:
-            return f"{self.code}: {self.name}"
+            return f"{self.name}"
         return self.code
 
     def get_sheet_configurations(self):
@@ -451,47 +451,79 @@ class WorkbookConfiguration(TimeStampModel):
 
 class WorksheetConfiguration(TimeStampModel):
     workbook_configuration = models.ForeignKey(WorkbookConfiguration, on_delete=models.CASCADE)
-    code = models.CharField(max_length=20)
     sheet_name = models.CharField(max_length=100)
     sheet_order = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Worksheet Configuration"
         verbose_name_plural = "Worksheet Configurations"
-        unique_together = [['code', 'workbook_configuration']]
 
     def __str__(self):
-        return f"{self.workbook_configuration.code}-{self.code}: {self.sheet_name}"
+        return f"{self.code()}: {self.sheet_name}"
+
+    def code(self):
+        return f"{self.workbook_configuration.code}-SHEET-{self.sheet_order}"
 
     def get_extraction_configurations(self):
         return self.dataextractionconfiguration_set.all().order_by('extraction_type')
 
 
+#### DATA EXTRACTION CONFIGURATION CLASS ####
+def default_rules(): # ugly but more readable if we leave this in models.py for the configurations
+    # wish we could move it inside the DEC class somehow
+    DEFAULT_RULES = {
+        'scope': 'A1:B10', #cells where data can be found for table types
+        'fields': [
+            {
+                'field_name': 'example field',
+                'field_type': 'text',
+                'required': True,
+                'cell': 'A1', #only for 'form' types
+            }
+        ],
+    }
+    return DEFAULT_RULES
+
 class DataExtractionConfiguration(TimeStampModel):
+    TYPE_FORM = 'form'
+    TYPE_TABLE_ROWS = 'table_rows'
+    TYPE_TABLE_COLUMNS = 'table_columns'
     EXTRACTION_CHOICES = (
-        ('field', 'Field'),
-        ('table_rows', 'Table Rows'),
-        ('table_columns', 'Table Columns')
+        (TYPE_FORM, 'Form'),
+        (TYPE_TABLE_ROWS, 'Table Rows'),
+        (TYPE_TABLE_COLUMNS, 'Table Columns')
     )
 
     worksheet_configuration = models.ForeignKey(WorksheetConfiguration, on_delete=models.CASCADE)
-    extraction_type = models.CharField(max_length=20, default='field', choices=EXTRACTION_CHOICES)
-    scope = models.CharField(max_length=100)
-    rules = models.JSONField()
+    name = models.CharField(max_length=200)
+    extraction_type = models.CharField(max_length=20, default=TYPE_FORM, choices=EXTRACTION_CHOICES)
+    rules = models.JSONField(default=default_rules)
     custom_validation_form = models.CharField(max_length=200, blank=True, null=True)
-    custom_extract_process = models.CharField(max_length=200, blank=True, null=True)
+    custom_etl_class = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.worksheet_configuration.code()}: {self.name}"
 
     def get_validation_form(self):
         #returns the validation form used for this extraction
         if self.custom_validation_form:
             return import_string(self.custom_validation_form)
-        return import_string('etl.forms.DCRForm')
+        return import_string('etl.forms.DefaultValidationForm')
 
-    def get_etl_process(self):
+    def get_etl_class(self):
         #returns the process class used for this extraction configuration
-        if self.custom_extract_process:
-            return import_string(self.custom_extract_process)
+        if self.custom_etl_class:
+            return import_string(self.custom_etl_class)
         return import_string('etl.workbooks.extraction.ExtractProcess')
+
+    def is_form_config(self):
+        return self.extraction_type == self.TYPE_FORM
+
+    def is_table_rows_config(self):
+        return self.extraction_type == self.TYPE_TABLE_ROWS
+
+    def is_table_columns_config(self):
+        return self.extraction_type == self.TYPE_TABLE_COLUMNS
 
 
 class Workbook(TimeStampModel):

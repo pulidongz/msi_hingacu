@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Data Sheet Upload{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+  <h1 class="mt-4">{% trans "Upload Your Workbook" %}</h1>
+
+  <form enctype="multipart/form-data" method="post"
+    action="{% url 'etl:workbook-upload' %}">
+    {% csrf_token %}
+    <hr>
+    <div class="form-group">
+      {{ form.file|as_crispy_field }}
+      {% if form.file.errors %}
+        <p class="text-error">
+          {{ form.file.errors|striptags }}
+        </p>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.configuration|as_crispy_field }}
+      {% if form.configuration.errors %}
+        <p class="text-error">
+          {{ form.configuration.errors|striptags }}
+        </p>
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">{% trans "Upload" %} &raquo;</button>
+  </form>
+</div>
+{% endblock %}

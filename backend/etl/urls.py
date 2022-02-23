@@ -10,4 +10,6 @@ urlpatterns = [
     path('file/<int:pk>/', login_required(views.ETLFileDetailView.as_view()), name='etl-detail'),
     path('file/data/<int:etlfile_id>/<slug:sheet_name>/', login_required(views.ETLFileRowListView.as_view()), name='etl-row-list'),
     path('file/errors/<int:pk>/<slug:sheet_name>/', login_required(views.ETLFileErrorListView.as_view()), name='etl-error-list'),
+    #workbooks
+    path('workbooks/upload/', login_required(views.WorkbookUploadView.as_view()), name='workbook-upload'),
 ]

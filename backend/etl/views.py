@@ -8,7 +8,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_q.tasks import async_task, result, fetch
 from django_q.models import Task
-from etl.models import ETLFile, ETLFileRow, DCPCollection, DataCapturePoint
+from etl.models import ETLFile, ETLFileRow, DCPCollection, DataCapturePoint, Workbook
 from etl.forms import ETLFileForm
 
 
@@ -29,6 +29,19 @@ class UploadView(LoginRequiredMixin, CreateView):
         #associate task to file
         self.object.task_id = task_id
         self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class WorkbookUploadView(LoginRequiredMixin, CreateView):
+    model = Workbook
+    fields = ['file', 'configuration']
+    success_url = '/etl/'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.uploader = self.request.user
+        self.object.save() #get pk
+        self.object.process() #start async process for workbook
         return HttpResponseRedirect(self.get_success_url())
 
 

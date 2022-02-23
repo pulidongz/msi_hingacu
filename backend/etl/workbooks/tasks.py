@@ -22,7 +22,7 @@ def process_workbook(workbook):
             workbook.add_file_error(error_message)
             continue
         #process the workbook for this worksheet if config has no issues
-        process_workheet(sheet_config, workbook)
+        process_worksheet(sheet_config, workbook)
     
     workbook.status = Workbook.STATUS_COMPLETED
     workbook.save()
@@ -32,6 +32,7 @@ def process_worksheet(sheet_config, workbook):
     # go through each extraction task for the worksheet in the config
     etl_task_configs = sheet_config.get_extraction_configurations()
     for etl_config in etl_task_configs:
-        process_class = etl_config.get_etl_process()
-        task = process_class(etl_config, workbook)
+        etl_config.sheet_name = sheet_config.sheet_name #attach sheet name to etl config so it wont query again
+        etl_class = etl_config.get_etl_class()
+        task = etl_class(etl_config, workbook)
         task.run()

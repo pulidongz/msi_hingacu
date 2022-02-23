@@ -1,43 +1,42 @@
+from openpyxl.utils.exceptions import InvalidFileException
+from etl.models import Workbook, DataExtractionConfiguration
+
+
 class ExtractProcess:
     # Generalized Process for Validating and Extracting Data from a worksheet
 
-    def __init__(self, config, worksheet):
-        self.worksheet = worksheet
+    def __init__(self, config, workbook):
+        # assumption here is that the wb has already been checked to contain the config's requirements
+        self.workbook = workbook
         self.config = config
-        self.form_class = dcp.get_validation_form()
+        print(self.config)
 
     def extract(self):
         # Initialize Worksheet
+        wb = self.workbook.get_workbook()
+        sheet_name = self.config.sheet_name
         try:
-            wb = self.etlfile.get_workbook()
-            print('SHEET NAMES', wb.sheetnames)
-            sheet_name = self.dcp.sheet_name
-            try:
-                ws = wb[sheet_name]
-            except KeyError:
-                message = 'Sheet "' + sheet_name + '" does not exist.'
-                raise ETLFile.DoesNotExist(message)
-        except InvalidFileException as e:
-            raise e
+            ws = wb[sheet_name]
+        except KeyError:
+            message = 'Sheet "' + sheet_name + '" does not exist.'
+            raise Workbook.DoesNotExist(message)
 
-        # Get worksheet value per field in DCP Configuration
+        #Get data values based on config
         data = {}
-        for field in self.requirements:
-            cell_coordinate = field["field_cell"].split(":")[0] # only top left reference has value for merged cells
-            cell = ws[cell_coordinate]
-            print(cell)
-            data[field["field_name"]] = cell.value
+        if self.config.extraction_type == DataExtractionConfiguration.TYPE_FORM:
+            for field in self.config.rules['fields']:
+                value = ws[field['cell']].value
+                data[field['field_name']] = value
 
         return data
 
     def validate(self, data):
         # validate extracted data with given form_class
 
-        dcr = {} # convert list to dict for now. TO DO: update DCRform to accept a list
-        for requirement in self.requirements:
-            dcr[requirement['field_name']] = requirement
+        rules = self.config.rules['fields']
+        form_class = self.config.get_validation_form()
 
-        form = self.form_class(data, dcr=dcr, etlfile=self.etlfile)
+        form = form_class(data, rules=rules, file=self.workbook)
         if form.is_valid():
             return form.cleaned_data
         else:
@@ -50,11 +49,7 @@ class ExtractProcess:
 
     def load(self, data):
         # save data into database
-        saved_data = ExtractedData.objects.create(
-            etlfile = self.etlfile,
-            sheet_name = self.dcp.sheet_name,
-            data = data
-        )
+        print(data)
 
     def run(self):
         raw_data = self.extract()

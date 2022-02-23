@@ -3,7 +3,7 @@ from django.db.models import JSONField
 from jsoneditor.forms import JSONEditor
 from etl.models import (ETLFile, ETLFileRow, DCPCollection,
     DataCapturePoint, GoogleDriveFile, KeyValueStore, ExtractedData,
-    Workbook, WorkbookConfiguration, WorksheetConfiguration)
+    Workbook, WorkbookConfiguration, WorksheetConfiguration, DataExtractionConfiguration)
 
 
 class ETLFileRowAdmin(admin.ModelAdmin):
@@ -71,7 +71,11 @@ class KeyValueStoreAdmin(admin.ModelAdmin):
         'code'
     )
 
+class DataExtractionConfigurationInline(admin.StackedInline):
+    model = DataExtractionConfiguration
 
+class WorksheetConfigurationAdmin(admin.ModelAdmin):
+   inlines = [DataExtractionConfigurationInline,]
 
 # Register your models here.
 admin.site.register(ETLFile)
@@ -84,4 +88,4 @@ admin.site.register(KeyValueStore, KeyValueStoreAdmin)
 
 admin.site.register(Workbook)
 admin.site.register(WorkbookConfiguration)
-admin.site.register(WorksheetConfiguration)
+admin.site.register(WorksheetConfiguration, WorksheetConfigurationAdmin)
