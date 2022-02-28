@@ -45,6 +45,24 @@ class WorkbookUploadView(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
+class WorkbookListView(LoginRequiredMixin, ListView):
+    model = Workbook
+    paginate_by = 5  # if pagination is desired
+    ordering = ['-date_created']
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return super().get_queryset()
+        return Workbook.objects.filter(uploader=self.request.user).order_by('-date_created')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['form'] = ETLFileForm()
+        context['dcp_collections'] = DCPCollection.objects.all()
+        return context
+
+
 class ETLFileListView(LoginRequiredMixin, ListView):
     model = ETLFile
     paginate_by = 5  # if pagination is desired

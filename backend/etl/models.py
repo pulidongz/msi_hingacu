@@ -569,6 +569,12 @@ class Workbook(TimeStampModel):
         if self.status not in (self.STATUS_QUEUED, self.STATUS_PROCESSING):
             async_task('etl.workbooks.process', self.pk, hook='etl.workbooks.complete')
 
+    def get_filename(self):
+        return os.path.basename(self.file.name)
+
+    def code(self):
+        return f"{self.configuration.code}-{self.pk}"
+
     def get_available_sheets(self):
         workbook = self.get_workbook()
         return workbook.sheetnames

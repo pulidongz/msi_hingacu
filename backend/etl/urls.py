@@ -11,5 +11,6 @@ urlpatterns = [
     path('file/data/<int:etlfile_id>/<slug:sheet_name>/', login_required(views.ETLFileRowListView.as_view()), name='etl-row-list'),
     path('file/errors/<int:pk>/<slug:sheet_name>/', login_required(views.ETLFileErrorListView.as_view()), name='etl-error-list'),
     #workbooks
+    path('workbooks/', login_required(views.WorkbookListView.as_view()), name='workbook-list'),
     path('workbooks/upload/', login_required(views.WorkbookUploadView.as_view()), name='workbook-upload'),
 ]
