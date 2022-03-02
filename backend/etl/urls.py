@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import redirect
 from django.urls import path
 from etl import views
 
 app_name = 'etl'
 urlpatterns = [
-    path('', login_required(views.ETLFileListView.as_view()), name='etl-list'),
+    #path('', login_required(views.ETLFileListView.as_view()), name='etl-list'),
+    path('', lambda request: redirect('workbooks/', permanent=False)),
     path('upload/', login_required(views.UploadView.as_view()), name='etl-upload'),
     path('collection/<slug:pk>/', login_required(views.DCPCollectionDetailView.as_view()), name='collection-detail'),
     path('file/<int:pk>/', login_required(views.ETLFileDetailView.as_view()), name='etl-detail'),
