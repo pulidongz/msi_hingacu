@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('django.contrib.auth.urls')),
-    path('', include('etl.urls', namespace='etl')),
     path('coredb/', include('coredb.urls', namespace='coredb')),
+    path('etl/', include('etl.urls', namespace='etl')),
+    path('', lambda request: redirect('etl/workbooks/', permanent=False)),
 ]

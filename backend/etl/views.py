@@ -35,7 +35,7 @@ class UploadView(LoginRequiredMixin, CreateView):
 class WorkbookUploadView(LoginRequiredMixin, CreateView):
     model = Workbook
     fields = ['file', 'configuration']
-    success_url = '/etl/'
+    success_url = '/workbooks/'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

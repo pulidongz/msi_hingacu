@@ -28,6 +28,7 @@ class ExtractProcess:
                 value = ws[field['cell']].value
                 data[field['field_name']] = value
 
+        print("RAW", data)
         return data
 
     def validate(self, data):
@@ -37,14 +38,19 @@ class ExtractProcess:
         form_class = self.config.get_validation_form()
 
         form = form_class(data, rules=rules, file=self.workbook)
+        result = {
+            'data': None,
+            'errors': None
+        }
         if form.is_valid():
-            return form.cleaned_data
+            result['data'] = form.cleaned_data
         else:
-            return False
+            result['errors'] = form.errors.as_data()
+        return result
 
     def transform(self, data):
         # transform data in preparation for saving to database
-        print(data)
+        #print(data)
         return data
 
     def load(self, data):
@@ -52,7 +58,14 @@ class ExtractProcess:
         print(data)
 
     def run(self):
+        #extract raw data based on config
         raw_data = self.extract()
-        data = self.validate(raw_data)
-        data = self.transform(data)
+
+        #validate raw data based on config
+        if self.config.extraction_type == DataExtractionConfiguration.TYPE_FORM:
+            #validate entire raw data if form type in a single form
+            results = self.validate(raw_data)
+
+        #save results found into database
+        data = self.transform(results)
         self.load(data)
