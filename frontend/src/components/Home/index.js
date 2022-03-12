@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import { Card, CardMedia, Checkbox } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -31,6 +32,8 @@ import Collapse from '@mui/material/Collapse';
 import PublicIcon from '@mui/icons-material/Public';
 import MapIcon from '@mui/icons-material/Map';
 import {Link} from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
 import SiteEcoTabs from './SiteEcoTabs';
 import NavMenu from './NavMenu';
@@ -39,8 +42,10 @@ import SiteSearchDialog from './SiteSearchDialog';
 import SearchDialog from './SearchDialog';
 import HomeMap from './HomeMap';
 import MapOptions from './MapOptions';
+import GeoSearch from './GeoSearch';
+import LonLatSearch from './LonLatSearch';
 
-const drawerWidth = 400;
+const drawerWidth = 365;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -93,17 +98,25 @@ export default function Home() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const [openHome, setOpenHome] = React.useState(false);
-  const [openMapOptions, setOpenMapOptions] = React.useState(false);
-  const [openSiteSelect, setOpenSiteSelect] = React.useState(true);
-  const [openHabitat, setOpenHabitat] = React.useState(true);
-  const [openAbout, setOpenAbout] = React.useState(false);
-  const [openInfo, setOpenInfo] = React.useState(false);
+  const [openMangrove, setOpenMangrove] = React.useState(false);
+  const [openSeagrass, setOpenSeagrass] = React.useState(false);
+  const [openCoastal, setOpenCoastal] = React.useState(false);
+  const [openReef, setOpenReef] = React.useState(false);
+  const [openFish, setOpenFish] = React.useState(false);
+
+  const [habitat, setChecked] = React.useState({
+    mangrove: true,
+    seagrass: true,
+    coastal: true,
+    reef: true,
+    fish: true,
+  });
+
+  const {mangrove, seagrass, coastal, reef, fish} = habitat;
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -116,24 +129,30 @@ export default function Home() {
     setAnchorEl(null);
   };
 
-  const handleClickHome = () => {
-    setOpenHome(!openHome);
-  };
-  const handleClickMapOptions = () => {
-    setOpenMapOptions(!openMapOptions);
-  };
-  const handleClickSiteSelect = () => {
-    setOpenSiteSelect(!openSiteSelect);
-  };
-  const handleClickHabitat = () => {
-    setOpenHabitat(!openHabitat);
-  };
-  const handleClickAbout = () => {
-    setOpenAbout(!openAbout);
-  };
-  const handleClickInfo = () => {
-    setOpenInfo(!openInfo);
-  };
+  const handleDropdown = (value) => {
+    switch (value) {
+      case 'mangrove':
+        setOpenMangrove(!openMangrove);
+        break;
+      case 'seagrass':
+        setOpenSeagrass(!openSeagrass);
+        break;
+      case 'coastal':
+        setOpenCoastal(!openCoastal);
+        break;
+      case 'reef':
+        setOpenReef(!openReef);
+        break;
+      case 'fish':
+        setOpenFish(!openFish);
+        break;
+    }
+  }
+
+  const handleCheckbox = (event) => {
+    setChecked({ ...habitat, 
+      [event.target.name]: event.target.checked });
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -205,133 +224,255 @@ export default function Home() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List dense={true}>
 
-          {/* ***HOME*** */}
-          <ListItemButton onClick={handleClickHome}>
-            <ListItemIcon>
-							<HomeIcon />
-						</ListItemIcon>
-            <ListItemText>
-              <Typography variant="button" display="block" gutterBottom>Home</Typography>
-            </ListItemText>
-            {openHome ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openHome} timeout="auto" unmountOnExit>
-            <List dense={true} component="div" disablePadding>
-              <ListItem sx={{ pl: 2 }}>
-                <Typography variant="body2" color="textSecondary">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                  malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                  sit amet blandit leo lobortis eget.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                  malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                  sit amet blandit leo lobortis eget.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                  malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                  sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                  sit amet blandit leo lobortis eget.
+        <List dense={false}>
+          <ListItem>
+            <Paper elevation={3} style={{backgroundColor: "#F1F0EE",  width: 330}}>
+              <Grid container spacing={2} direction="column" justifyContent="center" alignItems="center" style={{padding: 15}}>
+                <Grid item xs={12}>
+                <Typography variant="button" display="block" gutterBottom>
+                  Location Tools
                 </Typography>
-              </ListItem>
-            </List>
-          </Collapse>
+                </Grid>
+                <Grid item xs={12}>
+                  <GeoSearch />
+                </Grid>
+                <Grid item xs={12}>
+                  <LonLatSearch />
+                </Grid>
+              </Grid>       
+            </Paper>
+          </ListItem>
 
-          {/* ***MAP OPTIONS*** */}
-          <ListItemButton onClick={handleClickMapOptions}>
-            <ListItemIcon>
-							<MapIcon />
-						</ListItemIcon>
-						<ListItemText>
-              <Typography variant="button" display="block" gutterBottom>Map Options</Typography>
-            </ListItemText>
-            {openMapOptions ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openMapOptions} timeout="auto" unmountOnExit>
-            <List dense={true} component="div">
-              <ListItem sx={{ pl: 5 }}>
-                <MapOptions />
-              </ListItem>
-            </List>
-          </Collapse>
+          {/* MANGROVE */}
+          <ListItem>
+            <Paper elevation={3} style={{backgroundColor: "#F1F0EE",  width: 330}}>
+              <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" style={{padding: 15}}>
+                <Grid item xs={2}>
+                  <Checkbox
+                    name="mangrove"
+                    edge="start"
+                    checked={mangrove}
+                    disableRipple
+                    color="primary"
+                    onChange={handleCheckbox}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="button" display="block" gutterBottom>Mangrove</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemButton onClick={(e) => handleDropdown("mangrove")}>
+                    {openMangrove ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </Grid>
+                <Collapse in={openMangrove} timeout="auto" unmountOnExit>
+                  <List dense={true} component="div" disablePadding>
+                    <ListItem sx={{ pl: 2 }}>
+                      <Typography variant="body2" color="textSecondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                      </Typography>
+                    </ListItem>
+                  </List>
+                </Collapse>
+              </Grid>
+            </Paper>
+          </ListItem>
 
-          {/* ***SITE SELECT*** */}
-          <ListItemButton onClick={handleClickSiteSelect}>
-            <ListItemIcon>
-							<LocationSearchingIcon />
-						</ListItemIcon>
-						<ListItemText>
-              <Typography variant="button" display="block" gutterBottom>Site Selection</Typography>
-            </ListItemText>
-            {openSiteSelect ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openSiteSelect} timeout="auto" unmountOnExit>
-            <List dense={true} component="div">
-              <ListItem sx={{ pl: 5 }}>
-                <SearchDialog />
-              </ListItem>
-            </List>
-          </Collapse>
+          {/* SEAGRASS */}
+          <ListItem>
+            <Paper elevation={3} style={{backgroundColor: "#F1F0EE",  width: 330}}>
+              <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" style={{padding: 15}}>
+                <Grid item xs={2}>
+                  <Checkbox
+                    name="seagrass"
+                    edge="start"
+                    checked={seagrass}
+                    disableRipple
+                    color="primary"
+                    onChange={handleCheckbox}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="button" display="block" gutterBottom>Seagrass</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemButton onClick={(e) => handleDropdown("seagrass")}>
+                    {openSeagrass ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </Grid>
+                <Collapse in={openSeagrass} timeout="auto" unmountOnExit>
+                  <List dense={true} component="div" disablePadding>
+                    <ListItem sx={{ pl: 2 }}>
+                      <Typography variant="body2" color="textSecondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                      </Typography>
+                    </ListItem>
+                  </List>
+                </Collapse>
+              </Grid>
+            </Paper>
+          </ListItem>
+          
+          {/* COASTAL INTEGRITY */}
+          <ListItem>
+            <Paper elevation={3} style={{backgroundColor: "#F1F0EE",  width: 330}}>
+              <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" style={{padding: 15}}>
+                <Grid item xs={2}>
+                  <Checkbox
+                    name="coastal"
+                    edge="start"
+                    checked={coastal}
+                    disableRipple
+                    color="primary"
+                    onChange={handleCheckbox}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="button" display="block" gutterBottom>Coastal Integrity</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemButton onClick={(e) => handleDropdown("coastal")}>
+                    {openSeagrass ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </Grid>
+                <Collapse in={openCoastal} timeout="auto" unmountOnExit>
+                  <List dense={true} component="div" disablePadding>
+                    <ListItem sx={{ pl: 2 }}>
+                      <Typography variant="body2" color="textSecondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                      </Typography>
+                    </ListItem>
+                  </List>
+                </Collapse>
+              </Grid>
+            </Paper>
+          </ListItem>
 
-          {/* ***HABITAT*** */} 
-          <ListItemButton onClick={handleClickHabitat}>
-            <ListItemIcon>
-							<PublicIcon />
-						</ListItemIcon>
-						<ListItemText>
-              <Typography variant="button" display="block" gutterBottom>Habitat</Typography>
-            </ListItemText>
-            {openHabitat ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openHabitat} timeout="auto" unmountOnExit>
-            <List dense={true} component="div" disablePadding>
-              <ListItem sx={{ pl: 2 }}>
-                <SiteEcosystems />
-                {/* <SiteEcoTabs /> */}
-              </ListItem>
-            </List>
-          </Collapse>
+          {/* CORAL REEF */}
+          <ListItem>
+            <Paper elevation={3} style={{backgroundColor: "#F1F0EE",  width: 330}}>
+              <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" style={{padding: 15}}>
+                <Grid item xs={2}>
+                  <Checkbox
+                    name="reef"
+                    edge="start"
+                    checked={reef}
+                    disableRipple
+                    color="primary"
+                    onChange={handleCheckbox}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="button" display="block" gutterBottom>Reef</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemButton onClick={(e) => handleDropdown("reef")}>
+                    {openSeagrass ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </Grid>
+                <Collapse in={openReef} timeout="auto" unmountOnExit>
+                  <List dense={true} component="div" disablePadding>
+                    <ListItem sx={{ pl: 2 }}>
+                      <Typography variant="body2" color="textSecondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                      </Typography>
+                    </ListItem>
+                  </List>
+                </Collapse>
+              </Grid>
+            </Paper>
+          </ListItem>
 
-          {/* ***ABOUT*** */}
-          <ListItemButton onClick={handleClickAbout}>
-            <ListItemIcon>
-							<HelpIcon />
-						</ListItemIcon>
-						<ListItemText>
-              <Typography variant="button" display="block" gutterBottom>About</Typography>
-            </ListItemText>
-            {openAbout ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openAbout} timeout="auto" unmountOnExit>
-            <List dense={true} component="div" disablePadding>
-              <ListItem sx={{ pl: 2 }}>
-                <Typography variant="body2" color="textSecondary">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Typography>
-              </ListItem>
-            </List>
-          </Collapse>
-
-          {/* ***INFO*** */}
-          <ListItemButton onClick={handleClickInfo}>
-            <ListItemIcon>
-							<InfoIcon />
-						</ListItemIcon>
-						<ListItemText>
-              <Typography variant="button" display="block" gutterBottom>Info</Typography>
-            </ListItemText>
-            {openInfo ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openInfo} timeout="auto" unmountOnExit>
-            <List dense={true} component="div" disablePadding>
-              <ListItem sx={{ pl: 2 }}>
-                <Typography variant="body2" color="textSecondary">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Typography>
-              </ListItem>
-            </List>
-          </Collapse>
+          {/* FISH */}
+          <ListItem>
+            <Paper elevation={3} style={{backgroundColor: "#F1F0EE",  width: 330}}>
+              <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" style={{padding: 15}}>
+                <Grid item xs={2}>
+                  <Checkbox
+                    name="fish"
+                    edge="start"
+                    checked={fish}
+                    disableRipple
+                    color="primary"
+                    onChange={handleCheckbox}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant="button" display="block" gutterBottom>Fish</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <ListItemButton onClick={(e) => handleDropdown("fish")}>
+                    {openSeagrass ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </Grid>
+                <Collapse in={openFish} timeout="auto" unmountOnExit>
+                  <List dense={true} component="div" disablePadding>
+                    <ListItem sx={{ pl: 2 }}>
+                      <Typography variant="body2" color="textSecondary">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+                        sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                      </Typography>
+                    </ListItem>
+                  </List>
+                </Collapse>
+              </Grid>
+            </Paper>
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open} sx={{flexGrow: 1, p: 0}}>

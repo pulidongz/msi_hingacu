@@ -142,7 +142,7 @@ export default function HomeMap () {
 		<MapContainer className="leaflet_home_map" center={[12.599512, 121.984222]} zoom={6} scrollWheelZoom={true} style={{ height: "100vh"}}>
 						{/* <MapOptionsLayers /> */}
 
-				<LayersControl position="topright" collapsed={false}>
+				<LayersControl position="topright" collapsed={true}>
 					<LayersControl.BaseLayer name="NAMRIA">
 						<TileLayer
 							attribution='© <a href="https:/www.geoportal.gov.ph">Geoportal Philippines</a>'
@@ -206,9 +206,9 @@ export default function HomeMap () {
 							pathOptions={{ color: 'red' }}
 						/>
 					</LayersControl.Overlay>
-					<LayersControl.Overlay checked name="Test">
+					{/* <LayersControl.Overlay checked name="Test">
 						<Polyline positions={innerBounds} />
-					</LayersControl.Overlay>
+					</LayersControl.Overlay> */}
 					{/* <LayersControl.Overlay name="Fisheries Management Areas">
 						<WMSTileLayer
 							url={karagatanURL}
