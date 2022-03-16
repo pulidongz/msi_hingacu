@@ -514,7 +514,9 @@ class DataExtractionConfiguration(TimeStampModel):
         #returns the process class used for this extraction configuration
         if self.custom_etl_class:
             return import_string(self.custom_etl_class)
-        return import_string('etl.workbooks.extraction.ExtractProcess')
+        if self.config.extraction_type == DataExtractionConfiguration.TYPE_FORM:
+            return import_string('etl.workbooks.extraction.FormDataExtraction')
+        return import_string('etl.workbooks.extraction.ExtractionProcess')
 
     def is_form_config(self):
         return self.extraction_type == self.TYPE_FORM
