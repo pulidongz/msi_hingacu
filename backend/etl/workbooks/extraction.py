@@ -122,12 +122,11 @@ class RowDataExtraction(ExtractionProcess):
         #TO DO VALIDATE RULES WITH NUMBER OF COLUMNS AND COLUMN NAMES
         #BEFORE EXTRACTING
 
-        print("ROW", max_row)
-
         table_data = []
         for row in ws.iter_rows(min_row=min_row, max_row=max_row, min_col=min_col, max_col=max_col):
-            data = self.convert_row_to_dict(row)
-            table_data.append(data)
+            if any(cell.value for cell in row): #process only non-blank rows
+                data = self.convert_row_to_dict(row)
+                table_data.append(data)
 
         return table_data
 
