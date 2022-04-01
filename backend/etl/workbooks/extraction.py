@@ -11,6 +11,10 @@ class ExtractionProcess:
         self.config = config
         print(self.config)
 
+    def validate_config(self):
+        #override me
+        return
+
     def get_worksheet(self):
         # Initialize Worksheet
         wb = self.workbook.get_workbook()
@@ -81,7 +85,7 @@ class FormDataExtraction(ExtractionProcess):
         return data
 
 
-class TableDataExtraction(ExtractionProcess):
+class RowDataExtraction(ExtractionProcess):
     #Extract values from a worksheet with a table format
     #config will have a column index for each field_name
 
@@ -100,7 +104,7 @@ class TableDataExtraction(ExtractionProcess):
         return row_values
 
     def convert_row_to_dict(self, row):
-        rules = self.config.rules['fields']
+        fields = self.config.rules['fields']
         row_values = self.convert_row_to_values(row)
         data = {}
         for field in fields:
@@ -118,9 +122,11 @@ class TableDataExtraction(ExtractionProcess):
         #TO DO VALIDATE RULES WITH NUMBER OF COLUMNS AND COLUMN NAMES
         #BEFORE EXTRACTING
 
+        print("ROW", max_row)
+
         table_data = []
         for row in ws.iter_rows(min_row=min_row, max_row=max_row, min_col=min_col, max_col=max_col):
-            data = self.convert_row_to_dict(row, key_mapping)
+            data = self.convert_row_to_dict(row)
             table_data.append(data)
 
         return table_data

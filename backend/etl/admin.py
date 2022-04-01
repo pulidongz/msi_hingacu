@@ -71,6 +71,20 @@ class KeyValueStoreAdmin(admin.ModelAdmin):
         'code'
     )
 
+class DataExtractionConfigurationAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'sheet_name',
+        'worksheet_configuration',
+        'extraction_type'
+    )
+    formfield_overrides = {
+        JSONField:{'widget': JSONEditor},
+    }
+
+    def sheet_name(self, obj):
+        return obj.worksheet_configuration.sheet_name
+
 class DataExtractionConfigurationInline(admin.StackedInline):
     model = DataExtractionConfiguration
 
@@ -89,3 +103,4 @@ admin.site.register(KeyValueStore, KeyValueStoreAdmin)
 admin.site.register(Workbook)
 admin.site.register(WorkbookConfiguration)
 admin.site.register(WorksheetConfiguration, WorksheetConfigurationAdmin)
+admin.site.register(DataExtractionConfiguration, DataExtractionConfigurationAdmin)
