@@ -25,3 +25,5 @@ yarn-error.log*
 # python
 *.pyc
 /backend/static/
+/backend/media/
+/backend/results/
