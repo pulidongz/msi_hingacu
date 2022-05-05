@@ -518,6 +518,8 @@ class DataExtractionConfiguration(TimeStampModel):
             return import_string('etl.workbooks.extraction.FormDataExtraction')
         elif self.extraction_type == DataExtractionConfiguration.TYPE_TABLE_ROWS:
             return import_string('etl.workbooks.extraction.RowDataExtraction')
+        elif self.extraction_type == DataExtractionConfiguration.TYPE_TABLE_COLUMNS:
+            return import_string('etl.workbooks.extraction.ColumnDataExtraction')
         return import_string('etl.workbooks.extraction.ExtractionProcess')
 
     def is_form_config(self):

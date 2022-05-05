@@ -1,9 +1,11 @@
 from openpyxl.utils.exceptions import InvalidFileException
+from abc import ABCMeta, abstractmethod
 from etl.models import Workbook, DataExtractionConfiguration
 
 
 class ExtractionProcess:
     # Generalized Process for Validating and Extracting Data from a worksheet
+    __metaclass__ = ABCMeta
 
     def __init__(self, config, workbook):
         # assumption here is that the wb has already been checked to contain the config's requirements
@@ -26,11 +28,12 @@ class ExtractionProcess:
             raise Workbook.DoesNotExist(message)
         return ws
 
+    @abstractmethod
     def extract(self):
-        ws = self.get_worksheet()
-
-        #OVERRIDE ME
-        return data
+        ''' To override '''
+        #ws = self.get_worksheet()
+        #return data
+        pass
 
     def validate(self, data):
         # validate extracted data with given form_class
@@ -89,9 +92,9 @@ class RowDataExtraction(ExtractionProcess):
     #Extract values from a worksheet with a table format
     #config will have a column index for each field_name
 
-    def convert_row_to_values(self, row):
-        row_values = []
-        for cell in row:
+    def convert_entry_to_values(self, entry):
+        entry_values = []
+        for cell in entry:
             if cell.hyperlink: # use hyperlink value instead of text value if available
                 value = cell.hyperlink.target
             else:
@@ -100,15 +103,15 @@ class RowDataExtraction(ExtractionProcess):
             if type(value) == float:
                 if value.is_integer():
                     value = int(value)
-            row_values.append(value)
-        return row_values
+            entry_values.append(value)
+        return entry_values
 
-    def convert_row_to_dict(self, row):
+    def convert_entry_to_dict(self, entry):
         fields = self.config.rules['fields']
-        row_values = self.convert_row_to_values(row)
+        entry_values = self.convert_entry_to_values(entry)
         data = {}
         for field in fields:
-            data[field['field_name']] = row_values[field['column_index']]
+            data[field['field_name']] = entry_values[field['column_index']]
         print(data)
         return data
 
@@ -125,7 +128,7 @@ class RowDataExtraction(ExtractionProcess):
         table_data = []
         for row in ws.iter_rows(min_row=min_row, max_row=max_row, min_col=min_col, max_col=max_col):
             if any(cell.value for cell in row): #process only non-blank rows
-                data = self.convert_row_to_dict(row)
+                data = self.convert_entry_to_dict(row)
                 table_data.append(data)
 
         return table_data
@@ -134,7 +137,30 @@ class RowDataExtraction(ExtractionProcess):
         #extract raw data based on config
         raw_table_data = self.extract()
 
-        for row in raw_table_data: #raw data is a list, validate per element
-            cleaned_data = self.validate(row)
+        for entry in raw_table_data: #raw data is a list, validate per element
+            cleaned_data = self.validate(entry)
             data = self.transform(cleaned_data)
             self.load(data)
+
+
+class ColumnDataExtraction(RowDataExtraction):
+    #Extract values from a worksheet with a table format where each entry in a column
+    #config will have a row_index for each field_name
+
+    def extract(self):
+        ws = self.get_worksheet()
+        min_row = self.config.rules['min_row']
+        max_row = self.config.rules['max_row']
+        min_col = self.config.rules['min_col']
+        max_col = self.config.rules['max_col']
+
+        #TO DO VALIDATE RULES WITH NUMBER OF COLUMNS AND COLUMN NAMES
+        #BEFORE EXTRACTING
+
+        table_data = []
+        for col in ws.iter_cols(min_row=min_row, max_row=max_row, min_col=min_col, max_col=max_col):
+            if any(cell.value for cell in col): #process only non-blank columns
+                data = self.convert_entry_to_dict(col)
+                table_data.append(data)
+
+        return table_data
