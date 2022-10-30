@@ -12,7 +12,7 @@ const Home = () => {
 		<Sidebar />
 		<RSidebar />
 		</>
-		
+
 	)
 }
 
