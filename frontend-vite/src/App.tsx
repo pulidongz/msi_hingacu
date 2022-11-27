@@ -7,27 +7,28 @@ const Signup = lazy(() => import('./modules/auth/Signup'))
 const ForgotPassword = lazy(() => import('./modules/auth/ForgotPassword'))
 const ResetPassword = lazy(() => import('./modules/auth/ResetPassword'))
 
-const Home = lazy(() => import('./pages/Home'))
-
+const HomePage = lazy(() => import('./pages/HomePage'))
+const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage.js'))
 
 function App() {
   return (
     <Router>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route  path="/" element={<Home />}/>
-            <Route path="login" element={<Login />}/>
-            <Route path="signup" element={<Signup />}/>
-            <Route path="forgot-password" element={<ForgotPassword />}/>
-            <Route path="reset-password" element={<ResetPassword />}/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
 
-            {/* <Route exact path="/dashboard" component={Dashboard}/>
+          {/* <Route exact path="/dashboard" component={Dashboard}/>
             <Route exact path="/home" component={Home}/>
 
             <Route component={Error404} /> */}
-          </Routes>
-        </Suspense>
-      </Router>
+        </Routes>
+      </Suspense>
+    </Router>
   )
 }
 

@@ -1,0 +1,8 @@
+.LandingPageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+  width: 100%;
+  background-color: white;
+}
