@@ -7,17 +7,18 @@
 
 .slim {
   composes: base;
-  max-width: 42rem;
+  max-width: 672px;
 }
 
 .regular {
   composes: base;
   max-width: var(--sh_containerLg);
+  background-color: white;
 }
 
 .wide {
   composes: base;
-  max-width: 84rem;
+  max-width: 1344px;
 }
 
 .panel {

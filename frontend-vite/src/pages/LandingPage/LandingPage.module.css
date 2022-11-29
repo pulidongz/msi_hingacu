@@ -1,8 +1,47 @@
-.LandingPageContainer {
+.landingPageContainer {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: flex-start;
   width: 100%;
-  background-color: white;
+  background-color: red;
+}
+
+.navBar {
+  height: 40px;
+  min-height: none;
+  background-color: #319795;
+}
+
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: var(--headerNavHeight);
+  width: 100%;
+  color: inherit;
+  margin: auto;
+}
+
+.toolbarButtons {
+  composes: ui16Regular from 'styles/typeography.css';
+  color: white;
+  margin-right: 48px;
+}
+
+.searchBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: blanchedalmond;
+  max-width: 612px;
+  margin: 162px auto;
+  padding: 24px;
+}
+
+.landing {
+  composes: ui12Medium from 'styles/typeography.css';
+  color: var(--colorBlue12);
 }

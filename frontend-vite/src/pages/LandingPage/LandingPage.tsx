@@ -4,35 +4,42 @@ import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/mater
 import MenuIcon from '@mui/icons-material/Menu'
 
 import styles from './LandingPage.module.css'
+import { RegularContainer, WideContainer } from '../../components/ResponsiveContainers'
+import classNames from 'classnames'
 
 const Sidebar = lazy(() => import('../../modules/left-sidebar/Sidebar'))
 const RSidebar = lazy(() => import('../../modules/right-sidebar/RSidebar'))
 
 const LandingPage = () => {
   return (
-    <div className={styles.landingPageContainer}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              About the Project
-            </Typography>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Project Partners
-            </Typography>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Contact Us
-            </Typography>
+    <div>
+      {/* TODO: Create navBar component*/}
+      <nav className={styles.navBar}>
+        <div className={styles.headerWrapper}>
+          <ul>
+            {/* <Link href="/sh/dashboard"> */}
+            <a className={styles.toolbarButtons}>HINGACU</a>
+            {/* </Link> */}
+          </ul>
 
-            {/* <Button color="inherit">Login</Button> */}
-          </Toolbar>
-        </AppBar>
-      </Box>
-
-      <p>Landing Page</p>
+          <ul>
+            {/* <Link href="/sh/dashboard"> */}
+            <a className={styles.toolbarButtons}>About the Project</a>
+            {/* </Link> */}
+            {/* <Link href="/sh/dashboard"> */}
+            <a className={styles.toolbarButtons}>Project Partners</a>
+            {/* </Link> */}
+            {/* <Link href="/sh/dashboard"> */}
+            <a className={styles.toolbarButtons}>Contact Us</a>
+            {/* </Link> */}
+          </ul>
+        </div>
+      </nav>
+      <p className={styles.landing}>Landing Page</p>
+      <div className={styles.searchBox}>
+        <p>HINGACU logo</p>
+        <p>Search an area or location to view available mangrove, seagrass, reef, fish and coastline data.</p>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,11 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import './App.css'
+
+import '../styles/globals.css'
+import '../styles/variables.css'
+import '../styles/typeography.css'
+
+// import './App.css'
 
 const Login = lazy(() => import('./modules/auth/Login'))
 const Signup = lazy(() => import('./modules/auth/Signup'))
@@ -10,7 +15,7 @@ const ResetPassword = lazy(() => import('./modules/auth/ResetPassword'))
 const HomePage = lazy(() => import('./pages/HomePage'))
 const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage.js'))
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
