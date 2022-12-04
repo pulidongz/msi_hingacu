@@ -1,19 +1,58 @@
 import React, { useState, useRef, useEffect } from 'react'
-import Grid from '@material-ui/core/Grid';
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import { MapContainer, TileLayer, WMSTileLayer, LayersControl, useMapEvent, useMapEvents } from 'react-leaflet'
+import Grid from '@mui/material/Grid';
+import { createTheme } from '@mui/material/styles';
+import L from "leaflet";
+import { MapContainer, TileLayer, LayerGroup, WMSTileLayer, LayersControl, useMapEvents, Marker, GeoJSON, useMap, Polyline } from 'react-leaflet'
 import CustomWMSLayer from '../../utilities/Leaflet/CustomWMSLayer';
+import MapOptionsLayers from './MapOptionsLayers';
+import axios from 'axios';
+import { render } from '@testing-library/react';
+import geojson from './geojson.json';
+
+const { Overlay } = LayersControl;
+
+
+
 // import 'react-pro-sidebar/dist/css/styles.css';
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 export default function HomeMap () {
+	// const map = useMap()
 	const karagatanURL = 'http://167.86.124.21:8080/geoserver/karagatan/wms';
 	const philcomarsURL = 'http://202.90.159.74:8080/geoserver/philcomars/wms'
+
+	const [data, setData] = React.useState(null);
+	const innerBounds = [
+		[12.599512, 121.984222],
+		[11.630715737981498, 131.04492187500003],
+	  ]
+
+	useEffect(() => {
+    const getData = async () => {
+      const response = await axios.get(
+        "http://202.90.159.74:8080/geoserver/philcomars/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=philcomars%3A20180125_reg_boundary&maxFeatures=50&outputFormat=application%2Fjson"
+      );
+      setData(response.data);
+    };
+    getData();
+  }, []);
+
+	const [position, setPosition] = useState(null)
+	const icon = L.icon({
+		iconSize: [25, 41],
+		iconAnchor: [10, 41],
+		popupAnchor: [2, -40],
+		iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
+		shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+	  });
 
 	function ChangeWmsLayer() {
 		const [wmsLayer, setWmsLayer] = useState(null);
 		const map = useMapEvents({
+			click(e) {
+				console.log(e.latlng)
+			  },
 			overlayadd: (e) => {
 				console.log("MAP", e.name);
 				switch (e.name) {
@@ -98,16 +137,19 @@ export default function HomeMap () {
 		return (wmsLayer);
 	}
 
+	console.log(data);
 	return(
 		<MapContainer className="leaflet_home_map" center={[12.599512, 121.984222]} zoom={6} scrollWheelZoom={true} style={{ height: "100vh"}}>
-				<LayersControl position="topright" collapsed={false}>
-					<LayersControl.BaseLayer checked name="NAMRIA Basemap">
+						{/* <MapOptionsLayers /> */}
+
+				<LayersControl position="topright" collapsed={true}>
+					<LayersControl.BaseLayer name="NAMRIA">
 						<TileLayer
 							attribution='© <a href="https:/www.geoportal.gov.ph">Geoportal Philippines</a>'
 							url='http://basemapserver.geoportal.gov.ph/tiles/v2/PGP/{z}/{x}/{y}.png'
 						/>
 					</LayersControl.BaseLayer>
-					<LayersControl.BaseLayer name="Google Map">
+					<LayersControl.BaseLayer checked name="Google Maps">
 						<TileLayer
 							attribution='© Google <a href="https://developers.google.com/maps/terms">Terms of Use</a>'
 							url='http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga'
@@ -156,7 +198,18 @@ export default function HomeMap () {
 							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
-					<LayersControl.Overlay name="Fisheries Management Areas">
+					<LayersControl.Overlay checked name="Mangrove">
+						<GeoJSON
+							key='1'
+							attribution="Mangrove (BlueCARES)"
+							data={data}
+							pathOptions={{ color: 'red' }}
+						/>
+					</LayersControl.Overlay>
+					{/* <LayersControl.Overlay checked name="Test">
+						<Polyline positions={innerBounds} />
+					</LayersControl.Overlay> */}
+					{/* <LayersControl.Overlay name="Fisheries Management Areas">
 						<WMSTileLayer
 							url={karagatanURL}
 							layers= 'karagatan:fma'
@@ -216,7 +269,7 @@ export default function HomeMap () {
 							format= 'image/png'
 							// crossOrigin='anonymous'
 						/>
-					</LayersControl.Overlay>
+					</LayersControl.Overlay> */}
 					<LayersControl.Overlay name="Municipal Boundaries (Philcomars)">
 						<WMSTileLayer
 							url={philcomarsURL}
@@ -224,7 +277,7 @@ export default function HomeMap () {
 							version= '1.1.0'
 							transparent= {true}
 							format= 'image/png'
-							// crossOrigin='anonymous'
+							crossOrigin='anonymous'
 						/>
 					</LayersControl.Overlay>
 				</LayersControl>

@@ -2,28 +2,28 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider }  from "@material-ui/core/styles";
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import { makeStyles } from '@mui/styles';
+import { ThemeProvider }  from "@mui/styles";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from "@mui/icons-material//Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { createTheme } from '@mui/material/styles';
 
 import { useHistory } from 'react-router-dom';
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 function Copyright() {
   return (
