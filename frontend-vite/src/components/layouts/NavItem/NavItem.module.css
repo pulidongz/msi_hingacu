@@ -1,0 +1,46 @@
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0.5rem 1rem;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--elementBorderRadius);
+  user-select: none;
+}
+
+.navItem a {
+  display: flex;
+  align-items: center;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navItem a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.navItem.isPrimary {
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: var(--colorButtonDefault);
+  transition: background-color 200ms ease;
+}
+
+.navItem.isPrimary:hover {
+  background-color: var(--colorPrimary);
+}
+
+.navItem.disabled {
+  color: var(--colorTextVeryMuted);
+  cursor: default;
+}
+
+.navItem.isActive {
+  background-color: var(--colorGreen12);
+}

@@ -1,4 +1,4 @@
-import NavBar from '../../stories/NavBar'
+import NavBar from '../../components/layouts/NavBar'
 
 import styles from './AboutTheProjectPage.module.css'
 

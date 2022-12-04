@@ -2,8 +2,8 @@ import { Suspense, lazy } from 'react'
 import classNames from 'classnames'
 
 import { AppBar, Box, Button, IconButton, TextField, Toolbar, Typography } from '@mui/material'
-import { RegularContainer, WideContainer } from '../../components/ResponsiveContainers'
-import NavBar from '../../stories/NavBar'
+import { RegularContainer, WideContainer } from '../../components/layouts/ResponsiveContainers'
+import NavBar from '../../components/layouts/NavBar'
 
 import styles from './LandingPage.module.css'
 
