@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+
+{% block title %}Datasheet Review{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="mt-4">"{{ object.name }}" Data Capture Requirements</h3>
+    </div>
+  </div>
+  {% for sheet in sheets %}
+    <div class="row border p-3 mt-4">
+      <div class="row">
+        <div class="col-12">
+          <h4>{{ sheet.sheet_name }}</h4>
+        </div>
+      </div>
+      {% for section in sheet.sections %}
+        <div class="row p-3">
+          <div class="col-12 border">
+            <div class="p-2">
+              <strong>{{ section.section.name }}</strong>
+            </div>
+            <div class="mx-3" >
+              Found in rows <b>{{ section.section.min_row }} to {{ section.section.max_row }}</b>, and columns <b>{{ section.section.min_col }} to {{ section.section.max_col }}</b>.
+              {% if section.section.extraction_type == 'table_columns' %}
+                It is a table of data grouped in <b>columns</b> with the following fields:
+              {% elif section.section.extraction_type == 'table_rows' %}
+                It is a table of data grouped in <b>rows</b> with the following fields:
+              {% elif section.section.extraction_type == 'form' %}
+                It is a <b>form</b> with the following fields:
+              {% endif %}
+              <table class="table table-bordered mt-2">
+                <tr>
+                  <th>Field Name</th>
+                  <th>Field Type</th>
+                  {% if section.section.extraction_type == 'form' %}
+                    <th>Cell</th>
+                  {% else %}
+                    <th>Field Index</th>
+                  {% endif %}
+                  <th>Required</th>
+                </tr>
+                {% for field in section.fields %}
+                  <tr>
+                    <td>{{ field.field_name }}</td>
+                    <td>{{ field.field_type}}</td>
+                    {% if section.section.extraction_type == 'form' %}
+                      <td>{{ field.cell }}</td>
+                    {% else %}
+                      <td>{{ field.field_index }}</td>
+                    {% endif %}
+                    <td>{{ field.required }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block extrabody %}
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+{% load crispy_forms_tags %}
+
+{% block title %}Manage Workbooks{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <h3 class="mt-4">{% if configuration %}{{ configuration.name }} {% endif %}{% trans "Workbooks" %}</h3>
+    </div>
+    <div class="col-3">
+      <a class="btn btn-primary mt-4 float-end" href="{% url 'etl:workbook-upload' %}?code={{ configuration.code }}">
+        Upload a New Workbook
+      </a>
+    </div>
+  </div>
+  <div class="row etl">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Workbook ID</th>
+          <th>Status</th>
+          <th>Workbook Type</th>
+          <th>Date Uploaded</th>
+          <th>Uploader</th>
+          <th>File</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if page_obj %}
+        {% for wb in page_obj %}
+          <tr>
+            <td>
+              {{ wb.code }}
+            </td>
+            <td>
+              <span class="{{ wb.get_status_class }}">{{ wb.get_status_display }}</span> (<a href="{% url 'etl:workbook-detail' wb.pk %}">review</a>)
+            </td>
+            <td>
+              {{ wb.configuration }}
+            </td>
+            <td>
+              {{ wb.date_created|timezone:"Asia/Manila" }}
+            </td>
+            <td>
+              {{ wb.uploader.username }}
+            </td>
+            <td>
+              {% if wb.file_with_corrections %}
+                <a href="{{ wb.file_with_corrections.url }}">{{ wb.get_filename|truncatechars:30 }}</a>
+              {% else %}
+                <a href="{{ wb.file.url }}">{{ wb.get_filename|truncatechars:30 }}</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td class="text-center" colspan=6>No Workbooks Found</td>
+        </tr>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo;</a>
+        <a href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+{% endblock %}

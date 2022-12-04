@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+{% load crispy_forms_tags %}
+
+{% block title %}Workbook Select{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <h1 class="mt-4 text-center">{% trans "Select Your Survey Method" %}</h1>
+  </div>
+  <div class="row">
+    <div class="col">
+    <div class="row text-center mt-4"><h4>Coastal Integrity</h4></div>  
+    {% for type in coastal %}
+      <div class="row text-center mt-4">
+        <a href="{% url 'etl:workbook-upload' %}?code={{ type.code }}">
+          <button type="button" class="btn btn-primary btn-lg btn-block">
+            {{ type.name }}
+          </button>
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+    <div class="col">
+    <div class="row text-center mt-4"><h4>Mangrove Assessment</h4></div>
+    {% for type in mangrove %}
+      <div class="row text-center mt-4">
+        <a href="{% url 'etl:workbook-upload' %}?code={{ type.code }}">
+          <button type="button" class="btn btn-primary btn-lg btn-block">
+            {{ type.name }}
+          </button>
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+    <div class="col">
+    <div class="row text-center mt-4"><h4>Seagrass Assessment</h4></div>
+    {% for type in seagrass %}
+      <div class="row text-center mt-4">
+        <a href="{% url 'etl:workbook-upload' %}?code={{ type.code }}">
+          <button type="button" class="btn btn-primary btn-lg btn-block">
+            {{ type.name }}
+          </button>
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+    <div class="col">
+    <div class="row text-center mt-4"><h4>Reef Assessment</h4></div>  
+    {% for type in reef %}
+      <div class="row text-center mt-4">
+        <a href="{% url 'etl:workbook-upload' %}?code={{ type.code }}">
+          <button type="button" class="btn btn-primary btn-lg btn-block">
+            {{ type.name }}
+          </button>
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

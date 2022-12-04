@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+
+{% block title %}Datasheet Review{% endblock %}
+
+
+{% block content %}
+<div class="row-fluid etl">
+  <h3 class="mt-4">{% trans "Data File Review" %}</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Uploader</th>
+        <th>Date Uploaded</th>
+        <th>File Name</th>
+        <th>Status</th>
+        <th>Result File</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="{% url 'etl:collection-detail' etlfile.dcp_collection.code %}">{{ etlfile.dcp_collection.name }}</a>
+        </td>
+        <td>
+          {{ etlfile.uploader.username }}
+        </td>
+        <td>
+          {{ etlfile.date_created|timezone:"Asia/Manila" }}
+        </td>
+        <td>
+          {{ etlfile.get_filename }}
+        </td>
+        <td>
+          {{ etlfile.get_status_display }}
+        </td>
+        <td>
+          {% if etlfile.result_file %}
+            <a href="{{ etlfile.result_file.url }}">Download</a>
+          {% endif %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <h3 class="mt-4">{% trans "Data File Summary per Data Capture Point" %}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>
+            Sheet Name
+          </th>
+          <th>
+            Data Rows Extracted
+          </th>
+          <th>
+            Errors Found
+          </th>
+        </tr>
+        {% for dcp in dcps %}
+        {% with sheet_name=dcp.dcp|slugify %}
+        <tr>
+          <td>
+            {{ dcp.dcp }}
+          </td>
+          <td>
+            {{ dcp.data.count }} (<a href="{% url 'etl:etl-row-list' object.pk sheet_name %}" target="_blank">view</a>)
+          </td>
+          <td>
+            {{ dcp.error_list|length }} (<a href="{% url 'etl:etl-error-list' object.pk sheet_name %}" target="_blank">view</a>)
+          </td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <h3 class="mt-4">{% trans "Data Extracted" %}</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>
+            Field Name
+          </th>
+          <th>
+            Field Value
+          </th>
+          <th>
+            Errors Found
+          </th>
+        </tr>
+        {% for dcp in dcps %}
+        {% with sheet_name=dcp.dcp|slugify %}
+        <tr>
+          <td>
+            {{ dcp.dcp }}
+          </td>
+          <td>
+            {{ dcp.data.count }} (<a href="{% url 'etl:etl-row-list' object.pk sheet_name %}" target="_blank">view</a>)
+          </td>
+          <td>
+            {{ dcp.error_list|length }} (<a href="{% url 'etl:etl-error-list' object.pk sheet_name %}" target="_blank">view</a>)
+          </td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-lg-6">
+    <h3 class="mt-4">{% trans "Upload a Corrected Data File" %}</h3>
+    <div>
+      Upload an XLSX file with the corrections.
+    </div>
+    {% include 'etl/etlfile_form_snippet.html' %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+      <ul class="nav nav-tabs" id="DCPTabs" role="tablist">
+        {% for dcp in dcps %}
+          <li class="nav-item" role="presentation">
+              <a class="nav-link {% if forloop.first %}active{% endif %}" id="{{ dcp.index }}-tab"
+                data-bs-toggle="tab" href="#content-{{ dcp.index }}" role="tab" aria-controls="content-{{ dcp.index }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                {{ dcp.dcp }}
+              </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="tab-content">
+        {% for dcp in dcps %}
+          <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="content-{{ dcp.index }}" role="tabpanel" aria-labelledby="{{ dcp.index }}-tab">
+            <div>
+              <h5 class="mt-4">{% trans "Errors Encountered for" %} {{ dcp.dcp }}</h3>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Sheet</th>
+                  <th>Row</th>
+                  <th>Column</th>
+                  <th>Error</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for error in dcp.error_list %}
+                <tr>
+                  <td>
+                    {{ error.sheet }}
+                  </td>
+                  <td>
+                    {{ error.row }}
+                  </td>
+                  <td>
+                    {{ error.column }}
+                  </td>
+                  <td>
+                    {{ error.error }}
+                  </td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td>NO ERRORS FOUND</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+            <div>
+              <h5 class="mt-4">{% trans "Data Extracted from" %} {{ dcp.dcp }}</h3>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Sheet Name</th>
+                  <th>Row Number</th>
+                  <th>Extracted Data</th>
+                  <th>Missing Data</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for row in dcp.data %}
+                <tr>
+                  <td>
+                    {{ row.sheet_name }}
+                  </td>
+                  <td>
+                    {{ row.number }}
+                  </td>
+                  <td>
+                    {{ row.data }}
+                  </td>
+                  <td>
+                    {{ row.warnings }}
+                  </td>
+                </tr>
+                {% empty %}
+                  <tr>
+                    <td>NO DATA AVAILABLE</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endfor %}
+      </div>
+      
+  </div>
+</div>
+{% endblock %}
+
+{% block extrabody %}
+<script>
+  $('#DCPTabs a').on('click', function (e) {
+    e.preventDefault();
+    console.log($(this));
+    $(this).tab('show');
+    console.log($(this).tab());
+  });
+</script>
+{% endblock %}

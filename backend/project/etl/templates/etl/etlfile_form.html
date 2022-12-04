@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Data Sheet Upload{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+  <h1 class="mt-4">{% trans "Data Sheet Upload" %}</h1>
+
+  {% include 'etl/etlfile_form_snippet.html' %}
+</div>
+{% endblock %}

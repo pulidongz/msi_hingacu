@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+{% load crispy_forms_tags %}
+
+{% block title %}ETL Task List{% endblock %}
+
+
+{% block content %}
+<div class="row-fluid">
+  <h3 class="mt-4">{% trans "Upload a Datasheet" %}</h3>
+  <div>
+    Upload an XLSX file with a separate sheet each data capture point
+    (e.g. an excel file with sheets named 'P1-01' and 'P1-02').
+  </div>
+  {% include 'etl/etlfile_form_snippet.html' %}
+</div>
+
+<div class="row-fluid etl">
+  <h3 class="mt-4">{% trans "Datasheets Uploaded" %}</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Uploader</th>
+        <th>Date Uploaded</th>
+        <th>File Name</th>
+        <th>Status</th>
+        <th>Errors</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for etlfile in page_obj %}
+      <tr>
+        <td>
+          {{ etlfile.dcp_collection.name }}
+        </td>
+        <td>
+          {{ etlfile.uploader.username }}
+        </td>
+        <td>
+          {{ etlfile.date_created|timezone:"Asia/Manila" }}
+        </td>
+        <td>
+          {{ etlfile.get_filename }}
+        </td>
+        <td>
+          {{ etlfile.get_status_display }}
+        </td>
+        <td>
+          <a href="{% url 'etl:etl-detail' etlfile.pk %}">
+            review
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      <a href="?page=1">&laquo;</a>
+      <a href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

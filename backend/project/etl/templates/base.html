@@ -1,0 +1,146 @@
+{% load static %}
+{% load leaflet_tags %}
+
+{% url 'etl:etl-list' as etl_url %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
+
+  <!-- Bootstrap 5 -->
+  <link href="{{ STATIC_URL }}bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!-- Bootstrap 5 -->
+
+  {% leaflet_css %}
+
+  <title>
+    HINGACU {% block title %}{% endblock %}
+  </title>
+
+  {% block extrahead %}
+  {% endblock %}
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="{{ STATIC_URL }}img/hingacu-logo-very-small.png" alt="" width="24" height="24" class="d-inline-block align-text-top hingacu-logo">
+          HINGACU
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/api/">API</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                {% if user.is_staff %}
+                  <li><a class="dropdown-item" href="/admin/">Administration</a></li>
+                {% endif %}
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'etl:workbook-layout-list' %}">
+                Data Capture Requirements
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="componentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Workbooks
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="componentsDropdown">
+                {% for config in configs %}
+                <li>
+                  <a class="dropdown-item" href="{% url 'etl:workbook-list' %}?code={{ config.code }}">
+                    {{ config.name }}s
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'etl:workbook-upload-select' %}">Upload</a>
+            </li>
+              {% if user.is_curator %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'curation:curation-list' %}">
+                    Curation
+                  </a>
+                </li>
+              {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Header -->
+
+  <!-- Main -->
+  <main role="main">
+    <div class="container-fluid hingacu-main">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="row">
+            <div class="col-12 text-center mt-4">
+              <p class="alert {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} alert-success {% endif %}" role="alert">
+                {{ message }}
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+    </div>
+  </main>
+  <!-- Main -->
+
+  <!-- Footer -->
+  <footer class="page-footer font-small blue">
+    
+    <!-- Copyright -->
+    <!--
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="">UP MSI</a>
+    </div>
+    -->
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+  <!-- Bootstrap 5 -->
+  <script src="{{ STATIC_URL }}bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!-- Bootstrap 5 -->
+
+  {% leaflet_js %}
+
+  {% block extrabody %}
+  {% endblock %}
+</body>
+
+</html>

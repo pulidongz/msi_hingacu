@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+
+{% block title %}Datasheet Review{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <h3 class="mt-4">Workbook {{ workbook.code }} Review</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Workbook Type</th>
+          <th>Date Uploaded</th>
+          <th>Uploader</th>
+          <th>File</th>
+          <th>Attachments</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="{{ workbook.get_status_class }}">
+            {{ workbook.get_status_display }}
+          </td>
+          <td>
+            {{ workbook.configuration }} (<a target="_blank" href="{% url 'etl:workbook-layout-detail' workbook.configuration.pk %}">Review Data Description</a>)
+          </td>
+          <td>
+            {{ workbook.date_created|timezone:"Asia/Manila" }}
+          </td>
+          <td>
+            {{ workbook.uploader.username }}
+          </td>
+          <td>
+            {% if workbook.is_ready %}
+              {% if workbook.file_with_corrections %}
+                <a href="{{ workbook.file_with_corrections.url }}">
+                  {{ workbook.get_filename_checked|truncatechars:30 }}
+                </a>
+              {% else %}
+                <a href="{{ workbook.file.url }}">
+                {{ workbook.get_filename|truncatechars:30 }}
+                </a>
+              {% endif %}
+            {% endif %}
+          </td>
+          <td>
+            {% if workbook.attachments %}
+              <a href="{{ workbook.attachments.url }}">Download</a>
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% if workbook.has_non_field_errors %}
+  <div class="row">
+    <div class="row">
+      <div class="col-12 mt-4 alert alert-danger" role="alert"">
+        <b>This file has the following critical errors:</b>
+        {% for error in workbook.non_field_errors %}
+        <ul class="mb-1">
+          <li><b>{{ error.error }}</b></li>
+        </ul>
+        {% endfor %}
+        <b>Please make sure these issues are resolved before uploading again.</b>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if workbook.file_with_corrections %}
+    {% if workbook.has_field_errors %}
+      <div class="row">
+        <div class="row">
+          <div class="col-12 text-center mt-4">
+            <p class="alert alert-danger" role="alert">
+              <b>Oh no! This workbook needs corrections. Please download file <a href="{{ workbook.file_with_corrections.url }}">
+                {{ workbook.get_filename_checked|truncatechars:30 }}
+              </a> to correct the errors.</b>
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+  {% if workbook.is_complete %}
+    <div class="row">
+        <div class="row">
+          <div class="col-12 text-center mt-4">
+            <p class="alert alert-success" role="alert">
+              <b>Good Job!</b> Your workbook has been cleared for curation. <b>Thank you for your contribution!</b>
+            </p>
+          </div>
+        </div>
+      </div>
+  {% endif %}
+  {% if preview %}
+    <div class="row">
+      <h3 class="mt-4">{% trans "Preview" %}</h3>
+      <div class="row">
+        {% include preview.template %}
+      </div>
+    </div>
+  {% endif %}
+  {% if user.is_curator %}
+  <div class="row">
+    <h3 class="mt-4">{% trans "Curation" %}</h3>
+    <div class="row">
+      <form enctype="multipart/form-data" method="post"
+        action="{% url 'curation:curation-create' %}">
+        {% csrf_token %}
+        {{ curation_form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <h3 class="mt-4">{% trans "Data Extracted" %}</h3>
+    {% for sheet in sheets %}
+      <div class="row">
+        <h5 class="text-center">
+          {{ sheet.info.sheet_name }}
+        </h5>
+        <div class="row">
+          {% for section in sheet.sections %}
+            <div class="text-center">
+              <b>{{ section.info.name }}</b>
+            </div>
+            {% for entry in section.extracted_data %}
+              <div>
+                <b>
+                {{ section.info.name }} entry #{{ entry.entry_number }}: id {{ entry.pk }}
+                </b>
+              </div>
+              <table class="table table-striped">
+                <tbody>
+                    <tr>
+                      <th>Field</th>
+                      <th>Value</th>
+                    </tr>
+                    {% for field in entry.fields %}
+                      <tr>
+                        <td>{{ field.0 }}</td>
+                        <td>{{ field.1 }}</td>
+                      </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extrabody %}
+{% endblock %}
