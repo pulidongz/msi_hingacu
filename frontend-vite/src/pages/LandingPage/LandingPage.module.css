@@ -4,30 +4,6 @@
   justify-content: stretch;
   align-items: flex-start;
   width: 100%;
-  background-color: red;
-}
-
-.navBar {
-  height: 40px;
-  min-height: none;
-  background-color: #319795;
-}
-
-.headerWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  height: var(--headerNavHeight);
-  width: 100%;
-  color: inherit;
-  margin: auto;
-}
-
-.toolbarButtons {
-  composes: ui16Regular from 'styles/typeography.css';
-  color: white;
-  margin-right: 48px;
 }
 
 .searchBox {
@@ -35,10 +11,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: blanchedalmond;
+  background-color: white;
   max-width: 612px;
   margin: 162px auto;
   padding: 24px;
+}
+
+.subText {
+  composes: ui18Regular from 'styles/typeography.css';
+  color: #727272;
+  margin-top: 18px;
+  margin-bottom: 24px;
+}
+
+.center {
+  text-align: center;
 }
 
 .landing {

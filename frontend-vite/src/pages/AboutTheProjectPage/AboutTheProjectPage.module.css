@@ -1,0 +1,25 @@
+.aboutTheProjectContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 960px;
+  width: 100%;
+  margin: 38px auto 0 auto;
+  padding: 25px 48px 38px 48px;
+  background-color: white;
+}
+
+.title {
+  composes: ui20Medium from 'styles/typeography.css';
+  color: #5b5b5b;
+  margin-bottom: 0;
+}
+
+.hingacuLogo {
+  margin: 32px auto 32px 0;
+}
+
+.hingacuLink {
+  color: #319795;
+}

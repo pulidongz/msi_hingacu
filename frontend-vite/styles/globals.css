@@ -12,6 +12,7 @@ body,
 #root {
   height: 100%;
   width: 100%;
+  background-color: #edf2f7;
 }
 
 html {

@@ -5,7 +5,7 @@ import styles from './Home.module.css'
 const Sidebar = lazy(() => import('../../modules/left-sidebar/Sidebar'))
 const RSidebar = lazy(() => import('../../modules/right-sidebar/RSidebar'))
 
-const HomePage = () => {
+const MapPage = () => {
   return (
     <>
       <Sidebar />
@@ -14,4 +14,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default MapPage

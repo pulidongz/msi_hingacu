@@ -1,0 +1,40 @@
+.contactUsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 960px;
+  width: 100%;
+  margin: 38px auto 0 auto;
+  padding: 25px 48px 60px 48px;
+  background-color: white;
+}
+
+.title {
+  composes: ui20Medium from 'styles/typeography.css';
+  color: #5b5b5b;
+  margin-bottom: 0;
+}
+
+.subText {
+  composes: ui18Regular from 'styles/typeography.css';
+  color: #5b5b5b;
+  margin: 14px auto 28px auto;
+  max-width: 562px;
+  text-align: center;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 72px;
+}
+
+.logoItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+}
