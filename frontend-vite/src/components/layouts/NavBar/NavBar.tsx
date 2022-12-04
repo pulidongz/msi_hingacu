@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
+import PersonIcon from '@mui/icons-material/Person'
+
 import NavItem from '../NavItem'
 import styles from './NavBar.module.css'
 

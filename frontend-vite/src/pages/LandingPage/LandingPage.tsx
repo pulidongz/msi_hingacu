@@ -1,4 +1,5 @@
-import { Suspense, lazy } from 'react'
+import { Link } from 'react-router-dom'
+import MapIcon from '@mui/icons-material/Map'
 import classNames from 'classnames'
 
 import { AppBar, Box, Button, IconButton, TextField, Toolbar, Typography } from '@mui/material'
@@ -6,9 +7,6 @@ import { RegularContainer, WideContainer } from '../../components/layouts/Respon
 import NavBar from '../../components/layouts/NavBar'
 
 import styles from './LandingPage.module.css'
-
-const Sidebar = lazy(() => import('../../modules/left-sidebar/Sidebar'))
-const RSidebar = lazy(() => import('../../modules/right-sidebar/RSidebar'))
 
 const LandingPage = () => {
   return (
@@ -20,8 +18,12 @@ const LandingPage = () => {
           Search an area or location to view available mangrove, seagrass, reef, fish and coastline data.
         </p>
         <TextField variant="outlined" placeholder="Search Location" sx={{ width: '100%' }}></TextField>
+        <Link to={'/map'}>
+          <Button sx={{ marginTop: '16px', backgroundColor: '#319795' }} variant="contained" startIcon={<MapIcon />}>
+            Map View
+          </Button>
+        </Link>
       </div>
-      ``
     </div>
   )
 }
