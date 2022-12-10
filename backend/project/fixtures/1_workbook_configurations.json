@@ -1,0 +1,156 @@
+[
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 1,
+    "fields": {
+        "date_created": "2022-05-05T07:49:09.562Z",
+        "date_updated": "2022-10-22T08:01:50.091Z",
+        "component": "Reef Assessment",
+        "code": "ALWAN",
+        "name": "ALWAN Survey",
+        "version": 4,
+        "description": "This workbook contains data sheets that you will use for the Alwan methods of monitoring your coral reefs. You will encode the data you have recorded in your surveys of specific components in this workbook.",
+        "publisher_class": "coredb.publishers.alwan.ALWANPublisher"
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 2,
+    "fields": {
+        "date_created": "2022-05-18T10:25:22.294Z",
+        "date_updated": "2022-10-21T14:43:59.397Z",
+        "component": "Coastal Integrity",
+        "code": "CICW",
+        "name": "CI Coast Walk Survey",
+        "version": 1,
+        "description": "Coastal Integrity Coast Walk Survey",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 3,
+    "fields": {
+        "date_created": "2022-06-17T04:21:36.242Z",
+        "date_updated": "2022-10-24T16:03:26.688Z",
+        "component": "Coastal Integrity",
+        "code": "CIBP",
+        "name": "CI Beach Profile Survey",
+        "version": 2,
+        "description": "Coastal Integrity Beach Profile Survey",
+        "publisher_class": "coredb.publishers.coastal.BeachProfilePublisher"
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 4,
+    "fields": {
+        "date_created": "2022-06-17T04:39:11.333Z",
+        "date_updated": "2022-10-21T14:56:41.658Z",
+        "component": "Mangrove Assessment",
+        "code": "MCS",
+        "name": "Mangrove Community Structure Survey",
+        "version": 3,
+        "description": "",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 5,
+    "fields": {
+        "date_created": "2022-06-17T04:39:31.087Z",
+        "date_updated": "2022-10-21T14:57:03.269Z",
+        "component": "Seagrass Assessment",
+        "code": "SGP",
+        "name": "Seagrass Photoquadrat Survey",
+        "version": 4,
+        "description": "",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 6,
+    "fields": {
+        "date_created": "2022-10-07T07:56:49.893Z",
+        "date_updated": "2022-10-21T14:56:04.968Z",
+        "component": "Reef Assessment",
+        "code": "FISH3",
+        "name": "Level 3 Fish Survey",
+        "version": 4,
+        "description": "Fish survey designed for expert level fish data. Contains species level identification of fish.",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 7,
+    "fields": {
+        "date_created": "2022-10-20T01:30:20.230Z",
+        "date_updated": "2022-10-21T14:55:58.669Z",
+        "component": "Reef Assessment",
+        "code": "FISH2",
+        "name": "Level 2 Fish Survey",
+        "version": 5,
+        "description": "",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 8,
+    "fields": {
+        "date_created": "2022-10-20T13:28:35.879Z",
+        "date_updated": "2022-10-21T14:56:17.304Z",
+        "component": "Mangrove Assessment",
+        "code": "MGA",
+        "name": "Mangrove Areal Extent Survey",
+        "version": 3,
+        "description": "",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 9,
+    "fields": {
+        "date_created": "2022-10-20T13:29:33.036Z",
+        "date_updated": "2022-10-21T14:56:47.953Z",
+        "component": "Seagrass Assessment",
+        "code": "SGA",
+        "name": "Seagrass Areal Extent Survey",
+        "version": 3,
+        "description": "",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 10,
+    "fields": {
+        "date_created": "2022-10-21T11:20:05.650Z",
+        "date_updated": "2022-10-21T14:56:31.995Z",
+        "component": "Mangrove Assessment",
+        "code": "MGAS",
+        "name": "Mangrove Associated Species",
+        "version": 3,
+        "description": "",
+        "publisher_class": ""
+    }
+},
+{
+    "model": "etl.workbookconfiguration",
+    "pk": 11,
+    "fields": {
+        "date_created": "2022-10-21T11:21:28.777Z",
+        "date_updated": "2022-10-21T14:56:53.734Z",
+        "component": "Seagrass Assessment",
+        "code": "SGAS",
+        "name": "Seagrass Associated Species",
+        "version": 3,
+        "description": "",
+        "publisher_class": ""
+    }
+}
+]

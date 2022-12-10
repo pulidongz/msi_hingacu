@@ -1,0 +1,812 @@
+[
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 1,
+    "fields": {
+        "date_created": "2022-05-05T08:14:59.097Z",
+        "date_updated": "2022-08-11T20:13:07.404Z",
+        "worksheet_configuration": 1,
+        "name": "Chaetodon Fish Counts",
+        "section_order": 0,
+        "min_row": 10,
+        "max_row": 33,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 4,
+    "fields": {
+        "date_created": "2022-05-18T10:27:54.763Z",
+        "date_updated": "2022-10-20T05:13:49.841Z",
+        "worksheet_configuration": 3,
+        "name": "Survey Details",
+        "section_order": 0,
+        "min_row": 2,
+        "max_row": 26,
+        "min_col": 1,
+        "max_col": 9,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 5,
+    "fields": {
+        "date_created": "2022-06-17T09:14:19.488Z",
+        "date_updated": "2022-10-20T11:40:26.037Z",
+        "worksheet_configuration": 4,
+        "name": "Survey Details",
+        "section_order": 0,
+        "min_row": 2,
+        "max_row": 11,
+        "min_col": 1,
+        "max_col": 9,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 6,
+    "fields": {
+        "date_created": "2022-06-17T09:17:50.808Z",
+        "date_updated": "2022-10-20T12:13:22.414Z",
+        "worksheet_configuration": 4,
+        "name": "Beach Profile Elevations",
+        "section_order": 1,
+        "min_row": 14,
+        "max_row": 100,
+        "min_col": 1,
+        "max_col": 7,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 7,
+    "fields": {
+        "date_created": "2022-07-22T11:21:50.518Z",
+        "date_updated": "2022-10-19T10:27:56.873Z",
+        "worksheet_configuration": 2,
+        "name": "Survey Information",
+        "section_order": 0,
+        "min_row": 1,
+        "max_row": 27,
+        "min_col": 1,
+        "max_col": 2,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 8,
+    "fields": {
+        "date_created": "2022-07-22T11:51:33.065Z",
+        "date_updated": "2022-08-11T20:13:00.670Z",
+        "worksheet_configuration": 1,
+        "name": "Forcipiger Fish Counts",
+        "section_order": 1,
+        "min_row": 35,
+        "max_row": 36,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 9,
+    "fields": {
+        "date_created": "2022-07-22T11:52:27.304Z",
+        "date_updated": "2022-08-11T20:12:48.376Z",
+        "worksheet_configuration": 1,
+        "name": "Heniochus Fish Counts",
+        "section_order": 2,
+        "min_row": 38,
+        "max_row": 43,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 10,
+    "fields": {
+        "date_created": "2022-07-22T11:57:33.294Z",
+        "date_updated": "2022-08-11T20:12:29.847Z",
+        "worksheet_configuration": 1,
+        "name": "Coradion Fish Counts",
+        "section_order": 3,
+        "min_row": 45,
+        "max_row": 47,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 11,
+    "fields": {
+        "date_created": "2022-07-22T11:57:33.294Z",
+        "date_updated": "2022-08-11T20:12:24.147Z",
+        "worksheet_configuration": 1,
+        "name": "Chelmon Fish Counts",
+        "section_order": 4,
+        "min_row": 49,
+        "max_row": 49,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 12,
+    "fields": {
+        "date_created": "2022-07-22T11:57:33.295Z",
+        "date_updated": "2022-08-11T20:12:18.222Z",
+        "worksheet_configuration": 1,
+        "name": "Hemitaurichthys Fish Counts",
+        "section_order": 5,
+        "min_row": 51,
+        "max_row": 51,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 13,
+    "fields": {
+        "date_created": "2022-08-11T19:38:01.725Z",
+        "date_updated": "2022-10-22T12:20:04.578Z",
+        "worksheet_configuration": 5,
+        "name": "Target Marine Invertebrates Part 1",
+        "section_order": 0,
+        "min_row": 4,
+        "max_row": 6,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 14,
+    "fields": {
+        "date_created": "2022-08-11T20:42:06.035Z",
+        "date_updated": "2022-08-11T20:53:59.970Z",
+        "worksheet_configuration": 6,
+        "name": "Reef Bottom Types",
+        "section_order": 0,
+        "min_row": 15,
+        "max_row": 64,
+        "min_col": 1,
+        "max_col": 12,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 15,
+    "fields": {
+        "date_created": "2022-08-11T20:42:06.035Z",
+        "date_updated": "2022-08-11T20:52:53.195Z",
+        "worksheet_configuration": 6,
+        "name": "Notes",
+        "section_order": 1,
+        "min_row": 15,
+        "max_row": 64,
+        "min_col": 14,
+        "max_col": 17,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 16,
+    "fields": {
+        "date_created": "2022-08-11T20:42:06.036Z",
+        "date_updated": "2022-08-11T20:58:13.526Z",
+        "worksheet_configuration": 6,
+        "name": "Human Impact",
+        "section_order": 3,
+        "min_row": 15,
+        "max_row": 64,
+        "min_col": 19,
+        "max_col": 24,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 17,
+    "fields": {
+        "date_created": "2022-10-07T08:32:13.674Z",
+        "date_updated": "2022-10-07T10:16:42.534Z",
+        "worksheet_configuration": 7,
+        "name": "Location of Survey",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 6,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 18,
+    "fields": {
+        "date_created": "2022-10-07T08:32:13.739Z",
+        "date_updated": "2022-10-07T10:16:11.598Z",
+        "worksheet_configuration": 7,
+        "name": "Date and Time of Survey",
+        "section_order": 1,
+        "min_row": 8,
+        "max_row": 9,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 19,
+    "fields": {
+        "date_created": "2022-10-07T08:32:13.740Z",
+        "date_updated": "2022-10-12T18:09:30.986Z",
+        "worksheet_configuration": 7,
+        "name": "Replicates",
+        "section_order": 2,
+        "min_row": 12,
+        "max_row": 17,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 20,
+    "fields": {
+        "date_created": "2022-10-13T12:04:02.271Z",
+        "date_updated": "2022-10-13T13:50:45.651Z",
+        "worksheet_configuration": 8,
+        "name": "Level-3 Fish Counts",
+        "section_order": 0,
+        "min_row": 2,
+        "max_row": 301,
+        "min_col": 1,
+        "max_col": 9,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 21,
+    "fields": {
+        "date_created": "2022-10-18T07:18:01.842Z",
+        "date_updated": "2022-10-21T03:22:44.929Z",
+        "worksheet_configuration": 9,
+        "name": "Survey Details",
+        "section_order": 0,
+        "min_row": 4,
+        "max_row": 8,
+        "min_col": 1,
+        "max_col": 6,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 23,
+    "fields": {
+        "date_created": "2022-10-18T07:19:03.254Z",
+        "date_updated": "2022-10-18T07:57:47.522Z",
+        "worksheet_configuration": 10,
+        "name": "Quadrats",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 20,
+        "min_col": 1,
+        "max_col": 6,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 24,
+    "fields": {
+        "date_created": "2022-10-18T07:20:02.319Z",
+        "date_updated": "2022-10-21T05:59:00.517Z",
+        "worksheet_configuration": 11,
+        "name": "Subsquares",
+        "section_order": 2,
+        "min_row": 2,
+        "max_row": 202,
+        "min_col": 1,
+        "max_col": 4,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 25,
+    "fields": {
+        "date_created": "2022-10-19T02:01:10.125Z",
+        "date_updated": "2022-10-22T12:19:51.078Z",
+        "worksheet_configuration": 5,
+        "name": "Target Marine Invertebrates Part 2",
+        "section_order": 1,
+        "min_row": 8,
+        "max_row": 11,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 26,
+    "fields": {
+        "date_created": "2022-10-20T01:34:38.686Z",
+        "date_updated": "2022-10-20T01:45:44.639Z",
+        "worksheet_configuration": 12,
+        "name": "Survey Information",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 9,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 27,
+    "fields": {
+        "date_created": "2022-10-20T01:35:47.863Z",
+        "date_updated": "2022-10-20T01:49:13.435Z",
+        "worksheet_configuration": 12,
+        "name": "Replicates",
+        "section_order": 1,
+        "min_row": 12,
+        "max_row": 17,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 28,
+    "fields": {
+        "date_created": "2022-10-20T04:28:14.718Z",
+        "date_updated": "2022-10-20T04:34:36.793Z",
+        "worksheet_configuration": 13,
+        "name": "Family Specific Counts",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 300,
+        "min_col": 1,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 29,
+    "fields": {
+        "date_created": "2022-10-20T04:30:21.972Z",
+        "date_updated": "2022-10-25T00:57:20.140Z",
+        "worksheet_configuration": 14,
+        "name": "Fish Families",
+        "section_order": 0,
+        "min_row": 2,
+        "max_row": 35,
+        "min_col": 1,
+        "max_col": 2,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 30,
+    "fields": {
+        "date_created": "2022-10-20T05:11:11.794Z",
+        "date_updated": "2022-10-20T06:24:55.884Z",
+        "worksheet_configuration": 15,
+        "name": "Survey Members",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 50,
+        "min_col": 1,
+        "max_col": 6,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 31,
+    "fields": {
+        "date_created": "2022-10-20T06:31:09.224Z",
+        "date_updated": "2022-10-25T06:19:56.782Z",
+        "worksheet_configuration": 3,
+        "name": "Sandy Shorelines",
+        "section_order": 1,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 2,
+        "max_col": 3,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 32,
+    "fields": {
+        "date_created": "2022-10-20T06:31:09.226Z",
+        "date_updated": "2022-10-20T07:26:11.893Z",
+        "worksheet_configuration": 3,
+        "name": "Sediment Compositions",
+        "section_order": 2,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 4,
+        "max_col": 6,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 33,
+    "fields": {
+        "date_created": "2022-10-20T07:02:55.582Z",
+        "date_updated": "2022-10-25T06:19:43.903Z",
+        "worksheet_configuration": 3,
+        "name": "Signs of Erosion",
+        "section_order": 3,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 7,
+        "max_col": 9,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 34,
+    "fields": {
+        "date_created": "2022-10-20T07:15:10.233Z",
+        "date_updated": "2022-10-25T06:19:36.263Z",
+        "worksheet_configuration": 3,
+        "name": "Seawall",
+        "section_order": 4,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 10,
+        "max_col": 11,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 35,
+    "fields": {
+        "date_created": "2022-10-20T07:26:11.900Z",
+        "date_updated": "2022-10-25T06:19:29.012Z",
+        "worksheet_configuration": 3,
+        "name": "Solid-based piers and Groynes",
+        "section_order": 5,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 12,
+        "max_col": 13,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 36,
+    "fields": {
+        "date_created": "2022-10-20T07:26:11.902Z",
+        "date_updated": "2022-10-25T06:19:21.847Z",
+        "worksheet_configuration": 3,
+        "name": "Easement not observed",
+        "section_order": 6,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 14,
+        "max_col": 15,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 37,
+    "fields": {
+        "date_created": "2022-10-20T07:26:11.904Z",
+        "date_updated": "2022-10-25T06:19:12.758Z",
+        "worksheet_configuration": 3,
+        "name": "Beach/Offshore Mining",
+        "section_order": 7,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 16,
+        "max_col": 18,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 38,
+    "fields": {
+        "date_created": "2022-10-20T07:26:11.906Z",
+        "date_updated": "2022-10-25T06:18:23.667Z",
+        "worksheet_configuration": 3,
+        "name": "Reclamation",
+        "section_order": 8,
+        "min_row": 31,
+        "max_row": 100,
+        "min_col": 19,
+        "max_col": 20,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 39,
+    "fields": {
+        "date_created": "2022-10-20T11:58:27.095Z",
+        "date_updated": "2022-10-20T12:02:50.458Z",
+        "worksheet_configuration": 16,
+        "name": "Survey Members",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 50,
+        "min_col": 1,
+        "max_col": 6,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 40,
+    "fields": {
+        "date_created": "2022-10-20T13:30:52.243Z",
+        "date_updated": "2022-10-20T14:00:04.733Z",
+        "worksheet_configuration": 17,
+        "name": "Areal Extent",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 12,
+        "min_col": 1,
+        "max_col": 6,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 41,
+    "fields": {
+        "date_created": "2022-10-20T13:31:15.465Z",
+        "date_updated": "2022-10-20T13:46:02.032Z",
+        "worksheet_configuration": 18,
+        "name": "Areal Extent",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 12,
+        "min_col": 1,
+        "max_col": 6,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 42,
+    "fields": {
+        "date_created": "2022-10-21T06:31:43.893Z",
+        "date_updated": "2022-10-21T10:17:29.325Z",
+        "worksheet_configuration": 19,
+        "name": "MCS",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 202,
+        "min_col": 1,
+        "max_col": 27,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 43,
+    "fields": {
+        "date_created": "2022-10-21T11:49:11.686Z",
+        "date_updated": "2022-10-22T02:01:30.714Z",
+        "worksheet_configuration": 20,
+        "name": "Survey Details",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 7,
+        "min_col": 3,
+        "max_col": 14,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 44,
+    "fields": {
+        "date_created": "2022-10-21T11:49:11.741Z",
+        "date_updated": "2022-10-25T04:55:47.112Z",
+        "worksheet_configuration": 20,
+        "name": "Associated Fauna",
+        "section_order": 1,
+        "min_row": 10,
+        "max_row": 52,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 45,
+    "fields": {
+        "date_created": "2022-10-21T11:49:11.743Z",
+        "date_updated": "2022-10-25T04:55:56.979Z",
+        "worksheet_configuration": 20,
+        "name": "Associated Flora",
+        "section_order": 2,
+        "min_row": 10,
+        "max_row": 52,
+        "min_col": 10,
+        "max_col": 15,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 46,
+    "fields": {
+        "date_created": "2022-10-21T14:38:59.005Z",
+        "date_updated": "2022-10-22T01:48:48.953Z",
+        "worksheet_configuration": 22,
+        "name": "Survey Details",
+        "section_order": 0,
+        "min_row": 3,
+        "max_row": 7,
+        "min_col": 1,
+        "max_col": 10,
+        "extraction_type": "form",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 47,
+    "fields": {
+        "date_created": "2022-10-21T14:38:59.006Z",
+        "date_updated": "2022-10-25T06:11:35.653Z",
+        "worksheet_configuration": 22,
+        "name": "Associated Fauna",
+        "section_order": 1,
+        "min_row": 10,
+        "max_row": 52,
+        "min_col": 2,
+        "max_col": 8,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+},
+{
+    "model": "etl.dataextractionconfiguration",
+    "pk": 48,
+    "fields": {
+        "date_created": "2022-10-21T14:38:59.007Z",
+        "date_updated": "2022-10-25T06:09:31.728Z",
+        "worksheet_configuration": 22,
+        "name": "Associated Flora",
+        "section_order": 2,
+        "min_row": 10,
+        "max_row": 52,
+        "min_col": 10,
+        "max_col": 15,
+        "extraction_type": "table_rows",
+        "custom_validation_form": null,
+        "custom_etl_class": null
+    }
+}
+]
