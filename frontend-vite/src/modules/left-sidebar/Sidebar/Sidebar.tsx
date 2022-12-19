@@ -20,6 +20,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 
 import styles from './Sidebar.module.css'
+import { useState } from 'react'
+import { ExpandLess, ExpandMore, FilterAltOutlined, Search, StarBorder } from '@mui/icons-material'
+import { Collapse, Switch, TextField } from '@mui/material'
+import { width } from '@mui/system'
 
 const drawerWidth = 240
 
@@ -92,7 +96,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })
 
 const Sidebar = () => {
   const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(true)
+  const [showSpatialFilter, setShowSpatialFilter] = useState(true)
+  const [showCoastalIntegrity, setShowCoastalIntegrity] = useState(true)
+  const [showMangrove, setShowMangrove] = useState(true)
+  const [showSeagrass, setShowSeagrass] = useState(true)
+  const [showFish, setShowFish] = useState(true)
+  const [showCoral, setShowCoral] = useState(true)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -101,6 +111,10 @@ const Sidebar = () => {
   const handleDrawerClose = () => {
     setOpen(false)
   }
+
+  // const handleClickListItem = (search) => {
+  //   setOpenListItem(prevState => ...prevState, !prevState.search)
+  // }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -116,7 +130,8 @@ const Sidebar = () => {
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' })
-            }}>
+            }}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
@@ -133,49 +148,364 @@ const Sidebar = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+          {/* SEARCH */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5
-                }}>
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center'
-                  }}>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <img src="/sidebar/search_icon.svg" alt="search_icon" />
+              </ListItemIcon>
+              <ListItemText
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5
-                }}>
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center'
-                  }}>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Search"
+              />
+            </ListItemButton>
+            <List
+              sx={{
+                display: open ? 'flex' : 'none'
+              }}
+              component="div"
+              disablePadding
+            >
+              <ListItemButton sx={{ pl: 4 }}>
+                {/* TODO: Replace search input field */}
+                <TextField id="standard-basic" label="Standard" variant="standard" />
+                {/* <ListItemText primary="Starred" /> */}
               </ListItemButton>
-            </ListItem>
-          ))}
+            </List>
+          </ListItem>
+
+          {/* SPATIAL FILTER */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+              onClick={() => setShowSpatialFilter(prevState => !prevState)}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <FilterAltOutlined />
+              </ListItemIcon>
+              <ListItemText
+                sx={{
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Spatial Filter"
+              />
+              {showSpatialFilter ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={showSpatialFilter} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton>
+                  <ListItemText secondary="Station Name" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemText sx={{ whiteSpace: 'normal' }} secondary="Marine Biogeographical Region" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </ListItem>
+
+          {/* COASTAL INTEGRITY */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+              onClick={() => setShowCoastalIntegrity(prevState => !prevState)}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <img src="/sidebar/ci_icon.svg" alt="ci_icon" />
+              </ListItemIcon>
+              <ListItemText
+                sx={{
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Coastal Integrity"
+              ></ListItemText>
+              {showCoastalIntegrity ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={showCoastalIntegrity} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton>
+                  <ListItemText secondary="Shoreline Tracing" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemText secondary="Beach Profile" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </ListItem>
+
+          {/* MANGROVE */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+              onClick={() => setShowMangrove(prevState => !prevState)}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <img src="/sidebar/mg_icon.svg" alt="mg_icon" />
+              </ListItemIcon>
+              <ListItemText primary="Mangrove"></ListItemText>
+              {showMangrove ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={showMangrove} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton>
+                  <ListItemText secondary="Area Extent" />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemText secondary="Species Composition" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </ListItem>
+
+          {/* SEAGRASS */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+              onClick={() => setShowSeagrass(prevState => !prevState)}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <img src="/sidebar/sg_icon.svg" alt="sg_icon" />
+              </ListItemIcon>
+              <ListItemText primary="Seagrass"></ListItemText>
+              {showSeagrass ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={showSeagrass} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton>
+                  <ListItemText secondary="Area Extent" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemText secondary="Species Composition" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </ListItem>
+
+          {/* FISH */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+              onClick={() => setShowFish(prevState => !prevState)}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <img src="/sidebar/fish_icon.svg" alt="fish_icon" />
+              </ListItemIcon>
+              <ListItemText primary="Fish"></ListItemText>
+              {showFish ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={showFish} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton>
+                  <ListItemText secondary="Level 1" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemText secondary="Level 2" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+                <ListItemButton>
+                  <ListItemText secondary="Level 3" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </ListItem>
+
+          {/* CORAL */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5
+              }}
+              onClick={() => setShowCoral(prevState => !prevState)}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                  width: 25,
+                  height: 25
+                }}
+              >
+                <img src="/sidebar/coral_icon.svg" alt="coral_icon" />
+              </ListItemIcon>
+              <ListItemText primary="Coral"></ListItemText>
+              {showCoral ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={showCoral} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton>
+                  <ListItemText secondary="Hard Coral Classification" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </ListItem>
+
+          {/* {['Search', 'Spatial Filter', 'Coastal Integrity', 'Mangrove', 'Seagrass', 'Fish', 'Coral'].map(
+            (text, index) => (
+              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )} */}
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
