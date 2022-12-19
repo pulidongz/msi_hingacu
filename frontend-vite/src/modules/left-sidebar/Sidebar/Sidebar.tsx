@@ -217,9 +217,28 @@ const Sidebar = () => {
                 }}
                 primary="Spatial Filter"
               />
-              {showSpatialFilter ? <ExpandLess /> : <ExpandMore />}
+              {showSpatialFilter ? (
+                <ExpandLess
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              )}
             </ListItemButton>
-            <Collapse in={showSpatialFilter} timeout="auto" unmountOnExit>
+            <Collapse
+              sx={{
+                display: open ? 'flex' : 'none'
+              }}
+              in={showSpatialFilter}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Station Name" />
@@ -270,9 +289,28 @@ const Sidebar = () => {
                 }}
                 primary="Coastal Integrity"
               ></ListItemText>
-              {showCoastalIntegrity ? <ExpandLess /> : <ExpandMore />}
+              {showCoastalIntegrity ? (
+                <ExpandLess
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              )}
             </ListItemButton>
-            <Collapse in={showCoastalIntegrity} timeout="auto" unmountOnExit>
+            <Collapse
+              sx={{
+                display: open ? 'block' : 'none'
+              }}
+              in={showCoastalIntegrity}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Shoreline Tracing" />
@@ -317,13 +355,43 @@ const Sidebar = () => {
               >
                 <img src="/sidebar/mg_icon.svg" alt="mg_icon" />
               </ListItemIcon>
-              <ListItemText primary="Mangrove"></ListItemText>
-              {showMangrove ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText
+                sx={{
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Mangrove"
+              ></ListItemText>
+              {showMangrove ? (
+                <ExpandLess
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              )}
             </ListItemButton>
-            <Collapse in={showMangrove} timeout="auto" unmountOnExit>
+            <Collapse
+              sx={{
+                display: open ? 'block' : 'none'
+              }}
+              in={showMangrove}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Area Extent" />
+                  <Switch
+                    // checked={state.checkedA}
+                    // onChange={handleChange}
+                    name="checkedA"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText secondary="Species Composition" />
@@ -359,10 +427,34 @@ const Sidebar = () => {
               >
                 <img src="/sidebar/sg_icon.svg" alt="sg_icon" />
               </ListItemIcon>
-              <ListItemText primary="Seagrass"></ListItemText>
-              {showSeagrass ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText
+                sx={{
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Seagrass"
+              ></ListItemText>
+              {showSeagrass ? (
+                <ExpandLess
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              )}
             </ListItemButton>
-            <Collapse in={showSeagrass} timeout="auto" unmountOnExit>
+            <Collapse
+              sx={{
+                display: open ? 'block' : 'none'
+              }}
+              in={showSeagrass}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Area Extent" />
@@ -407,10 +499,34 @@ const Sidebar = () => {
               >
                 <img src="/sidebar/fish_icon.svg" alt="fish_icon" />
               </ListItemIcon>
-              <ListItemText primary="Fish"></ListItemText>
-              {showFish ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText
+                sx={{
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Fish"
+              ></ListItemText>
+              {showFish ? (
+                <ExpandLess
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              )}
             </ListItemButton>
-            <Collapse in={showFish} timeout="auto" unmountOnExit>
+            <Collapse
+              sx={{
+                display: open ? 'block' : 'none'
+              }}
+              in={showFish}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Level 1" />
@@ -464,10 +580,34 @@ const Sidebar = () => {
               >
                 <img src="/sidebar/coral_icon.svg" alt="coral_icon" />
               </ListItemIcon>
-              <ListItemText primary="Coral"></ListItemText>
-              {showCoral ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText
+                sx={{
+                  display: open ? 'flex' : 'none'
+                }}
+                primary="Coral"
+              ></ListItemText>
+              {showCoral ? (
+                <ExpandLess
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              ) : (
+                <ExpandMore
+                  sx={{
+                    display: open ? 'flex' : 'none'
+                  }}
+                />
+              )}
             </ListItemButton>
-            <Collapse in={showCoral} timeout="auto" unmountOnExit>
+            <Collapse
+              sx={{
+                display: open ? 'block' : 'none'
+              }}
+              in={showCoral}
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Hard Coral Classification" />
