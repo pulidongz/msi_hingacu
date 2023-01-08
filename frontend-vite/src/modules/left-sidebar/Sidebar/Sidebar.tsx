@@ -246,6 +246,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -255,6 +256,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -318,6 +320,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -327,6 +330,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -390,6 +394,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -399,6 +404,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -462,6 +468,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -471,6 +478,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -534,6 +542,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -543,6 +552,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -552,6 +562,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
@@ -615,6 +626,7 @@ const Sidebar = () => {
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
+                    size="small"
                     inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                 </ListItemButton>
