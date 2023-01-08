@@ -15,6 +15,7 @@ const ResetPassword = lazy(() => import('./modules/auth/ResetPassword'))
 const MapPage = lazy(() => import('./pages/MapPage'))
 const AboutTheProjectPage = lazy(() => import('./pages/AboutTheProjectPage'))
 const ProjectPartners = lazy(() => import('./pages/ProjectPartnersPage'))
+const DataAccessPage = lazy(() => import('./pages/DataAccessPage'))
 const ContactUs = lazy(() => import('./pages/ContactUsPage'))
 
 const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage.js'))
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="about-the-project" element={<AboutTheProjectPage />} />
           <Route path="project-partners" element={<ProjectPartners />} />
+          <Route path="data-access" element={<DataAccessPage />} />
           <Route path="contact-us" element={<ContactUs />} />
 
           <Route path="map" element={<MapPage />} />
