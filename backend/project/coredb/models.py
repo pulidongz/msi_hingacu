@@ -136,7 +136,7 @@ class ALWANSurvey(TimeStampModel):
         }
         return report
 
-"""
+
 class BFFVolunteerCount(TimeStampModel):
     VOLUNTEER_CHOICES = (
         (1, "Volunteer 1"),
@@ -155,7 +155,7 @@ class BFFVolunteerCount(TimeStampModel):
     def __str__(self):
         return f"{self.survey.code}: {self.species_name} COUNT"
 
-
+"""
 class TMICount(TimeStampModel):
     survey = models.ForeignKey(ALWANSurvey, on_delete=models.CASCADE)
     volunteer = models.CharField(max_length=200)

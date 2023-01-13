@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Attachment Upload{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <h1 class="mt-4">Upload Attachment for Workbook {{ object.pk }}</h1>
+    <form enctype="multipart/form-data" method="post"
+      action="{% url 'etl:workbook-attachment' object.pk %}">
+      {% csrf_token %}
+      <hr>
+      <div class="form-group mt-4">
+        {{ form.attachments|as_crispy_field }} The zip file of files related to workbook such as images and SHP files.
+        {% if form.attachments.errors %}
+          <div class="invalid-feedback">
+            {{ form.attachments.errors|striptags }}
+          </div>
+        {% endif %}
+      </div>
+      <button type="submit" class="mt-4 btn btn-primary btn-block">{% trans "Upload" %} &raquo;</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

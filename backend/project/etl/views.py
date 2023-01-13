@@ -14,29 +14,9 @@ from etl.forms import ETLFileForm
 from curation.forms import CurationForm
 
 
-class UploadView(LoginRequiredMixin, CreateView):
-    model = ETLFile
-    fields = ['dcp_collection', 'file']
-    success_url = '/etl/'
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.uploader = self.request.user
-        self.object.save() #get pk
-        #create a task to process this ETL File
-        task_id = async_task(
-            'etl.scripts.process',
-            self.object.pk,
-            hook='etl.scripts.complete')
-        #associate task to file
-        self.object.task_id = task_id
-        self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-
 class WorkbookUploadView(LoginRequiredMixin, CreateView):
     model = Workbook
-    fields = ['file', 'configuration', 'attachments']
+    fields = ['file', 'configuration']
     success_url = '/etl/'
 
     def form_valid(self, form):
@@ -60,6 +40,12 @@ class WorkbookUploadView(LoginRequiredMixin, CreateView):
         if code:
             context['configuration'] = WorkbookConfiguration.objects.get(code=code)
         return context
+
+
+class AttachmentUploadView(LoginRequiredMixin, UpdateView):
+    model = Workbook
+    fields = ['attachments']
+    template_name_suffix = '_update_form'
 
 
 class WorkbookListView(LoginRequiredMixin, ListView):

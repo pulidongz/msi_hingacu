@@ -2,12 +2,18 @@ from decimal import Decimal
 from django.contrib.gis.geos import Point
 from etl.workbooks.publisher import PublisherProcess, PublisherException
 from etl.models import DataExtractionConfiguration, ExtractedData
-from coredb.models import ALWANStation, ALWANSurvey, Location
+from coredb.models import ALWANStation, ALWANSurvey, Location, BFFVolunteerCount
 from django.db import transaction
 
 
 class ALWANPublisher(PublisherProcess):
     SITE_INFO_SECTION = "Survey Information"
+    BFF_SECTION_1 = "Chaetodon Fish Counts"
+    BFF_SECTION_2 = "Forcipiger Fish Counts"
+    BFF_SECTION_3 = "Heniochus Fish Counts"
+    BFF_SECTION_4 = "Coradion Fish Counts"
+    BFF_SECTION_4 = "Chelmon Fish Counts"
+    BFF_SECTION_4 = "Hemitaurichthys Fish Counts"
 
     @transaction.atomic
     def run(self):
@@ -45,6 +51,7 @@ class ALWANPublisher(PublisherProcess):
             }
         )
 
+        #Get or create Survey
         survey, created = ALWANSurvey.objects.get_or_create(
             date = survey_data['survey_date'],
             time = survey_data['survey_time'],
@@ -63,10 +70,23 @@ class ALWANPublisher(PublisherProcess):
             }
         )
 
-        if not created: #stop if this survey already exists (remove if overwrites are allowed)
+        if not created: #stop if this survey already exists
             raise PublisherException("ALWANSurvey already exists")
 
-
+        # BFF DATASHEET
+        volunteer_fields = ['cs_1', 'cs_2', 'cs_3', 'cs_4', 'cs_5', 'cs_6']
+        for section in [self.BFF_SECTION_1, self.BFF_SECTION_2, self.BFF_SECTION_3, self.BFF_SECTION_4]:
+            bff_rows = self.get_table_data(section)
+            for bff_row in bff_rows:
+                for volunteer in volunteer_fields:
+                    #create bff volunteer count
+                    if bff_row.data[volunteer]:
+                        if bff_row.data[volunteer] > 0:
+                            BFFVolunteerCount.objects.create(
+                                survey = survey,
+                                volunteer = volunteer_fields.index(volunteer),
+                                species_name = bff_row.data['species_name'],
+                            )
 
 
     def get_preview_context(self):
