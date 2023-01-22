@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% load tz %}
+{% load crispy_forms_tags %}
+
+{% block title %}Workbook Submission Curation{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <h1 class="mt-4">Pending Workbooks</h1>
+  </div>
+  <div class="row">
+
+    <p>
+      The following workbooks below need to be reviewed by a curator before their data is migrated into the database.
+    </p>
+  </div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Workbook</th>
+          <th>Workbook Type</th>
+          <th>Date Submitted</th>
+          <th>Submitted By</th>
+          <th>Validation</th>
+          <th>Curation</th>
+          <th>Review</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if page_obj %}
+        {% for workbook in page_obj %}
+        <tr>
+          <td>
+            {{ workbook.code }}
+          </td>
+          <td>
+            {{ workbook.configuration }}
+          </td>
+          <td>
+            {{ workbook.date_created|timezone:"Asia/Manila" }}
+          </td>
+          <td>
+            {{ workbook.uploader.username }}
+          </td>
+          <td>
+            <span class="text-uppercase {{ workbook.get_status_class }}">
+              {{ workbook.get_validation_status }}
+            </span>
+          </td>
+          <td>
+            <span class="text-uppercase text-warning">
+              pending
+            </span>
+          </td>
+          <td>
+            <a href="{{ workbook.get_absolute_url }}">Review</a>
+          </td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td class="text-center" colspan=6>No Submissions Found</td>
+        </tr>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo;</a>
+        <a href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Workbook</th>
+          <th>Workbook Type</th>
+          <th>Date Submitted</th>
+          <th>Submitted By</th>
+          <th>Validation</th>
+          <th>Curation</th>
+          <th>Review</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if curated_list %}
+        {% for curated in curated_list %}
+        <tr>
+          <td>
+            {{ curated.workbook.code }}
+          </td>
+          <td>
+            {{ curated.workbook.curated.configuration }}
+          </td>
+          <td>
+            {{ curated.workbook.date_created|timezone:"Asia/Manila" }}
+          </td>
+          <td>
+            {{ curated.workbook.uploader.username }}
+          </td>
+          <td>
+            <span class="text-uppercase {{ curated.workbook.get_status_class }}">
+              {{ curated.workbook.get_validation_status }}
+            </span>
+          </td>
+          <td>
+            <span class="text-uppercase">
+              {{ curated.verdict }}
+            </span>
+          </td>
+          <td>
+            <a href="{{ workbook.get_absolute_url }}">Review</a>
+          </td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td class="text-center" colspan=6>No Submissions Found</td>
+        </tr>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

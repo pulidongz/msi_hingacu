@@ -1,0 +1,233 @@
+[
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 1,
+    "fields": {
+        "date_created": "2022-05-05T08:14:59.083Z",
+        "date_updated": "2022-08-09T23:48:48.238Z",
+        "workbook_configuration": 1,
+        "sheet_name": "BFF DATASHEET",
+        "sheet_order": 4
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 2,
+    "fields": {
+        "date_created": "2022-02-09T16:15:56.398Z",
+        "date_updated": "2022-07-26T10:48:17.820Z",
+        "workbook_configuration": 1,
+        "sheet_name": "SITE DESCRIPTION",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 3,
+    "fields": {
+        "date_created": "2022-05-18T10:26:25.801Z",
+        "date_updated": "2022-10-20T07:28:48.693Z",
+        "workbook_configuration": 2,
+        "sheet_name": "INPUT DATA HERE",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 4,
+    "fields": {
+        "date_created": "2022-06-17T09:14:19.472Z",
+        "date_updated": "2022-10-20T11:19:00.146Z",
+        "workbook_configuration": 3,
+        "sheet_name": "INPUT",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 5,
+    "fields": {
+        "date_created": "2022-08-11T19:09:22.761Z",
+        "date_updated": "2022-08-11T19:50:45.355Z",
+        "workbook_configuration": 1,
+        "sheet_name": "TMI DATASHEET",
+        "sheet_order": 5
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 6,
+    "fields": {
+        "date_created": "2022-08-11T20:42:06.034Z",
+        "date_updated": "2022-08-11T20:42:06.034Z",
+        "workbook_configuration": 1,
+        "sheet_name": "CORAL DATASHEET",
+        "sheet_order": 6
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 7,
+    "fields": {
+        "date_created": "2022-10-07T08:28:55.402Z",
+        "date_updated": "2022-10-07T08:32:13.673Z",
+        "workbook_configuration": 6,
+        "sheet_name": "LEVEL 3 SURVEY INFORMATION",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 8,
+    "fields": {
+        "date_created": "2022-10-13T11:49:29.694Z",
+        "date_updated": "2022-10-13T12:04:02.270Z",
+        "workbook_configuration": 6,
+        "sheet_name": "SPECIES-LEVEL DATASHEET",
+        "sheet_order": 1
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 9,
+    "fields": {
+        "date_created": "2022-10-18T07:15:44.088Z",
+        "date_updated": "2022-10-21T03:22:44.928Z",
+        "workbook_configuration": 5,
+        "sheet_name": "SITE INFORMATION",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 10,
+    "fields": {
+        "date_created": "2022-10-18T07:15:44.173Z",
+        "date_updated": "2022-10-18T07:19:03.252Z",
+        "workbook_configuration": 5,
+        "sheet_name": "QUADRATS",
+        "sheet_order": 1
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 11,
+    "fields": {
+        "date_created": "2022-10-18T07:15:44.175Z",
+        "date_updated": "2022-10-21T05:49:50.670Z",
+        "workbook_configuration": 5,
+        "sheet_name": "SUBSQUARES",
+        "sheet_order": 2
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 12,
+    "fields": {
+        "date_created": "2022-10-20T01:30:20.292Z",
+        "date_updated": "2022-10-20T01:35:47.861Z",
+        "workbook_configuration": 7,
+        "sheet_name": "LEVEL 2 SURVEY INFORMATION",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 13,
+    "fields": {
+        "date_created": "2022-10-20T01:30:20.297Z",
+        "date_updated": "2022-10-20T04:28:14.717Z",
+        "workbook_configuration": 7,
+        "sheet_name": "FAMILY-SPECIFIC DATASHEET",
+        "sheet_order": 1
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 14,
+    "fields": {
+        "date_created": "2022-10-20T01:30:20.298Z",
+        "date_updated": "2022-10-20T04:30:21.972Z",
+        "workbook_configuration": 7,
+        "sheet_name": "List of Families",
+        "sheet_order": 2
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 15,
+    "fields": {
+        "date_created": "2022-10-20T04:59:09.645Z",
+        "date_updated": "2022-10-20T05:11:11.793Z",
+        "workbook_configuration": 2,
+        "sheet_name": "SURVEY MEMBERS",
+        "sheet_order": 1
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 16,
+    "fields": {
+        "date_created": "2022-10-20T11:46:13.830Z",
+        "date_updated": "2022-10-20T11:58:27.094Z",
+        "workbook_configuration": 3,
+        "sheet_name": "SURVEY MEMBERS",
+        "sheet_order": 1
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 17,
+    "fields": {
+        "date_created": "2022-10-20T13:28:35.880Z",
+        "date_updated": "2022-10-20T13:30:52.241Z",
+        "workbook_configuration": 8,
+        "sheet_name": "AREAL EXTENT",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 18,
+    "fields": {
+        "date_created": "2022-10-20T13:29:33.038Z",
+        "date_updated": "2022-10-20T13:31:15.465Z",
+        "workbook_configuration": 9,
+        "sheet_name": "AREAL EXTENT",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 19,
+    "fields": {
+        "date_created": "2022-10-21T06:14:17.670Z",
+        "date_updated": "2022-10-21T06:31:43.892Z",
+        "workbook_configuration": 4,
+        "sheet_name": "MCS",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 20,
+    "fields": {
+        "date_created": "2022-10-21T11:20:05.662Z",
+        "date_updated": "2022-10-21T14:38:23.494Z",
+        "workbook_configuration": 10,
+        "sheet_name": "Associated Species per Site",
+        "sheet_order": 0
+    }
+},
+{
+    "model": "etl.worksheetconfiguration",
+    "pk": 22,
+    "fields": {
+        "date_created": "2022-10-21T11:21:28.778Z",
+        "date_updated": "2022-10-21T15:12:43.092Z",
+        "workbook_configuration": 11,
+        "sheet_name": "Associated Species per Site",
+        "sheet_order": 0
+    }
+}
+]

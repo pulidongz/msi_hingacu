@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load tz %}
+{% load crispy_forms_tags %}
+
+{% block title %}Data Capture Requirements{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <h3 class="mt-4">{% if configuration %}{{ configuration.name }} {% endif %}Data Capture Requirements</h3>
+  </div>
+  <div class="row etl">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Version</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if page_obj %}
+        {% for wb in page_obj %}
+          <tr>
+            <td>
+              <a href="{% url 'etl:workbook-layout-detail' wb.pk %}">{{ wb.name }}</a>
+            </td>
+            <td>
+              {{ wb.code }}
+            </td>
+            <td>
+              {{ wb.version }}
+            </td>
+            <td>
+              {{ wb.description }}
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td class="text-center" colspan=6>No Workbooks Found</td>
+        </tr>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo;</a>
+        <a href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+{% endblock %}

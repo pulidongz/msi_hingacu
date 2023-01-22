@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Data Sheet Upload{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <h1 class="mt-4">Upload Your {{ configuration.name }} Workbook</h1>
+    <form enctype="multipart/form-data" method="post"
+      action="{% url 'etl:workbook-upload' %}">
+      {% csrf_token %}
+      <hr>
+      {% if configuration %}
+        <input type="hidden" name="configuration" value="{{ configuration.pk }}" >
+      {% else %}
+        <div class="form-group mt-4">
+          {{ form.configuration|as_crispy_field }}
+          {% if form.configuration.errors %}
+            <div class="invalid-feedback">
+              {{ form.configuration.errors|striptags }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="form-group mt-4">
+        {{ form.file|as_crispy_field }} The .xlsx file of your workbook.
+        {% if form.file.errors %}
+          <div class="invalid-feedback">
+            {{ form.file.errors|striptags }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="form-group mt-4">
+        {{ form.attachments|as_crispy_field }} The zip file of files related to workbook such as images and SHP files.
+        {% if form.attachments.errors %}
+          <div class="invalid-feedback">
+            {{ form.attachments.errors|striptags }}
+          </div>
+        {% endif %}
+      </div>
+      <button type="submit" class="mt-4 btn btn-primary btn-block">{% trans "Upload" %} &raquo;</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load leaflet_tags %}
+
+<div class="row">
+  <div class="col">
+    <div>
+      <b>Location:</b> {{ preview.survey.location }}
+    </div>
+    <div>
+    {% leaflet_map "beach profile" %}
+    </div>
+  </div>
+  <div class="col">
+    <div class="text-center border-bottom"><b>Beach Profile Survey Details</b></div>
+    <div><b>Transect Name:</b> {{ preview.survey.transect_name }}
+    <div><b>Date & Time:</b> {{ preview.survey.date }} {{ preview.survey.start_time }}<div>
+    <div><b>Team Leader:</b> {{ preview.survey.team_leader_name }} ({{ preview.survey.team_leader_contact_number }})</div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("map:init", function (e) {
+    var detail = e.detail;
+    var start = new L.LatLng({{ preview.survey.corner_1_lat }}, {{ preview.survey.corner_1_lon }});
+    var end = new L.LatLng({{ preview.survey.corner_2_lat }}, {{ preview.survey.corner_2_lon }});
+    var line = [start, end]
+    var polyline = L.polyline(line, {
+      color: 'red',
+      weight: 3,
+      opacity: 0.5,
+      smoothFactor: 1
+    })
+    polyline.addTo(detail.map);
+    detail.map.panTo(polyline.getBounds().getCenter());
+    detail.map.fitBounds(polyline.getBounds());
+  }, false);
+</script>

@@ -1,0 +1,24 @@
+img.google-logo {
+	max-width: 30px;
+	margin-right:  8px;
+}
+
+.landing {
+	margin-top: 50px;
+	padding: 50px;
+	text-align: center;
+	max-width: 550px;
+}
+
+div.hingacu-main {
+	margin-top: 56px;
+}
+
+img.hingacu-logo {
+	background: #FFEEEE;
+	border: 1px solid black;
+}
+
+.navbar-brand {
+    color: black;
+}
