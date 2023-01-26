@@ -21,6 +21,7 @@ import { ExpandLess, ExpandMore, FilterAltOutlined, Search, StarBorder } from '@
 
 import styles from './Sidebar.module.css'
 import HomeMap from '../../map/HomeMap'
+import AntSwitch from '../../../components/Switch/AntSwitch'
 
 const drawerWidth = 240
 
@@ -239,7 +240,7 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Station Name" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -249,7 +250,7 @@ const Sidebar = () => {
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText sx={{ whiteSpace: 'normal' }} secondary="Marine Biogeographical Region" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -313,7 +314,7 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Shoreline Tracing" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -323,7 +324,7 @@ const Sidebar = () => {
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText secondary="Beach Profile" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -387,7 +388,7 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Area Extent" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -397,7 +398,7 @@ const Sidebar = () => {
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText secondary="Species Composition" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -461,7 +462,7 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Area Extent" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -471,7 +472,7 @@ const Sidebar = () => {
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText secondary="Species Composition" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -535,7 +536,7 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Level 1" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -545,7 +546,7 @@ const Sidebar = () => {
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText secondary="Level 2" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -555,7 +556,7 @@ const Sidebar = () => {
                 </ListItemButton>
                 <ListItemButton>
                   <ListItemText secondary="Level 3" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
@@ -619,7 +620,7 @@ const Sidebar = () => {
               <List component="div" disablePadding>
                 <ListItemButton>
                   <ListItemText secondary="Hard Coral Classification" />
-                  <Switch
+                  <AntSwitch
                     // checked={state.checkedA}
                     // onChange={handleChange}
                     name="checkedA"
