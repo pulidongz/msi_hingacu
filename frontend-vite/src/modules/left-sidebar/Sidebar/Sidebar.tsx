@@ -22,6 +22,7 @@ import { ExpandLess, ExpandMore, FilterAltOutlined, Search, StarBorder } from '@
 import styles from './Sidebar.module.css'
 import HomeMap from '../../map/HomeMap'
 import AntSwitch from '../../../components/Switch/AntSwitch'
+import AddressAutocomplete from '../../../components/AddressAutocomplete'
 
 const drawerWidth = 240
 
@@ -181,9 +182,7 @@ const Sidebar = () => {
               disablePadding
             >
               <ListItemButton sx={{ pl: 4 }}>
-                {/* TODO: Replace search input field */}
-                <TextField id="standard-basic" label="Standard" variant="standard" />
-                {/* <ListItemText primary="Starred" /> */}
+                <AddressAutocomplete />
               </ListItemButton>
             </List>
           </ListItem>
