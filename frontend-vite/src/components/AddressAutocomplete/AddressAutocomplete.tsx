@@ -26,7 +26,7 @@ export type AddressAutocompleteArguments = {
 }
 
 const AddressAutocomplete = ({ className, disabled, placeholder }: AddressAutocompleteProps) => {
-  const [addressValue, setAddressValue] = useState<AddressAutocompleteArguments | null>(null)
+  const [addressValue, setAddressValue] = useState<AddressAutocompleteArguments | undefined>(undefined)
 
   const resetAddresses = () => {
     setAddressValue({
