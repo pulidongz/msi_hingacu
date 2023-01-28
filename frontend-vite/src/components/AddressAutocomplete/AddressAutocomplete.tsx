@@ -46,11 +46,11 @@ const AddressAutocomplete = ({ className, disabled, placeholder }: AddressAutoco
           }
         }}
         selectProps={{
-          isClearable: true,
+          isClearable: false,
           className: classNames(className, styles.inputContainer),
           value: addressValue,
           onChange: (selected: any) => {
-            if (selected!) {
+            if (selected) {
               geocodeByPlaceId(selected.value.place_id)
                 .then(results =>
                   setAddressValue({
