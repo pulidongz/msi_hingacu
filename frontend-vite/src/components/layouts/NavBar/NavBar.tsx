@@ -42,7 +42,7 @@ const NavBar = () => {
         <ul className={classNames(styles.navList, styles.isElastic, styles.left)}>
           <NavItem>
             <Link to="/">
-              <a className={styles.toolbarButtons}>HINGACU</a>
+              <p className={styles.toolbarButtons}>HINGACU</p>
             </Link>
           </NavItem>
         </ul>

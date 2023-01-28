@@ -23,6 +23,7 @@ import styles from './Sidebar.module.css'
 import HomeMap from '../../map/HomeMap'
 import AntSwitch from '../../../components/Switch/AntSwitch'
 import AddressAutocomplete from '../../../components/AddressAutocomplete'
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 240
 
@@ -134,7 +135,9 @@ const Sidebar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            HINGACU
+            <Link to="/">
+              <p className={styles.toolbarButtons}>HINGACU</p>
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>
