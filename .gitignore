@@ -28,3 +28,12 @@ yarn-error.log*
 /backend/static/
 /backend/media/
 /backend/results/
+
+# local env files
+.env
+.env.local
+.env.development
+.env.test
+.env.development.local
+.env.test.local
+.env.production.local
