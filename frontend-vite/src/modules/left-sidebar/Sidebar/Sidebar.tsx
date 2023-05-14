@@ -21,6 +21,7 @@ import { ExpandLess, ExpandMore, FilterAltOutlined, Search, StarBorder } from '@
 
 import styles from './Sidebar.module.css'
 import HomeMap from '../../map/HomeMap'
+
 import AntSwitch from '../../../components/Switch/AntSwitch'
 import AddressAutocomplete from '../../../components/AddressAutocomplete'
 import { Link } from 'react-router-dom'
@@ -142,6 +143,7 @@ const Sidebar = () => {
         </Toolbar>
       </AppBar>
 
+      {/* SIDEBAR */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -660,7 +662,8 @@ const Sidebar = () => {
           )} */}
         </List>
       </Drawer>
-      {/* Contains component that renders for Map Area */}
+
+      {/* MAP AREA */}
       <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
         <DrawerHeader />
 
