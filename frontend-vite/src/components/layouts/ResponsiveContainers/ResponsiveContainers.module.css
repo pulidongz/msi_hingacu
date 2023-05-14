@@ -1,0 +1,33 @@
+/* Row containers */
+.base {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.slim {
+  composes: base;
+  max-width: 672px;
+}
+
+.regular {
+  composes: base;
+  max-width: var(--sh_containerLg);
+  background-color: white;
+}
+
+.wide {
+  composes: base;
+  max-width: 1344px;
+}
+
+.panel {
+  --panelPadding: 24px;
+  background-color: white;
+  border-radius: var(--sh_borderRadius);
+  padding: var(--panelPadding);
+}
+
+.page {
+  margin-bottom: 64px;
+}

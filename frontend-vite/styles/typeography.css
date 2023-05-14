@@ -1,0 +1,233 @@
+.heading {
+  font-family: var(--fontFamilySans);
+  font-weight: 500;
+  font-style: normal;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.subheading {
+  font-family: var(--fontFamilySans);
+  font-weight: 500;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.bodyText {
+  font-family: var(--fontFamilySans);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.smallText {
+  font-family: var(--fontFamilySans);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/******************************************************************************/
+/* NEW TYPOGRAPHY CLASSES: */
+
+.brand48 {
+  font-family: var(--fontFamilySerif);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.015em;
+}
+.brand40 {
+  font-family: var(--fontFamilySerif);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.015em;
+}
+.brand32 {
+  font-family: var(--fontFamilySerif);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.015em;
+}
+.brand28 {
+  font-family: var(--fontFamilySerif);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -0.015em;
+}
+
+.ui28Bold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -0.03em;
+}
+.ui28SemiBold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -0.03em;
+}
+.ui28Medium {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -0.03em;
+}
+
+.ui20Bold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+}
+.ui20SemiBold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+}
+.ui20Medium {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+}
+
+.ui16Bold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.0125em;
+}
+.ui16SemiBold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.0125em;
+}
+.ui16Medium {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.0125em;
+}
+.ui16Regular {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.0125em;
+}
+
+.ui14Bold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+.ui14SemiBold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.008em;
+}
+.ui14Medium {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.008em;
+}
+.ui14Regular {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+.ui12SemiBold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.004em;
+}
+.ui12Medium {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.004em;
+}
+.ui12Regular {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.004em;
+}
+
+.ui11SemiBold {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+}
+.ui11Medium {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+}
+.ui11Regular {
+  font-family: var(--fontFamilySans);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: 0.004em;
+}

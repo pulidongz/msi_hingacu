@@ -1,0 +1,5 @@
+.toolbarButtons {
+  composes: ui16Regular from 'styles/typeography.css';
+  color: white;
+  margin-right: 48px;
+}

@@ -1,0 +1,199 @@
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://unpkg.com/modern-normalize@0.6.0/modern-normalize.css');
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  background-color: #edf2f7;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: var(--rem);
+  line-height: 1.5;
+}
+
+body {
+  color: var(--colorTextDefault);
+  font-size: 0.875rem;
+  font-family: var(--fontFamilySans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Image resets */
+
+img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Typography resets */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 1.6875rem;
+  line-height: 1.4;
+}
+
+h2 {
+  font-size: 1.625rem;
+  line-height: 1.4;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 2;
+}
+
+h1,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+  font-weight: 600;
+}
+
+small {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+a {
+  color: var(--colorAnchorText);
+  transition: color 200ms ease;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--colorAnchorTextHover);
+}
+
+code,
+pre {
+  font-family: var(--fontFamilyMono);
+}
+
+/* General use type classes */
+
+/* Typography for marketing pages */
+.headline,
+.subhead,
+.headline-secondary,
+.subhead-secondary {
+  margin: 0;
+  font-family: var(--fontFamilySerif);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.headline,
+.subhead {
+  font-size: 3rem; /* 48pt */
+  letter-spacing: -0.025em;
+}
+
+@media (--viewportTabletMin) {
+  .headline,
+  .subhead {
+    letter-spacing: -0.03em;
+  }
+}
+
+.subhead {
+  margin-bottom: 4rem;
+  color: var(--colorTextMuted);
+}
+
+.headline-secondary,
+.subhead-secondary {
+  font-size: 2.625rem; /* 42pt */
+  letter-spacing: -0.025em;
+}
+
+.subhead-secondary {
+  margin-bottom: 4rem;
+  color: var(--colorTextMuted);
+}
+
+.linklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Typographic Styles */
+.typography-caption {
+  margin-bottom: 1rem;
+  color: var(--colorTextSemiMuted);
+  font-family: var(--fontFamilySans);
+  text-align: inherit;
+}
+
+.typography-nano {
+  display: inline;
+  text-align: inherit;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Typography utils */
+.colorTextDefault {
+  color: var(--colorTextDefault);
+}
+
+.colorTextMuted {
+  color: var(--colorTextMuted);
+}
+
+/* Responsive utils */
+@media (--viewportPhoneMax) {
+  .hideForPhone {
+    display: none !important;
+  }
+}
+
+@media (--viewportTabletMin) {
+  .showForPhoneOnly {
+    display: none !important;
+  }
+}
+
+/* Swiper */
+.swiper-pagination {
+  bottom: 2rem !important;
+}
+.swiper-pagination-bullet {
+  color: var(--colorTextVeryMuted);
+  height: 4px !important;
+  width: 4px !important;
+  margin-left: 6px !important;
+  margin-right: 6px !important;
+}
+.swiper-pagination-bullet-active {
+  background: black !important;
+}

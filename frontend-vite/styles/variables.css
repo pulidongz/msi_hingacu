@@ -1,0 +1,276 @@
+/*
+ *   0-767:     100% max-width container
+ *   768-1023:   640 max-width container
+ *   1024-1151:  864 max-width container
+ *   1152-1439: 1088 max-width container
+ *   1440+:     1312 max-width container
+ */
+
+@custom-media --viewportPhoneMax (max-width: 767px);
+@custom-media --viewportTabletMin (min-width: 768px);
+@custom-media --viewportTabletMax (max-width: 1023px);
+@custom-media --viewportTabletLandscapeMin (min-width: 1024px);
+@custom-media --viewportTabletLandscapeMax (max-width: 1151px);
+@custom-media --viewportDesktopMin (min-width: 1152px);
+@custom-media --viewportDesktopMax (max-width: 1439px);
+@custom-media --viewportLargeDesktopMin (min-width: 1440px);
+
+:root {
+  --rem: 16px;
+  --scrollPosition: 0px;
+
+  /* Base Colors */
+  --colorBlue: hsla(218, 100%, 58%, 1);
+  --colorBlueDark: hsla(217, 72%, 48%, 1);
+  --colorBlueDark2: hsla(218, 72%, 37%, 1);
+  --colorBlueFade: rgba(34, 100, 209, 0.1);
+  --colorBlue1: hsla(222, 100%, 98%, 1);
+  --colorBlue2: hsla(219, 100%, 96%, 1);
+  --colorBlue3: hsla(218, 100%, 92%, 1);
+  --colorBlue4: #c4daff;
+  --colorBlue5: hsla(217, 100%, 81%, 1);
+  --colorBlue6: hsla(218, 100%, 73%, 1);
+  --colorBlue7: #4f91ff;
+  --colorBlue8: hsla(218, 100%, 58%, 1);
+  --colorBlue9: hsla(217, 72%, 48%, 1);
+  --colorBlue10: hsla(218, 72%, 37%, 1);
+  --colorBlue11: #133774;
+  --colorBlue12: #0c2146;
+
+  --colorGreen: hsl(83, 94%, 42%);
+  --colorGreenDark: hsl(83, 96%, 28%);
+  --colorGreenDark2: hsl(172, 7%, 24%);
+  --colorGreenDark3: hsl(150, 2%, 13%);
+  --colorGreenFade: hsla(83, 90%, 42%, 16%);
+
+  --colorGreen1: hsla(120, 33%, 97%, 1);
+  --colorGreen2: #ebf7ed;
+  --colorGreen3: hsla(124, 32%, 90%, 1);
+  --colorGreen4: #cbe5cc;
+  --colorGreen5: #a9d3ab;
+  --colorGreen6: hsla(122, 33%, 65%, 1);
+  --colorGreen7: hsla(122, 33%, 55%, 1);
+  --colorGreen8: hsla(123, 41%, 45%, 1);
+  --colorGreen9: hsla(123, 41%, 36%, 1);
+  --colorGreen10: hsla(123, 41%, 28%, 1);
+  --colorGreen11: #1f4921;
+  --colorGreen12: #0a6f6b;
+  --colorGreen13: #132c14;
+
+  --colorPurple: hsl(293, 78%, 49%);
+  --colorPurple1: #faf5fe;
+  --colorPurple2: #f3ecfd;
+  --colorPurple3: #e8d9fc;
+  --colorPurple4: #dcc6fb;
+  --colorPurple5: #c4a1f9;
+  --colorPurple6: #ae7cf7;
+  --colorPurple7: #9859f6;
+  --colorPurple8: #843af5;
+  --colorPurple9: #6c30c9;
+  --colorPurple10: #54259d;
+  --colorPurple11: #3d1a70;
+  --colorPurple12: #250f43;
+  --colorPurpleDark: hsl(293, 86%, 38%);
+  --colorPurpleFade: hsla(293, 69%, 68%, 19%);
+
+  --colorRed: hsl(2, 76%, 51%);
+  --colorRed1: #fef2f1;
+  --colorRed2: #fee8e7;
+  --colorRed3: #fddcda;
+  --colorRed4: hsla(3, 90%, 89%, 1);
+  --colorRed5: #faa9a3;
+  --colorRed6: hsla(4, 90%, 74%, 1);
+  --colorRed7: #f6655a;
+  --colorRed8: hsla(4, 90%, 58%, 1);
+  --colorRed9: hsla(4, 63%, 48%, 1);
+  --colorRed10: hsla(4, 63%, 37%, 1);
+  --colorRed11: #6f1f19;
+  --colorRed12: #43130f;
+  --colorRedDark: hsl(2, 82%, 44%);
+  --colorRedFade: rgba(200, 55, 45, 0.08);
+
+  --colorYellow: hsl(42, 95%, 55%);
+  --colorYellow1: #fff8eb;
+  --colorYellow2: #ffefd1;
+  --colorYellow3: #ffe5b3;
+  --colorYellow4: #ffd98f;
+  --colorYellow5: #f5ce84;
+  --colorYellow6: #ebbf67;
+  --colorYellow7: #e5ae40;
+  --colorYellow8: #d6981b;
+  --colorYellow9: #b88217;
+  --colorYellow10: #8f6512;
+  --colorYellow11: #66480d;
+  --colorYellow12: #463209;
+  --colorYellowDark: hsl(42, 95%, 39%);
+  --colorYellowFade: hsla(42, 95%, 55%, 15%);
+
+  --colorBlack: hsl(0, 0%, 13%);
+  --colorBlack2: hsl(0, 0%, 0%);
+  --colorBlack3: hsl(173, 7%, 24%);
+  --colorBlackDark: hsl(0, 0%, 3%);
+  --colorBlackFade: rgba(0, 0, 0, 0.08);
+
+  --colorGray: hsl(207, 5%, 84%);
+  --colorGray1: hsla(0, 0%, 97%, 1);
+  --colorGray2: hsla(0, 0%, 94%, 1);
+  --colorGray3: #e2e2e2;
+  --colorGray4: hsla(0, 0%, 83%, 1);
+  --colorGray5: hsla(0, 0%, 72%, 1);
+  --colorGray6: hsla(240, 5%, 50%, 1);
+  --colorGray7: hsla(0, 0%, 50%, 1);
+  --colorGray8: hsla(0, 0%, 38%, 1);
+  --colorGray9: #515151;
+  --colorGray10: hsla(0, 0%, 25%, 1);
+  --colorGray11: hsla(0, 0%, 18%, 1);
+  --colorGray12: hsla(0, 0%, 11%, 1);
+  --colorDarkGray: hsl(0, 0%, 25%);
+
+  --colorTan1: #fbfaf9;
+  --colorTan2: #f4f3f1;
+  --colorTan3: #edece8;
+  --colorTan4: #e4e2dd;
+  --colorTan5: #d2cfc6;
+  --colorTan6: #c0bbaf;
+  --colorTan7: #aea898;
+  --colorTan8: #9f9784;
+  --colorTan9: #837b67;
+  --colorTan10: #676151;
+  --colorTan11: #4a463a;
+  --colorTan12: #2e2b24;
+
+  --colorSuna: hsl(42, 43%, 49%);
+
+  /* These are old tan colors, not really consistent with new tan colors. Don't use unless you need to... */
+  --colorOldTan1: #fbfbfa;
+  --colorOldTan2: #f7f5f2;
+  --colorOldTan3: #837d6a;
+  --colorOldTan4: #edece8;
+
+  --colorSpotlightBackground: hsla(36, 24%, 96%, 1);
+
+  /* Brand Color */
+  --colorPrimary: var(--colorBlue);
+  --colorPrimaryDark: var(--colorBlueDark);
+  --colorPrimaryDark2: var(--colorBlueDark2);
+  --colorPrimaryFade: var(--colorBlueFade);
+
+  /* Element Color */
+  --colorAnchorText: var(--colorPrimary);
+  --colorAnchorTextHover: var(--colorPrimaryDark);
+
+  --colorButtonDefault: var(--colorGreenDark2);
+
+  --colorBadgeDefaultText: var(--colorTextDefault);
+  --colorBadgeDefaultBackground: hsl(0, 0%, 92%);
+
+  --colorBorderDefault: var(--colorGray3);
+  --colorBorderMuted: hsl(0, 0%, 90%);
+  --colorBorderVeryMuted: hsl(0, 0%, 92%);
+
+  --colorDropdownItemHoverBackground: rgba(0, 0, 0, 0.05);
+  --colorDropdownItemSelectedBackground: hsl(0, 0%, 97%);
+
+  --colorFieldTitle: var(--colorGray8);
+  --colorFieldDisabled: var(--colorGray9);
+
+  --colorFooterForeground: hsl(250, 5%, 60%);
+  --colorFooterBackground: hsl(250, 14%, 12%);
+
+  --colorHelpIconDefault: hsl(0, 0%, 85%);
+  --colorHelpIconHover: var(--colorPrimary);
+
+  --colorProductSidebarItemSelectedBackground: hsl(0, 0%, 97%);
+  --colorProductSidebarItemHoverBackground: hsl(0, 0%, 98%);
+
+  --colorPanelBackgroundGrey: hsl(0, 0%, 98%);
+  --colorPanelBackgroundWarm: hsl(40, 38%, 98%);
+  --colorPanelBackgroundBrown: hsla(36, 24%, 96%, 1);
+
+  --colorImagePlaceholderIcon: hsl(0, 0%, 90%);
+
+  --colorInputFocusBorder: var(--colorBlue7);
+  --colorInputFocusOutline: var(--colorPrimaryFade);
+  --colorInputPlaceholder: var(--colorGray6);
+  --colorInputDisabled: var(--colorGray9);
+
+  --colorModalBodyBackground: hsl(0, 0%, 98%);
+
+  --colorPageBackgroundDefault: white;
+  --colorPageBackgroundLightGrey: hsl(0, 0%, 98%);
+
+  --colorProgressTrack: hsl(0, 0%, 0%, 0.04);
+  --colorProgressBar: var(--colorGreen6);
+
+  --colorProgressSpinnerHighlight: hsl(0, 0%, 20%);
+
+  --colorTextDefault: var(--colorBlack2);
+  --colorTextMuted: hsl(0, 0%, 60%);
+  --colorTextSemiMuted: hsl(0, 0%, 43%);
+  --colorTextVeryMuted: hsl(0, 0%, 77%);
+
+  /* Typography */
+  --fontFamilySerif: 'Canela Deck Web', georgia, serif;
+  --fontFamilySans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --fontFamilyMono: 'SF Mono', Menlo, Courier, monospace;
+
+  /* Arbitrary layout sizes */
+  --breadcrumbsHeight: 2.5rem;
+  --catalogCoverWidth: 13.5rem;
+  --elementBorderRadius: 0.125rem;
+  --headerNavHeight: 4rem;
+  --previewBannerHeight: 42px;
+  --headerNavHeightTotal: var(
+    --headerNavHeight
+  ); /* this is the total height, inclusive of preview banner (if applicable) */
+  --alertBannerHeight: 52px;
+  --departmentNavHeight: 4rem;
+  --approxCatalogHeaderWrapperHeight: 300px;
+  --catalogHeaderWrapperHeight: 11.75rem;
+  --tablePadding: 0.75rem;
+
+  /* Catalog Layout */
+  --catalogGridItemMinWidth: 11rem;
+  --catalogGridGap: 2rem;
+  --catalogGridMaxWidth: calc(5 * var(--catalogGridItemMinWidth) + 6 * var(--catalogGridGap));
+
+  /* Seller Hub */
+
+  --sh_colorGrayBorder: hsla(240, 3%, 89%, 1);
+
+  --sh_colorBlack: hsl(251, 14%, 9%);
+  --sh_colorGrayLight: hsl(116, 0%, 95%);
+  --sh_colorGrayDark: hsl(251, 15%, 16%);
+  --sh_containerLg: 1136px;
+  --sh_borderRadius: 4px;
+
+  --sh_colorGreen5: hsla(127, 44%, 95%, 1);
+  --sh_colorGreen7: hsla(122, 33%, 55%, 1);
+  --sh_colorGreen60: hsla(123, 41%, 45%, 1);
+
+  --sh_colorRed0: hsla(3, 86%, 97%, 1);
+  --sh_colorRed60: hsla(4, 90%, 58%, 1);
+
+  --sh_colorOrange5: hsla(31, 100%, 94%, 1);
+  --sh_colorOrange60: hsla(31, 100%, 49%, 1);
+
+  --sh_colorYellow5: hsla(39, 100%, 91%, 1);
+  --sh_colorYellow60: hsla(40, 78%, 47%, 1);
+
+  --sh_colorBlue5: hsla(219, 100%, 96%, 1);
+  --sh_colorBlue6: hsla(218, 100%, 73%, 1);
+  --sh_colorBlue9: hsla(217, 72%, 48%, 1);
+  --sh_colorBlue60: hsla(218, 100%, 58%, 1);
+
+  --sh_colorGray1: hsla(0, 0%, 97%, 1);
+  --sh_colorGray2: hsla(0, 0%, 94%, 1);
+  --sh_colorGray5: hsla(240, 9%, 94%, 1);
+  --sh_colorGray4: hsla(0, 0%, 83%, 1);
+  --sh_colorGray6: hsla(240, 5%, 50%, 1);
+  --sh_colorGray7: hsla(0, 0%, 50%, 1);
+  --sh_colorGray8: hsla(0, 0%, 38%, 1);
+  --sh_colorGray10: hsla(0, 0%, 25%, 1);
+  --sh_colorGray30: hsla(240, 5%, 72%, 1);
+  --sh_colorGray40: hsla(240, 5%, 61%, 1);
+  --sh_colorGray60: hsla(236, 8%, 38%, 1);
+}

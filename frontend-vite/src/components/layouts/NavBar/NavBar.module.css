@@ -1,0 +1,84 @@
+.navBar {
+  /* position: fixed; */
+  z-index: 200;
+  top: 0;
+  width: 100%;
+  max-height: 100%;
+  height: var(--headerNavHeightTotal);
+  background-color: var(--sh_colorBlack);
+  color: white;
+
+  background-color: #319795;
+}
+
+.headerWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: var(--headerNavHeight);
+  width: 100%;
+  color: inherit;
+  margin: auto;
+}
+
+.toolbarButtons {
+  composes: ui16Regular from 'styles/typeography.css';
+  color: white;
+  margin-right: 48px;
+}
+
+.navList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  padding: 0rem;
+  list-style: none;
+  height: 100%;
+}
+
+.navList.left {
+  margin-left: -1rem;
+}
+
+.navList.right {
+  margin-right: -1rem;
+}
+
+.navList.isElastic {
+  flex-grow: 1;
+}
+
+@media (--viewportPhoneMax) {
+  .dropdown {
+    top: 3.5rem !important;
+  }
+
+  .headerWrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+.logo {
+  line-height: 41px;
+}
+
+@media (--viewportTabletMin) {
+  .headerWrapper {
+    max-width: 768px;
+  }
+}
+
+@media (--viewportTabletLandscapeMin) {
+  .headerWrapper {
+    max-width: 1024px;
+  }
+}
+
+@media (--viewportDesktopMin) {
+  .headerWrapper {
+    max-width: var(--sh_containerLg);
+  }
+}

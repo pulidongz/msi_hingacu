@@ -1,0 +1,43 @@
+.projectPartnersContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  max-width: 960px;
+  width: 100%;
+  margin: 38px auto 0 auto;
+  padding: 32px;
+  background-color: white;
+}
+
+.logoRows {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 56px;
+  margin-bottom: 32px;
+}
+
+.logoContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.agencyTitle {
+  composes: ui20Medium from 'styles/typeography.css';
+  color: #5b5b5b;
+  margin-bottom: 0;
+}
+
+.agencyLogo {
+  margin: 16px 0;
+}
+
+.agencyName {
+  composes: ui12Regular from 'styles/typeography.css';
+  color: var(--colorBlack2);
+  margin-bottom: 0;
+}

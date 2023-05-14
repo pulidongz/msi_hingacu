@@ -1,0 +1,35 @@
+.landingPageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.searchBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  max-width: 612px;
+  margin: 162px auto;
+  padding: 24px;
+}
+
+.subText {
+  composes: ui18Regular from 'styles/typeography.css';
+  color: #727272;
+  margin-top: 18px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.landing {
+  composes: ui12Medium from 'styles/typeography.css';
+  color: var(--colorBlue12);
+}
